@@ -1990,3 +1990,16 @@ function addfield()
 {
 	$('#field_alltypes').toggle('slow');
 }
+
+function showTextFields(inputObj)
+{
+	$('.tf_center').hide();
+	$('#tf_textfield_defn').show();
+}
+
+
+function showDdFields(inputObj)
+{
+	$('.tf_center').hide();
+	$('#tf_ddfield_defn').show();
+}
