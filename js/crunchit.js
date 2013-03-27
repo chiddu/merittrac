@@ -1985,3 +1985,8 @@ function haveFun(searchId,  name, sites)
 {
 	haveFun1(searchId, name, sites);
 }
+
+function addfield()
+{
+	$('#field_alltypes').toggle('slow');
+}

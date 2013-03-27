@@ -3,11 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Groofer</title>
-<link href="./Groofer_files/groofer.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="./Groofer_files/jquery-tooltips.js"></script>
-<script type="text/javascript" src="./Groofer_files/tooltips.js"></script>
-<script src="./Groofer_files/groofer.js" type="text/javascript"></script><style type="text/css">.switchcontent{display:none;}</style>
-<script type="text/javascript" src="./Groofer_files/ckeditor.js"></script>
+<link href="./css/crunchit.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="./js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="./js/jquery-tooltips.js"></script>
+<script type="text/javascript" src="./js/tooltips.js"></script>
+<script src="./js/crunchit.js" type="text/javascript"></script><style type="text/css">.switchcontent{display:none;}</style>
+<script type="text/javascript" src="./js/ckeditor.js"></script>
 
 </head>
 
@@ -15,7 +16,7 @@
 <div id="minHeight"></div>
 <div class="header" align="center">
 <div class="div_header">
-<div class="logo"><a href="http://127.0.0.1/allactivity"><img src="./Groofer_files/logo01.gif" alt="Groofer" border="0"></a></div>
+<div class="logo"><a href="http://127.0.0.1/allactivity"><img src="./images/logo01.gif" alt="Groofer" border="0"></a></div>
 <div class="header_search"> 
 
 </div>
@@ -31,31 +32,24 @@
 
 
 
-
-
-
-
-
-
-
-
-
 <div class="left_blocks">
 <div class="left_blocks_header01">Configure </div>
 <div class="left_blocks">
 
 </div>
-<div class="left_blocks_links">
-<a href="./Groofer_files/Groofer.html" rel="tooltip" title="New Search">
-<strong>New Search</strong>&nbsp;<img src="./Groofer_files/arrow02.gif" class="arrow_link_open"></a>
+<div class="left_blocks_links" id='lf_ctr' ><a href="javascript:void(0)" onclick=listfields() rel="tooltip" title="List Fields">
+<strong>List Fields</strong>&nbsp;<img src="./images/arrow02.gif" class="arrow_link_open"></a>
 </div>
 </div>
 <div class="left_blocks">
 
-<div class="left_blocks_links">
-
-<a href="http://127.0.0.1/group/Real/6" rel="tooltip" title="Real">Add Field</a>
-
+<div class="left_blocks_links" id='af_ctr' >
+<a href="javascript:void(0)" rel="tooltip" title="Real"
+onclick='addfield()' >Add Field</a>
+<div id="field_alltypes" style='display:none' >
+<div class="left_delr field0" id="def_textf" onclick='showFieldDetails(this)' > Text Field </div>
+<div class="left_delr field0" id="def_drop" onclick='showFieldDetails(this)'> Drop Down </div>
+</div>
 </div>
 
 </div>
@@ -84,7 +78,29 @@ All Open Groups</a>
 <div class="div_body_mid_column">
 <div class="mid_main">
 <div align=center>
-This is where we put center stuff
+<div class="clear"></div>
+<div class="clear"></div>
+<!-- Begin a list of huge set of divs for action in the center -->
+<div class="tf_center tf_field" id='tf_textfield_defn' >
+
+<div id='textfield_defn' class='section01'>  
+<div>
+<div class='float_left' > Name </div> <div class='float_right' ><input type=text name='tf_name' >  </div>
+</div>
+<div class="clear"></div>
+<div>
+<div class='float_left'>
+<input type="submit" value="Submit" class="button_css01" id="1"  onclick="return addfieldSubmit();"/>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="clear"></div>
+
+
+
+</div>
+<!-- End a list of huge set of divs for action in the center -->
 </div>
 </div>
 
