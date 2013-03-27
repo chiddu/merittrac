@@ -47,8 +47,8 @@
 <a href="javascript:void(0)" rel="tooltip" title="Real"
 onclick='addfield()' >Add Field</a>
 <div id="field_alltypes" style='display:none' >
-<div class="left_delr field0" id="def_textf" onclick='showFieldDetails(this)' > Text Field </div>
-<div class="left_delr field0" id="def_drop" onclick='showFieldDetails(this)'> Drop Down </div>
+<div class="left_delr field0" id="def_textf" onclick='showTextFields(this)' > Text Field </div>
+<div class="left_delr field0" id="def_drop" onclick='showDdFields(this)'> Drop Down </div>
 </div>
 </div>
 
@@ -81,15 +81,63 @@ All Open Groups</a>
 <div class="clear"></div>
 <div class="clear"></div>
 <!-- Begin a list of huge set of divs for action in the center -->
-<div class="tf_center tf_field" id='tf_textfield_defn' >
+<div class="tf_center tf_field" id='tf_textfield_defn' style='display:none' >
+Add or modify a text field
+<hr>
+<div id='textfield_defn' class='section02'>  
 
-<div id='textfield_defn' class='section01'>  
 <div>
-<div class='float_left' > Name </div> <div class='float_right' ><input type=text name='tf_name' >  </div>
+<div class='float_left' > Name </div> <div class='float_left04' ><input type=text name='tf_name' >  </div>
 </div>
 <div class="clear"></div>
+<div class="clear"></div>
+
 <div>
-<div class='float_left'>
+<div class='float_left03'> &nbsp; </div>
+<div class='float_left03'>
+<input type="submit" value="Submit" class="button_css01" id="1"  onclick="return addTextFieldSubmit();"/>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="clear"></div>
+
+
+
+</div>
+
+<div class="tf_center tf_field" id='tf_ddfield_defn' style='display:none' >
+Add or modify a dropdown 
+<hr>
+<div id='ddfield_defn' class='section02'>  
+
+<div>
+<div class='float_left' > Name </div> 
+<div class='float_left04' ><input type=text name='tf_name' >  </div>
+</div>
+
+<div class="clear"></div>
+
+
+<div class='float_left03'> Add  a value</div>
+<div class='float_left03'>
+<input type="text" id="ft_optval"  onclick="return addDdValue();"/>
+</div>
+<div>
+<div class="clear"></div>
+<div class="clear"></div>
+<div> Possible lis of values </div>
+<div id="childvals" >
+</div>
+
+</div>
+
+
+
+<div class="clear"></div>
+<div>
+<div class='float_left03'> &nbsp; </div>
+<div class='float_left03'>
 <input type="submit" value="Submit" class="button_css01" id="1"  onclick="return addfieldSubmit();"/>
 </div>
 </div>
@@ -100,6 +148,9 @@ All Open Groups</a>
 
 
 </div>
+
+
+
 <!-- End a list of huge set of divs for action in the center -->
 </div>
 </div>
@@ -189,9 +240,9 @@ To save to an existing folder select the folder name from the list</div>
 </div>
 </div>
 
-
 </div>
 
+TODO  copy the post function from the other machine. Also there should be a way of adding values to drop downs
 <div class="div_body_right_column" style='display:none'>
 <!-- This is the box, probably not needed -->
 <div class="right_column_placeholder" align="center" style="height:110px:display:none">
