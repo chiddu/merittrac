@@ -25,6 +25,25 @@ function getValue(input)
 	return input;
 }
 
+
+function ajaxRequest(){
+ var activexmodes=["Msxml2.XMLHTTP", "Microsoft.XMLHTTP"]; //activeX versions to check for in IE
+ if (window.ActiveXObject){ //Test for support for ActiveXObject in IE first (as XMLHttpRequest in IE7 is broken)
+  for (var i=0; i<activexmodes.length; i++){
+   try{
+    return new ActiveXObject(activexmodes[i]);
+   }
+   catch(e){
+    //suppress error
+   }
+  }
+ }
+ else if (window.XMLHttpRequest) // if Mozilla, Safari etc
+  return new XMLHttpRequest();
+ else
+  return false;
+}
+
 function getElementbyClass(rootobj, classname){
 var temparray=new Array()
 var inc=0
@@ -123,6 +142,7 @@ content = content.replace('&nbsp;',' ');
 return content;
 }
 
+
 function addcomment(checkflag)
 {
   var key = $('#item_id').val();
@@ -134,12 +154,11 @@ function addcomment(checkflag)
 
 
   var words = content.split(" ");
- if(words.length>200){
-  alert('Please limit your comment to 200 words or less');
-  return false;
-  }
-   content = escape(content);
-  var dataString = 'comment='+ content;
+
+	alert(" checkpoint one. done ");
+	var leData = new Array();
+	leData["comment"] = content;
+
 
   if( (entity=='0'))
   {
@@ -155,56 +174,67 @@ function addcomment(checkflag)
     alert("Please select at least one  group to post your comment.");
     return false;
     }else{
-    dataString+='&groups='+data;
+		leData['groups'] = data;
     }
   }else
   {
     url='';
   }
+	alert(" checkpoint two. done ");
   if(url!=''){
   var desc = $('#desc_'+key).val();
   desc = replacespecial(desc);
 
   var title = $('#tit_'+key).val();
   title = replacespecial(title);
+	alert(" checkpoint two.point.one. done ");
+
+		leData['url'] = url;
+
+		leData['fsId'] = fsId;
+
+		leData['desc'] = desc;
+
+		leData['tit'] = title;
 
 
-  dataString+= '&url='+url+'&fsId='+fsId+'&desc='+desc+'&tit='+title;
   }else{
-  dataString+='&entity='+entity;
+	leData['entity'] = entity;
   }
   var notify = document.getElementById('notify');
 	if(notify.checked)
 	{
-		dataString+= '&notify=1';
+	leData['notify'] = 1;
 	}
 
 
+	alert(" checkpoint two.point.two. done ");
+
   if(content=='')
   {
-  alert("Please enter your comment");
+		alert("Please enter your comment");
   }
   else
 	{
-		$.ajax({
-		type: "GET",
-		url: "/home/addcomment",
-		data: dataString,
-		dataType: "html",
-		cache: false,
-		success: function(coment){
-		var comm =eval('('+coment+')');
+// begin chiddu begin
+
+var mypostrequest=new ajaxRequest();
+	alert(" checkpoint three done ");
+mypostrequest.onreadystatechange=function(){
+ if (mypostrequest.readyState==4){
+  if (mypostrequest.status==200 || window.location.href.indexOf("http")==-1){
+
+	alert(" checkpoint six server responded yay");
+   coment = mypostrequest.responseText;
+
+		var comm = jQuery.parseJSON( coment );
 		if(comm.success==true){
 		$("#comm_"+key).show();
 		numcom++;
 		$('#c_'+key).val(numcom);
 		$('#com_count_'+key).html(numcom);
 		var res ='<div class="commentator_block_main01"><div class="commentator_block01"><div class="float_left03"><a href="#"><img src="'+comm.user_img+'" border="0" class="img_border02" /></a></div><div class="float_left04">';
-/*		if(comm.rating>0){
-		res +='<div class="float_right04"> <a href="javascript:clickme();" rel="tooltip" title="'+comm.rating+'"><img src="' + getRatingImg(comm.rating) +'" border="0" /></a></div>';
-		}else{
-		res +='<div class="float_right04"> <i><i>Not Rated</i></i></div>';
-		}*/
+
 		res +='<span class="header_text">'+comm.username+'</span><br /><span class="text2">'+comm.comment+'</span></div><div class="float_right"><span class="text3">Today</span></div><div class="clear"></div></div></div>';
 		if($("#resentity_"+key).val()==0){
 		$("#resentity_"+key).val(comm.id);
@@ -225,15 +255,38 @@ function addcomment(checkflag)
 		alert('special characters are not allowed');
 		}
 		setTimeout("removePopup('comm_pop')",5000);
-
 		}
-		});
+  else{
+   alert("An error has occured making the request");
+  }
+
+  }
+ }
+
+	alert(" checkpoint four done ");
+	var parameters = "";
+  icount = 0;
+	for( mykey in leData)
+	{
+	if(icount == 0)
+		icount = 1;
+	else
+		parameters = parameters + "&";
+		parameters = parameters + mykey + "=" +  encodeURIComponent(leData[mykey]);
+	}
+
+	mypostrequest.open("POST", "/home/addcomment", true);
+	mypostrequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	alert(" checkpoint five just before making req done ");
+	mypostrequest.send(parameters);
+	alert(" checkpoint five just after making req done ");
 
 	}
   return false;
-
-
 }
+
+
 
 function removePopup(id)
 {
@@ -1177,7 +1230,7 @@ function validateMessage(){
   if((mesg.length<1)||(mesg=='Enter your message title')){
       alert('Please enter the title of your message');
     return false;
-  }
+		}
 
   var mesg1 = $.trim($('#message').val());
   if((mesg1.length<1)||(mesg1 =='Enter your message')){
@@ -1201,6 +1254,13 @@ function validateMessage(){
       return false;    
     }
   }
+
+  var tags = $.trim($('#message_tags').val());
+  if (mesg=='Enter tags'){
+		$('#message_tags').val('');
+    
+  }
+
   
 }
 
@@ -1219,7 +1279,6 @@ function checkandSubmit(){
   }
 
 }
-
 
 function cleardefault(id,default_mesg){
   if($('#'+id).val()==default_mesg){    
@@ -1483,6 +1542,9 @@ function savetofolder()
 
   return false;
 }
+
+
+
 function shareresource()
 {
     var key = $('#share_id').val();
@@ -1492,8 +1554,11 @@ function shareresource()
 	 var notes1 = escape(notes);
     if(fsId == 'undefined')
       fsId = '';
+	var leData = new Array();
+	leData["comment"] = notes; /* unescaped */
     
   var data = new Array();
+
   var checkCount = 0;
 $("input[name='share_groups[]']:checked").each(function(i) {
         data.push($(this).val());
@@ -1516,30 +1581,36 @@ var url =$('#share_url').val();
 if(url!=''){
   var title =$('#tit_'+key).val();
   var desc =$('#desc_'+key).val();
-  var dataString = 'url='+url +'&groups='+ data+'&tit='+title+'&desc='+desc;
-    dataString+= '&fsId='+fsId;
+
+     leData['url'] = url;
+     leData['tit'] = title;
+     leData['groups'] = data;
+     leData['desc'] = desc;
+     leData['fsId'] = fsId;
 }else{
-  var dataString = 'entity='+entity + '&groups='+ data;
+     leData['entity'] = entity;
+     leData['groups'] = data;
 
 }
 var notify = document.getElementById('share_notify');
 if(notify.checked)
 {
-	dataString+= '&notify=1';
+     leData['notify'] = 1;
 }
 
 
 if(notes){
-dataString+= '&notes='+notes1;
+     leData['notes'] = notes;
 }
-  
-  $.ajax({
-  type: "GET",
-  url: "/home/share",
-  data: dataString,
-  dataType: "html",
-  cache: false,
-  success: function(html){
+
+
+var mypostrequest=new ajaxRequest();
+mypostrequest.onreadystatechange=function(){
+ if (mypostrequest.readyState==4){
+  if (mypostrequest.status==200 || window.location.href.indexOf("http")==-1){
+
+   html = mypostrequest.responseText;
+
     if($('#resentity_'+key).val()==0){
     $('#resentity_'+key).val(html);
     }
@@ -1548,11 +1619,35 @@ dataString+= '&notes='+notes1;
 	$('#folder_'+key).show();
 	setTimeout("removePopup('comm_pop')",3000);
 
+	}
+  else{
+   alert("An error has occured making the request");
   }
-  });
+
+  }
+ }
+
+
+	var parameters = "";
+  icount = 0;
+	for( mykey in leData)
+	{
+	if(icount == 0)
+		icount = 1;
+	else
+		parameters = parameters + "&";
+		parameters = parameters + mykey + "=" +  encodeURIComponent(leData[mykey]);
+	}
+
+	mypostrequest.open("POST", "/home/share", true);
+	mypostrequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	mypostrequest.send(parameters);
 
   return false;
 }
+
+
 
 function checkdefault(id,value){
 if(document.getElementById(id).value==value){
@@ -1985,67 +2080,4 @@ function haveFun1(searchId, name, sites)
 function haveFun(searchId,  name, sites)
 {
 	haveFun1(searchId, name, sites);
-}
-
-function addfield()
-{
-	$('#field_alltypes').toggle('slow');
-}
-
-function showTextFields(inputObj)
-{
-	$('.tf_center').hide();
-	$('#tf_textfield_defn').show();
-}
-
-function showDdFields(inputObj)
-{
-	$('.tf_center').hide();
-	$('#tf_ddfield_defn').show();
-}
-
-function addTextFieldSubmit()
-{
-}
-
-rac = 0;
-function addDdValue()
-{
-	vala = $('#ft_optval');
-	i = 0;
-
-	vala2 = vala.val();
-	addval = "<div class='dd_value0' id='ddv_" + rac + "' > <div class=\"clear\"> </div> <div class='dd_value1 float_left'>" + vala2 + 
-		" </div> <div class='dd_value2 float_left'> &nbsp; &nbsp; <a href='javascript:void(0)' onclick=return removeDdValue('ddv_" + rac + "')> x </a> </div> </div> ";
-		rac++;
-		$('#dropdown_indi').append(addval);
-}
-
-function removeDdValue(theid)
-{
-	alert(theid);
-	$('#' + theid).remove();
-}
-function addTextFieldSubmit()
-{
-	name = $('#tf_textfield_defn').val();
-	if(name == '')
-	{
-		alert("Empty name");
-		return false;
-	}
-	dataString = array();
-	dataString['type'] = 'text';
-	dataString['name'] = 'name';
-	dataString['action'] = 'addfield';
- $.ajax({
-  type: "POST",
-  url: "./addfield",
-  data: dataString,
-  cache: false,
-  success: function(retData){
-  
-  }
-  });
-
 }

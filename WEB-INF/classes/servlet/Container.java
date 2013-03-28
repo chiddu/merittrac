@@ -29,7 +29,7 @@ public static Container getContainer() throws Exception
 /* Doin't want to rewrite BaseCass, so this natak */
 private Container() throws Exception
 {
-	m_cms = new BaseCass("Metrix"); // TODO hardcoding
+	m_cms = new BaseCass("merittrac"); // TODO hardcoding
 }
 
 public BaseCass getStorage()

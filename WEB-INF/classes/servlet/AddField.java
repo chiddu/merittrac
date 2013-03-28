@@ -88,6 +88,11 @@ public class AddField extends HttpServlet
 				String colFamily, String key, String colkey) throws Exception
 			{
 				String instr = bms.getColData(colFamily, key,colkey);
+				if(instr == null)
+				{
+					return new LinkedHashSet<String>();
+				}
+					
 				JSONArray obo = new JSONArray(instr);
 				Set<String> dosa = MtxUtil.convertJsonSet(obo);
 				return dosa ;
@@ -152,7 +157,7 @@ public class AddField extends HttpServlet
 				obj.put("fields", inf);
 				for(String eachfield : inf)
 				{
-					HashMap<String,String> samo = bms.getColumns("input_fields",eachfield);
+					HashMap<String,String> samo = bms.getColumns("input_field",eachfield);
 					obj.put(eachfield,samo);
 				}
 				writeResponse(response, obj);
