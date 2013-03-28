@@ -2028,24 +2028,23 @@ function removeDdValue(theid)
 }
 function addTextFieldSubmit()
 {
-	name = $('#tf_textfield_defn').val();
+	name = $('#tf_text_name').val();
+	alert(name);
 	if(name == '')
 	{
 		alert("Empty name");
 		return false;
 	}
-	dataString = array();
+	dataString = new  Array();
 	dataString['type'] = 'text';
-	dataString['name'] = 'name';
+	dataString['name'] = name;
 	dataString['action'] = 'addfield';
- $.ajax({
-  type: "POST",
-  url: "./addfield",
-  data: dataString,
-  cache: false,
-  success: function(retData){
-  
-  }
+	alert("In here maybe ");
+	jQuery.post("./addfield", {'type' : 'text', 'name' : name, 'action' : 'addfield' }  )
+		.done(function(retData){
+		alert(retData);
+		var retObj = jQuery.parseJSON(retData);
+		alert(retObj['message']);
   });
 
 }
