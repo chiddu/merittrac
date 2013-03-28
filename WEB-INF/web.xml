@@ -13,4 +13,14 @@
 		<url-pattern>/addfield</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>timepass</servlet-name>
+		<servlet-class>servlet.TimePass</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>timepass</servlet-name>
+		<url-pattern>/timepass</url-pattern>
+	</servlet-mapping>
+
 </web-app>
