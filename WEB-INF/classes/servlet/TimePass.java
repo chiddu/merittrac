@@ -6,7 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 
-import proto.*;
+import basic.*;
 import org.json.*;
 
 public class TimePass extends HttpServlet 

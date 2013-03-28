@@ -1,12 +1,12 @@
 package servlet;
 
-import proto.*;
+import basic.*;
 
 public class Container
 {
 
 
-public static CombinedStorage m_cms;
+public static BaseCass m_cms;
 private static Container m_this;
 
 
@@ -26,13 +26,13 @@ public static Container getContainer() throws Exception
 	return m_this;
 }
 
-/* Doin't want to rewrite CombinedStorage, so this natak */
+/* Doin't want to rewrite BaseCass, so this natak */
 private Container() throws Exception
 {
-	m_cms = new CombinedStorage("Metrix"); // TODO hardcoding
+	m_cms = new BaseCass("Metrix"); // TODO hardcoding
 }
 
-public CombinedStorage getCombinedStorage()
+public BaseCass getStorage()
 {
 	return m_cms;
 }
