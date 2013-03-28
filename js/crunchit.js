@@ -1997,9 +1997,25 @@ function showTextFields(inputObj)
 	$('#tf_textfield_defn').show();
 }
 
-
 function showDdFields(inputObj)
 {
 	$('.tf_center').hide();
 	$('#tf_ddfield_defn').show();
+}
+
+function addTextFieldSubmit()
+{
+}
+
+rac = 0;
+function addDdValue()
+{
+	vala = $('#ft_optval');
+	i = 0;
+
+	vala2 = vala.val();
+	addval = "<div class='dd_value0' id='ddv_" + rac + "' > <div class='dd_value1 float_left'>" + vala2 + 
+		" </div> <div class='dd_value2 float_left'> <a href='javascript:void(0)' onclick=removeDdValue('ddv_" + rac + 
+		"')> x </a> </div> </div> ";
+		$('#dropdown_indi').append(addval);
 }
