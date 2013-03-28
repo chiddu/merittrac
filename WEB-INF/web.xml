@@ -4,13 +4,13 @@
 <web-app>
 
 	<servlet>
-		<servlet-name>feed-servlet</servlet-name>
-		<servlet-class>com.groofer.servlet.FeedSearchServlet</servlet-class>
+		<servlet-name>addfield</servlet-name>
+		<servlet-class>servlet.AddField</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>feed-servlet</servlet-name>
-		<url-pattern>/search-feeds</url-pattern>
+		<servlet-name>addfield</servlet-name>
+		<url-pattern>/addfield</url-pattern>
 	</servlet-mapping>
 
 </web-app>
