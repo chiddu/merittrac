@@ -2014,8 +2014,14 @@ function addDdValue()
 	i = 0;
 
 	vala2 = vala.val();
-	addval = "<br><div class='dd_value0' id='full_line ddv_" + rac + "' > <div class='dd_value1 float_left'>" + vala2 + 
-		" </div> <div class='dd_value2 float_left'> <a href='javascript:void(0)' onclick=removeDdValue('ddv_" + rac + 
-		"')> x </a> </div> </div> ";
+	addval = "<div class='dd_value0' id='ddv_" + rac + "' > <div class=\"clear\"> </div> <div class='dd_value1 float_left'>" + vala2 + 
+		" </div> <div class='dd_value2 float_left'> &nbsp; &nbsp; <a href='javascript:void(0)' onclick=return removeDdValue('ddv_" + rac + "')> x </a> </div> </div> ";
+		rac++;
 		$('#dropdown_indi').append(addval);
+}
+
+function removeDdValue(theid)
+{
+	alert(theid);
+	$('#' + theid).remove();
 }
