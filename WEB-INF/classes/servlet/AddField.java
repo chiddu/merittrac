@@ -129,7 +129,7 @@ public class AddField extends HttpServlet
 				bms.saveColumn("misc", "fields", "list" , jso.toString());
 
 				obj.put("message", "Added field successfully");
-//					getfields(request,response, obj);
+				writeResponse(response,obj);
 				return;
 			}
 
