@@ -1802,55 +1802,6 @@ function validatenewgroup(){
 
 return true;
 }
-function addcompanyadmin(){
-if($('#newadmin').val()==''){
-  alert('please enter emailaddress');
-  return false;
-  }else if(!ck_email.test($('#newadmin').val())){
-    alert('please enter the valid emailaddress');
-  return false;
-  }
-  return true;
-}
-
-function validateregistration(){
-  var state=true;
-    $('#errors').html('');      
-    if((document.getElementById('f_name').value=='')||(document.getElementById('f_name').value=='Maximum 25 characters')){
-      $('#errors').append('Please enter your First Name<br/>');
-      state=false;      
-    }
-    if((document.getElementById('l_name').value=='')||(document.getElementById('l_name').value=='Maximum 25 characters')){
-      $('#errors').append('Please enter your Last Name.<br/>');
-      state=false;      
-    }
-    if(!ck_email.test($('#w_email').val())){
-      $('#errors').append('Please enter the valid email address.<br/>');
-      state=false;    
-    }
-    /*if((document.getElementById('comp').value=='')||(document.getElementById('comp').value=='Maximum 50 characters')){
-      $('#errors').append('Please enter  Company Name<br/>');
-      state=false;      
-    }*/
-  if(state!=false){
-  document.pform.submit();
-  }else{
-  $('#errors1').html($('#errors').html())
-  $('#error_results').show();
-  $('#errors').html('');
-  }
-  return false;
-}
-function word_count(field){
-
-    var number = 0;
-    var matches = $(field).val().match(/\b/g);
-    if(matches) {
-        number = matches.length/2;
-    }
-    return number;
-
-}
 function validatefolder(){
   var state = true;
   var str_length = $('#folder_name').val().length;
@@ -2096,10 +2047,23 @@ function addDdFieldSubmit()
 		alert("Please enter a name for your field");
 		return false;
 	}
-	dataString = new  Array();
-	dataString['type'] = 'text';
-	dataString['name'] = name;
-	dataString['action'] = 'addfield';
-	postAndDisplay(dataString);
+	type = 'dropdown';
+
+	valArr = new Array();
+	$(".dd_value1").each( function()
+	{
+		valArr.push($(this).text());
+	}
+	);
+	
+	options = JSON.stringify(valArr);
+	jQuery.post("./addfield", { 'type' : 'dropdown', 'name' : name , 'action' : 'addfield', values : options }, 
+		function(retData){
+		alert(retData['message']);
+		if(retData['action'])
+		{
+			window[retData['action']]();
+		}
+  },"json");
 
 }
