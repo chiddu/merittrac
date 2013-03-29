@@ -2004,9 +2004,6 @@ function showDdFields(inputObj)
 	$('#tf_ddfield_defn').show();
 }
 
-function addTextFieldSubmit()
-{
-}
 
 rac = 0;
 ddArr = new Array();
@@ -2053,19 +2050,12 @@ function displayMessage(msg)
 
 }
 
-function addTextFieldSubmit()
+
+
+function postAndDisplay($dataString)
 {
-	name = $('#tf_text_name').val();
-	if(name == '')
-	{
-		alert("Empty name");
-		return false;
-	}
-	dataString = new  Array();
-	dataString['type'] = 'text';
-	dataString['name'] = name;
-	dataString['action'] = 'addfield';
-	jQuery.post("./addfield", {'type' : 'text', 'name' : name, 'action' : 'addfield' },  
+	alert($dataString['action']);
+	jQuery.post("./addfield", eval($dataString),  
 		function(retData){
 		alert(retData['message']);
 		if(retData['action'])
@@ -2075,6 +2065,7 @@ function addTextFieldSubmit()
   },"json");
 
 }
+
 function addTextFieldSubmit()
 {
 	name = $('#tf_text_name').val();
@@ -2087,7 +2078,7 @@ function addTextFieldSubmit()
 	dataString['type'] = 'text';
 	dataString['name'] = name;
 	dataString['action'] = 'addfield';
-	jQuery.post("./addfield", {'type' : 'text', 'name' : name, 'action' : 'addfield' },  
+	jQuery.post("./addfield", { 'type' : 'text', 'name' : dataString['name'], 'action' : dataString['action'] }, 
 		function(retData){
 		alert(retData['message']);
 		if(retData['action'])
@@ -2095,5 +2086,20 @@ function addTextFieldSubmit()
 			window[retData['action']]();
 		}
   },"json");
+}
+
+function addDdFieldSubmit()
+{
+	name = $('#tf_dd_name').val();
+	if(name == '')
+	{
+		alert("Please enter a name for your field");
+		return false;
+	}
+	dataString = new  Array();
+	dataString['type'] = 'text';
+	dataString['name'] = name;
+	dataString['action'] = 'addfield';
+	postAndDisplay(dataString);
 
 }

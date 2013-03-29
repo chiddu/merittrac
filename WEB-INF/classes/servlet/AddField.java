@@ -38,10 +38,14 @@ public class AddField extends HttpServlet
 			{
 				obj.put("message" , "There seems to be an empty response fired ");
 				writeResponse(response, obj);
+				return;
 			}
 
 			BaseCass bms = cns.getStorage();
 
+			System.out.println("Action is " + action);
+
+//			Thread.sleep(5000);
 			if(action.equalsIgnoreCase("addfield"))
 			{
 				addfield(bms, request,response, obj);
@@ -108,9 +112,16 @@ public class AddField extends HttpServlet
 				Set<String> inf = getFieldList(bms);
 				String name = request.getParameter("name");
 
+				for(String eacho : inf)
+				{
+					System.out.println(eacho);
+					System.out.println(name);
+				}
+				// Thread.sleep(2000);
 				if(inf.contains(name))
 				{
 					obj.put("message", name + " is already a field, please choose another name ");
+					obj.put("action","boogie");
 					writeResponse(response, obj);
 					return;
 				}
@@ -141,6 +152,7 @@ public class AddField extends HttpServlet
 				if(inf.contains(title))
 				{
 					obj.put("message", title + " is already a field, please choose another title ");
+					obj.put("action","boogie");
 					writeResponse(response, obj);
 					return;
 				}
