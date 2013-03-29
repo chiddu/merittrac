@@ -2026,10 +2026,24 @@ function removeDdValue(theid)
 	alert(theid);
 	$('#' + theid).remove();
 }
+
+function boogie()
+{
+	alert("This is a function to check if the boogie will work ");
+}
+
+
+
+function displayMessage(msg)
+{
+	alert(msg);
+	/* Ideally another function that overlays a message box */
+
+}
+
 function addTextFieldSubmit()
 {
 	name = $('#tf_text_name').val();
-	alert(name);
 	if(name == '')
 	{
 		alert("Empty name");
@@ -2039,12 +2053,13 @@ function addTextFieldSubmit()
 	dataString['type'] = 'text';
 	dataString['name'] = name;
 	dataString['action'] = 'addfield';
-	alert("In here maybe ");
-	jQuery.post("./addfield", {'type' : 'text', 'name' : name, 'action' : 'addfield' }  )
-		.done(function(retData){
-		alert(retData);
-		var retObj = jQuery.parseJSON(retData);
-		alert(retObj['message']);
-  });
+	jQuery.post("./addfield", {'type' : 'text', 'name' : name, 'action' : 'addfield' },  
+		function(retData){
+		alert(retData['message']);
+		if(retData['action'])
+		{
+			window[retData['action']]();
+		}
+  },"json");
 
 }
