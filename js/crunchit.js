@@ -2009,22 +2009,34 @@ function addTextFieldSubmit()
 }
 
 rac = 0;
+ddArr = new Array();
 function addDdValue()
 {
 	vala = $('#ft_optval');
 	i = 0;
 
 	vala2 = vala.val();
-	addval = "<div class='dd_value0' id='ddv_" + rac + "' > <div class=\"clear\"> </div> <div class='dd_value1 float_left'>" + vala2 + 
-		" </div> <div class='dd_value2 float_left'> &nbsp; &nbsp; <a href='javascript:void(0)' onclick=return removeDdValue('ddv_" + rac + "')> x </a> </div> </div> ";
+	if(vala2 == '')
+		return;
+	if(ddArr[vala2])
+	{
+		return;
+	}
+	ddArr[vala2] = 1;
+	addval = "<div class='dd_value0' id='ddv_" + rac + "' > <div class=\"clear\"> </div> <div class='dd_value1 float_left' id='dd0_" + rac + "'>" + vala2 + 
+		"</div> <div class='dd_value2 float_left'> &nbsp; &nbsp; <a href='javascript:void(0)' onclick=\"return removeDdValue('" + rac + "')\" > x </a> </div> </div> ";
 		rac++;
 		$('#dropdown_indi').append(addval);
 }
 
 function removeDdValue(theid)
 {
-	alert(theid);
-	$('#' + theid).remove();
+	id1 = "ddv_" + theid;
+	id0 = "dd0_" + theid;
+
+	vala = $('#' + id0).html();
+	delete( ddArr[vala]);
+	$('#' + id1).remove();
 }
 
 function boogie()
@@ -2041,6 +2053,28 @@ function displayMessage(msg)
 
 }
 
+function addTextFieldSubmit()
+{
+	name = $('#tf_text_name').val();
+	if(name == '')
+	{
+		alert("Empty name");
+		return false;
+	}
+	dataString = new  Array();
+	dataString['type'] = 'text';
+	dataString['name'] = name;
+	dataString['action'] = 'addfield';
+	jQuery.post("./addfield", {'type' : 'text', 'name' : name, 'action' : 'addfield' },  
+		function(retData){
+		alert(retData['message']);
+		if(retData['action'])
+		{
+			window[retData['action']]();
+		}
+  },"json");
+
+}
 function addTextFieldSubmit()
 {
 	name = $('#tf_text_name').val();
