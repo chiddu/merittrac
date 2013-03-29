@@ -1911,31 +1911,46 @@ function displaypaginate(id,pagescount) {
 			});
 		}
 	
-
-
-function haveFun1(searchId, name, sites)
+function drawFields(retData)
 {
-		$('#search_id').val(searchId);
-		$('#search_name').val(name);
-		$('#websites').val(sites);
-	all_ids1 = ($('#all_ids').val());
-	all_ids = all_ids1.split(",");
-	
-	for (var ind_id in all_ids)
-	{
-		if(all_ids[ind_id] != searchId)
-		{
-			$('#ck_' + all_ids[ind_id]).prop("checked",false);
-		}
-		else
-			$('#ck_' + all_ids[ind_id]).prop("checked",true);
 
-	}
+	 for (var fname in retData)
+	 {
+		 alert(fname);
+		 alert(retData[fname]);
+	 }
+
+
+	 for (var fname in retData['fields'])
+	 {
+	 	alert(fname);			
+		if(retData[fname]['name'] !=null)
+			{
+				newDiv = "<div class='table_row'> <div class='table_col'>"
+				+ retData[fname]['name'] +
+				"</div> <div class='table_col'>"
+				+ retData[fname]['type'] +
+				"</div> </div> "
+
+				alert(newDiv);
+				$('#id_table_list').append(newDiv);
+			}
+	 }
 }
 
-function haveFun(searchId,  name, sites)
+function listfields()
 {
-	haveFun1(searchId, name, sites);
+	$('.tf_center').hide();
+	jQuery.post("./addfield", {  'action' : 'listfields' }, 
+		function(retData){
+		alert(retData['message']);
+		if(retData['fields'])
+		{
+			drawFields(retData);	
+		}
+  },"json");
+	$('#tf_field_list').show();
+
 }
 
 function addfield()
