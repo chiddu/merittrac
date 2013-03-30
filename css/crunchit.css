@@ -751,3 +751,7 @@ span.jPag-snext-img{
   z-index:1002;
   overflow: none;
 }
+
+.table_row {border:solid 1px #FFFFFF;  padding-top:2px;display:table-row}
+.table_col { padding-top:2px;display:table-column}
+.divTable { display:table; width:100%;  border:1px solid  #666666; border-spacing:5px;/*cellspacing:poor IE support for  this*/ /* border-collapse:separate;*/ }
