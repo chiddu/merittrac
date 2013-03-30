@@ -160,6 +160,8 @@ public class AddField extends HttpServlet
 				JSONArray jso = new JSONArray(inf);
 				bms.saveColumn("misc", "pages", "list" , jso.toString());
 				obj.put("message", "Added page successfully");
+				writeResponse(response, obj);
+
 				return;
 			}
 
