@@ -1920,27 +1920,29 @@ function drawFields(retData)
 //		 alert(retData[fname]);
 	 }
 
-	 alert(retData['fields']);
+	 // alert(retData['fields']);
 
 
 	 for (var fname in retData['fields'])
 	 {
 	 	rfname = retData['fields'][fname];
-	 	alert(rfname);
 		if(retData[rfname] ==null)
 			continue;
-		alert(retData[rfname]);
-		alert("Showwe name to");
-		if(retData[rfname]['name']  ==null)
+//		alert(retData[rfname]);
+//		alert("Showwe name to");
+
+		targetOb = retData[rfname];
+
+		if(targetOb['type']  ==null)
 			continue;
 
-				newDiv = "<div class='table_row'> <div class='table_col'>"
-				+ retData[rfname]['name'] +
-				"</div> <div class='table_col'>"
-				+ retData[rfname]['type'] +
-				"</div> </div> "
+				newDiv = "<tr class='tr1'> <td class='td1'>"
+				+ rfname +
+					"</td> <td class='td1'>"
+				+ targetOb['type'] +
+				"</td> </tr> "
 
-				alert(newDiv);
+//				alert(newDiv);
 				$('#id_table_list').append(newDiv);
 	 }
 }
