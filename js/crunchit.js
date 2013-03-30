@@ -1968,6 +1968,12 @@ function addfield()
 	$('#field_alltypes').toggle('slow');
 }
 
+function addPage()
+{
+	$('.tf_center').hide();
+	$('#tf_addpage').toggle('slow');
+}
+
 function showTextFields(inputObj)
 {
 	$('.tf_center').hide();
@@ -2042,6 +2048,25 @@ function postAndDisplay($dataString)
 
 }
 
+
+function addPageSubmit()
+{
+	title = $('#tf_page_title').val();
+	if(title == '')
+	{
+		alert("Empty title");
+		return false;
+	}
+	jQuery.post("./addfield", {  'title' : title, 
+		'action' : 'addpage'  }, 
+		function(retData){
+		alert(retData['message']);
+		if(retData['action'])
+		{
+			window[retData['action']]();
+		}
+  },"json");
+}
 function addTextFieldSubmit()
 {
 	name = $('#tf_text_name').val();

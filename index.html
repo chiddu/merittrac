@@ -25,22 +25,20 @@
 </div>
 <div align="center">
 <div class="div_header">
-
 <div class="div_body_main">
 <div class="div_body_left_column">
 
 
-
-
 <div class="left_blocks">
 <div class="left_blocks_header01">Configure </div>
-<div class="left_blocks">
-
 </div>
+
+<div class="left_blocks">
 <div class="left_blocks_links" id='lf_ctr' ><a href="javascript:void(0)" onclick=listfields() rel="tooltip" title="List Fields">
 <strong>List Fields</strong>&nbsp;<img src="./images/arrow02.gif" class="arrow_link_open"></a>
 </div>
 </div>
+
 <div class="left_blocks">
 
 <div class="left_blocks_links" id='af_ctr' >
@@ -53,14 +51,11 @@ onclick='addfield()' >Add Field</a>
 </div>
 
 </div>
+
+
 <div class="left_blocks">
-
-
-
-<div class="left_blocks_links">
-<a href="http://127.0.0.1/user" rel="tooltip" title="Profile">
-View Profile</a>
-
+<div class="left_blocks_links" id='lf_addpage' ><a href="javascript:void(0)" onclick=addPage() rel="tooltip" title="Add Page">
+<strong>Add Page</strong>&nbsp;<img src="./images/arrow02.gif" class="arrow_link_open"></a>
 </div>
 </div>
 
@@ -100,6 +95,30 @@ These are the current list of fields
 <div class="clear"></div>
 
 </div>
+
+<div class="tf_center tf_field" id='tf_page_defn' style='display:none' >
+Please specify the name of the page
+<hr>
+<div id='page_defn' class='section02'>  
+
+<div>
+<div class='float_left' > Page title : </div> <div class='float_left04' ><input type=text id='tf_page_title' >  </div>
+</div>
+<div class="clear"></div>
+<div class="clear"></div>
+
+<div>
+<div class='float_left03'> &nbsp; </div>
+<div class='float_left03'>
+<input type="submit" value="Submit" class="button_css01" onclick="return addPageSubmit();"/>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="clear"></div>
+
+</div>
+
 <div class="tf_center tf_field" id='tf_textfield_defn' style='display:none' >
 Add or modify a text field
 <hr>
