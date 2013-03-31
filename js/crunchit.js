@@ -1913,6 +1913,7 @@ function displaypaginate(id,pagescount) {
 	
 function drawFields(retData)
 {
+	$('#id_table_list').html('');
 
 	 for (var fname in retData)
 	 {
