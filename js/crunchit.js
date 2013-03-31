@@ -2122,3 +2122,30 @@ function addDdFieldSubmit()
   },"json");
 
 }
+
+var pageArray = new Array() ;
+function showPages( retData )
+{
+	st = 0 ;
+	for(var eachPage in retData['pages'])
+	{
+		pageArray[retData['pages'][eachData]] = eachPage;
+		alert(eachPage);
+		moreDa = "<div class='left_block_links' id='pagemain_" + st + "'> <a href='javascript:void(0)' onclick='getlampu(" + st + ")' > "
+			+ retData['pages'][eachData] + "</a> </div>"
+			st++;
+		$('#lf_pageList').append(moreDa);
+	}
+
+}
+function refreshPages()
+{
+	jQuery.post("./addfield", {  'action' : 'listpages' }, 
+		function(retData){
+		// alert(retData['message']);
+		{
+			showPages(retData);
+		}
+  },"json");
+
+}
