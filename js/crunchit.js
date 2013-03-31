@@ -2054,8 +2054,46 @@ function showDdFields(inputObj)
 	$('#tf_ddfield_defn').show();
 }
 
+function addPageSubmit()
+{
+	title = $('#tf_page_title').val();
+	alert(title);
+	if(title == '')
+	{
+		alert("Empty title");
+		return false;
+	}
+	alert("Before posting to server");
+	jQuery.post("./addfield", {  'title' : title, 
+		'action' : 'addpage'  }, 
+		function(retData){
+		alert(retData['message']);
+		if(retData['action'])
+		{
+			window[retData['action']]();
+		}
+  },"json");
+}
 function addTextFieldSubmit()
 {
+	name = $('#tf_text_name').val();
+	if(name == '')
+	{
+		alert("Empty name");
+		return false;
+	}
+	dataString = new  Array();
+	dataString['type'] = 'text';
+	dataString['name'] = name;
+	dataString['action'] = 'addfield';
+	jQuery.post("./addfield", { 'type' : 'text', 'name' : dataString['name'], 'action' : dataString['action'] }, 
+		function(retData){
+		alert(retData['message']);
+		if(retData['action'])
+		{
+			window[retData['action']]();
+		}
+  },"json");
 }
 
 rac = 0;
@@ -2069,4 +2107,39 @@ function addDdValue()
 		" </div> <div class='dd_value2 float_left'> <a href='javascript:void(0)' onclick=removeDdValue('ddv_" + rac + 
 		"')> x </a> </div> </div> ";
 		$('#dropdown_indi').append(addval);
+}
+function addPage()
+{
+	$('.tf_center').hide();
+	$('#tf_addpage').toggle('slow');
+}
+
+
+function addDdFieldSubmit()
+{
+	name = $('#tf_dd_name').val();
+	if(name == '')
+	{
+		alert("Please enter a name for your field");
+		return false;
+	}
+	type = 'dropdown';
+
+	valArr = new Array();
+	$(".dd_value1").each( function()
+	{
+		valArr.push($(this).text());
+	}
+	);
+	
+	options = JSON.stringify(valArr);
+	jQuery.post("./addfield", { 'type' : 'dropdown', 'name' : name , 'action' : 'addfield', values : options }, 
+		function(retData){
+		alert(retData['message']);
+		if(retData['action'])
+		{
+			window[retData['action']]();
+		}
+  },"json");
+
 }
