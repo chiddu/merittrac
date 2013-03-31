@@ -2052,11 +2052,13 @@ function postAndDisplay($dataString)
 function addPageSubmit()
 {
 	title = $('#tf_page_title').val();
+	alert(title);
 	if(title == '')
 	{
 		alert("Empty title");
 		return false;
 	}
+	alert("Before posting to server");
 	jQuery.post("./addfield", {  'title' : title, 
 		'action' : 'addpage'  }, 
 		function(retData){
