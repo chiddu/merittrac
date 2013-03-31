@@ -1220,7 +1220,6 @@ function checkandSubmit(){
 
 }
 
-
 function cleardefault(id,default_mesg){
   if($('#'+id).val()==default_mesg){    
   $('#'+id).val(' ');
@@ -1802,6 +1801,55 @@ function validatenewgroup(){
 
 return true;
 }
+function addcompanyadmin(){
+if($('#newadmin').val()==''){
+  alert('please enter emailaddress');
+  return false;
+  }else if(!ck_email.test($('#newadmin').val())){
+    alert('please enter the valid emailaddress');
+  return false;
+  }
+  return true;
+}
+
+function validateregistration(){
+  var state=true;
+    $('#errors').html('');      
+    if((document.getElementById('f_name').value=='')||(document.getElementById('f_name').value=='Maximum 25 characters')){
+      $('#errors').append('Please enter your First Name<br/>');
+      state=false;      
+    }
+    if((document.getElementById('l_name').value=='')||(document.getElementById('l_name').value=='Maximum 25 characters')){
+      $('#errors').append('Please enter your Last Name.<br/>');
+      state=false;      
+    }
+    if(!ck_email.test($('#w_email').val())){
+      $('#errors').append('Please enter the valid email address.<br/>');
+      state=false;    
+    }
+    /*if((document.getElementById('comp').value=='')||(document.getElementById('comp').value=='Maximum 50 characters')){
+      $('#errors').append('Please enter  Company Name<br/>');
+      state=false;      
+    }*/
+  if(state!=false){
+  document.pform.submit();
+  }else{
+  $('#errors1').html($('#errors').html())
+  $('#error_results').show();
+  $('#errors').html('');
+  }
+  return false;
+}
+function word_count(field){
+
+    var number = 0;
+    var matches = $(field).val().match(/\b/g);
+    if(matches) {
+        number = matches.length/2;
+    }
+    return number;
+
+}
 function validatefolder(){
   var state = true;
   var str_length = $('#folder_name').val().length;
@@ -1911,68 +1959,36 @@ function displaypaginate(id,pagescount) {
 			});
 		}
 	
-function drawFields(retData)
+
+
+function haveFun1(searchId, name, sites)
 {
-	$('#id_table_list').html('');
+		$('#search_id').val(searchId);
+		$('#search_name').val(name);
+		$('#websites').val(sites);
+	all_ids1 = ($('#all_ids').val());
+	all_ids = all_ids1.split(",");
+	
+	for (var ind_id in all_ids)
+	{
+		if(all_ids[ind_id] != searchId)
+		{
+			$('#ck_' + all_ids[ind_id]).prop("checked",false);
+		}
+		else
+			$('#ck_' + all_ids[ind_id]).prop("checked",true);
 
-	 for (var fname in retData)
-	 {
-//		 alert(fname);
-//		 alert(retData[fname]);
-	 }
-
-	 // alert(retData['fields']);
-
-
-	 for (var fname in retData['fields'])
-	 {
-	 	rfname = retData['fields'][fname];
-		if(retData[rfname] ==null)
-			continue;
-//		alert(retData[rfname]);
-//		alert("Showwe name to");
-
-		targetOb = retData[rfname];
-
-		if(targetOb['type']  ==null)
-			continue;
-
-				newDiv = "<tr class='tr1'> <td class='td1'>"
-				+ rfname +
-					"</td> <td class='td1'>"
-				+ targetOb['type'] +
-				"</td> </tr> "
-
-//				alert(newDiv);
-				$('#id_table_list').append(newDiv);
-	 }
+	}
 }
 
-function listfields()
+function haveFun(searchId,  name, sites)
 {
-	$('.tf_center').hide();
-	jQuery.post("./addfield", {  'action' : 'listfields' }, 
-		function(retData){
-		if(retData['message'])
-			alert(retData['message']);
-		if(retData['fields'])
-		{
-			drawFields(retData);	
-		}
-  },"json");
-	$('#tf_field_list').show();
-
+	haveFun1(searchId, name, sites);
 }
 
 function addfield()
 {
 	$('#field_alltypes').toggle('slow');
-}
-
-function addPage()
-{
-	$('.tf_center').hide();
-	$('#tf_addpage').toggle('slow');
 }
 
 function showTextFields(inputObj)
@@ -1987,136 +2003,19 @@ function showDdFields(inputObj)
 	$('#tf_ddfield_defn').show();
 }
 
+function addTextFieldSubmit()
+{
+}
 
 rac = 0;
-ddArr = new Array();
 function addDdValue()
 {
 	vala = $('#ft_optval');
 	i = 0;
 
 	vala2 = vala.val();
-	if(vala2 == '')
-		return;
-	if(ddArr[vala2])
-	{
-		return;
-	}
-	ddArr[vala2] = 1;
-	addval = "<div class='dd_value0' id='ddv_" + rac + "' > <div class=\"clear\"> </div> <div class='dd_value1 float_left' id='dd0_" + rac + "'>" + vala2 + 
-		"</div> <div class='dd_value2 float_left'> &nbsp; &nbsp; <a href='javascript:void(0)' onclick=\"return removeDdValue('" + rac + "')\" > x </a> </div> </div> ";
-		rac++;
+	addval = "<div class='dd_value0' id='ddv_" + rac + "' > <div class='dd_value1 float_left'>" + vala2 + 
+		" </div> <div class='dd_value2 float_left'> <a href='javascript:void(0)' onclick=removeDdValue('ddv_" + rac + 
+		"')> x </a> </div> </div> ";
 		$('#dropdown_indi').append(addval);
-}
-
-function removeDdValue(theid)
-{
-	id1 = "ddv_" + theid;
-	id0 = "dd0_" + theid;
-
-	vala = $('#' + id0).html();
-	delete( ddArr[vala]);
-	$('#' + id1).remove();
-}
-
-function boogie()
-{
-	alert("This is a function to check if the boogie will work ");
-}
-
-
-
-function displayMessage(msg)
-{
-	alert(msg);
-	/* Ideally another function that overlays a message box */
-
-}
-
-
-
-function postAndDisplay($dataString)
-{
-	alert($dataString['action']);
-	jQuery.post("./addfield", eval($dataString),  
-		function(retData){
-		alert(retData['message']);
-		if(retData['action'])
-		{
-			window[retData['action']]();
-		}
-  },"json");
-
-}
-
-
-function addPageSubmit()
-{
-	title = $('#tf_page_title').val();
-	alert(title);
-	if(title == '')
-	{
-		alert("Empty title");
-		return false;
-	}
-	alert("Before posting to server");
-	jQuery.post("./addfield", {  'title' : title, 
-		'action' : 'addpage'  }, 
-		function(retData){
-		alert(retData['message']);
-		if(retData['action'])
-		{
-			window[retData['action']]();
-		}
-  },"json");
-}
-function addTextFieldSubmit()
-{
-	name = $('#tf_text_name').val();
-	if(name == '')
-	{
-		alert("Empty name");
-		return false;
-	}
-	dataString = new  Array();
-	dataString['type'] = 'text';
-	dataString['name'] = name;
-	dataString['action'] = 'addfield';
-	jQuery.post("./addfield", { 'type' : 'text', 'name' : dataString['name'], 'action' : dataString['action'] }, 
-		function(retData){
-		alert(retData['message']);
-		if(retData['action'])
-		{
-			window[retData['action']]();
-		}
-  },"json");
-}
-
-function addDdFieldSubmit()
-{
-	name = $('#tf_dd_name').val();
-	if(name == '')
-	{
-		alert("Please enter a name for your field");
-		return false;
-	}
-	type = 'dropdown';
-
-	valArr = new Array();
-	$(".dd_value1").each( function()
-	{
-		valArr.push($(this).text());
-	}
-	);
-	
-	options = JSON.stringify(valArr);
-	jQuery.post("./addfield", { 'type' : 'dropdown', 'name' : name , 'action' : 'addfield', values : options }, 
-		function(retData){
-		alert(retData['message']);
-		if(retData['action'])
-		{
-			window[retData['action']]();
-		}
-  },"json");
-
 }
