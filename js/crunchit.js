@@ -1986,6 +1986,57 @@ function haveFun(searchId,  name, sites)
 	haveFun1(searchId, name, sites);
 }
 
+function drawFields(retData)
+{
+
+	$('#id_table_list').html('');
+	 for (var fname in retData)
+	 {
+//		 alert(fname);
+//		 alert(retData[fname]);
+	 }
+
+	 // alert(retData['fields']);
+
+
+	 for (var fname in retData['fields'])
+	 {
+	 	rfname = retData['fields'][fname];
+		if(retData[rfname] ==null)
+			continue;
+//		alert(retData[rfname]);
+//		alert("Showwe name to");
+
+		targetOb = retData[rfname];
+
+		if(targetOb['type']  ==null)
+			continue;
+
+				newDiv = "<tr class='tr1'> <td class='td1'>"
+				+ rfname +
+					"</td> <td class='td1'>"
+				+ targetOb['type'] +
+				"</td> </tr> "
+
+//				alert(newDiv);
+				$('#id_table_list').append(newDiv);
+	 }
+}
+function listfields()
+{
+	$('.tf_center').hide();
+	jQuery.post("./addfield", {  'action' : 'listfields' }, 
+		function(retData){
+		if(retData['message'])
+			alert(retData['message']);
+		if(retData['fields'])
+		{
+			drawFields(retData);	
+		}
+  },"json");
+	$('#tf_field_list').show();
+
+}
 function addfield()
 {
 	$('#field_alltypes').toggle('slow');
