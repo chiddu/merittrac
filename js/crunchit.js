@@ -1220,6 +1220,7 @@ function checkandSubmit(){
 
 }
 
+
 function cleardefault(id,default_mesg){
   if($('#'+id).val()==default_mesg){    
   $('#'+id).val(' ');
@@ -1801,55 +1802,6 @@ function validatenewgroup(){
 
 return true;
 }
-function addcompanyadmin(){
-if($('#newadmin').val()==''){
-  alert('please enter emailaddress');
-  return false;
-  }else if(!ck_email.test($('#newadmin').val())){
-    alert('please enter the valid emailaddress');
-  return false;
-  }
-  return true;
-}
-
-function validateregistration(){
-  var state=true;
-    $('#errors').html('');      
-    if((document.getElementById('f_name').value=='')||(document.getElementById('f_name').value=='Maximum 25 characters')){
-      $('#errors').append('Please enter your First Name<br/>');
-      state=false;      
-    }
-    if((document.getElementById('l_name').value=='')||(document.getElementById('l_name').value=='Maximum 25 characters')){
-      $('#errors').append('Please enter your Last Name.<br/>');
-      state=false;      
-    }
-    if(!ck_email.test($('#w_email').val())){
-      $('#errors').append('Please enter the valid email address.<br/>');
-      state=false;    
-    }
-    /*if((document.getElementById('comp').value=='')||(document.getElementById('comp').value=='Maximum 50 characters')){
-      $('#errors').append('Please enter  Company Name<br/>');
-      state=false;      
-    }*/
-  if(state!=false){
-  document.pform.submit();
-  }else{
-  $('#errors1').html($('#errors').html())
-  $('#error_results').show();
-  $('#errors').html('');
-  }
-  return false;
-}
-function word_count(field){
-
-    var number = 0;
-    var matches = $(field).val().match(/\b/g);
-    if(matches) {
-        number = matches.length/2;
-    }
-    return number;
-
-}
 function validatefolder(){
   var state = true;
   var str_length = $('#folder_name').val().length;
@@ -1959,37 +1911,10 @@ function displaypaginate(id,pagescount) {
 			});
 		}
 	
-
-
-function haveFun1(searchId, name, sites)
-{
-		$('#search_id').val(searchId);
-		$('#search_name').val(name);
-		$('#websites').val(sites);
-	all_ids1 = ($('#all_ids').val());
-	all_ids = all_ids1.split(",");
-	
-	for (var ind_id in all_ids)
-	{
-		if(all_ids[ind_id] != searchId)
-		{
-			$('#ck_' + all_ids[ind_id]).prop("checked",false);
-		}
-		else
-			$('#ck_' + all_ids[ind_id]).prop("checked",true);
-
-	}
-}
-
-function haveFun(searchId,  name, sites)
-{
-	haveFun1(searchId, name, sites);
-}
-
 function drawFields(retData)
 {
-
 	$('#id_table_list').html('');
+
 	 for (var fname in retData)
 	 {
 //		 alert(fname);
@@ -2022,6 +1947,7 @@ function drawFields(retData)
 				$('#id_table_list').append(newDiv);
 	 }
 }
+
 function listfields()
 {
 	$('.tf_center').hide();
@@ -2037,9 +1963,16 @@ function listfields()
 	$('#tf_field_list').show();
 
 }
+
 function addfield()
 {
 	$('#field_alltypes').toggle('slow');
+}
+
+function addPage()
+{
+	$('.tf_center').hide();
+	$('#tf_addpage').toggle('slow');
 }
 
 function showTextFields(inputObj)
@@ -2053,6 +1986,71 @@ function showDdFields(inputObj)
 	$('.tf_center').hide();
 	$('#tf_ddfield_defn').show();
 }
+
+
+
+
+rac = 0;
+ddArr = new Array();
+function addDdValue()
+{
+	vala = $('#ft_optval');
+	i = 0;
+
+	vala2 = vala.val();
+	if(vala2 == '')
+		return;
+	if(ddArr[vala2])
+	{
+		return;
+	}
+	ddArr[vala2] = 1;
+	addval = "<div class='dd_value0' id='ddv_" + rac + "' > <div class=\"clear\"> </div> <div class='dd_value1 float_left' id='dd0_" + rac + "'>" + vala2 + 
+		"</div> <div class='dd_value2 float_left'> &nbsp; &nbsp; <a href='javascript:void(0)' onclick=\"return removeDdValue('" + rac + "')\" > x </a> </div> </div> ";
+		rac++;
+		$('#dropdown_indi').append(addval);
+}
+
+function removeDdValue(theid)
+{
+	id1 = "ddv_" + theid;
+	id0 = "dd0_" + theid;
+
+	vala = $('#' + id0).html();
+	delete( ddArr[vala]);
+	$('#' + id1).remove();
+}
+
+function boogie()
+{
+	alert("This is a function to check if the boogie will work ");
+}
+
+
+
+function displayMessage(msg)
+{
+	alert(msg);
+	/* Ideally another function that overlays a message box */
+
+}
+
+
+
+function postAndDisplay($dataString)
+{
+	alert($dataString['action']);
+	jQuery.post("./addfield", eval($dataString),  
+		function(retData){
+		alert(retData['message']);
+		if(retData['action'])
+		{
+			window[retData['action']]();
+		}
+  },"json");
+
+}
+
 
 function addPageSubmit()
 {
@@ -2095,25 +2093,6 @@ function addTextFieldSubmit()
 		}
   },"json");
 }
-
-rac = 0;
-function addDdValue()
-{
-	vala = $('#ft_optval');
-	i = 0;
-
-	vala2 = vala.val();
-	addval = "<div class='dd_value0' id='ddv_" + rac + "' > <div class='dd_value1 float_left'>" + vala2 + 
-		" </div> <div class='dd_value2 float_left'> <a href='javascript:void(0)' onclick=removeDdValue('ddv_" + rac + 
-		"')> x </a> </div> </div> ";
-		$('#dropdown_indi').append(addval);
-}
-function addPage()
-{
-	$('.tf_center').hide();
-	$('#tf_addpage').toggle('slow');
-}
-
 
 function addDdFieldSubmit()
 {
