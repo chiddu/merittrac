@@ -2115,7 +2115,14 @@ function addDdFieldSubmit()
 		alert(retData['message']);
 		if(retData['action'])
 		{
-			window[retData['action']]();
+			if(retData['actiondata'])
+			{
+				window[retData['action']](retData['actiondata']);
+			}
+			else
+			{
+				window[retData['action']]();
+			}
 		}
   },"json");
 
