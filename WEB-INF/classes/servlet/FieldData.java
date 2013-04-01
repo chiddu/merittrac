@@ -63,24 +63,52 @@ public class FieldData extends BaseField
 	*/
 	public String getHtml(BaseCass theBase, String inputId)
 	{
-		HashMap<String,String> cols = getColumns("input_field", m_name);
+	try
+	{
+		HashMap<String,String> cols = theBase.getColumns("input_field", m_fieldName);
 		String type = cols.get("type");
-	if(type.equals("text"))
-	{
-		return "<div class='ct_field'> <div class='ct_fieldname'> "
-		+ m_name + 	"</div> <div class='ct_fieldinput' > <input type=text name='" + m_name + "' > </input></div> </div>";
-		
-	}
-	else  /* Its basically a drop down */
-	{
-		value = "N/A";
-		return "<div class='ct_display'> <div class='ct_fieldname'> "
-		+ m_fieldName + 		
-		"</div> <div class='ct_fieldvalue' > "
-		+ value + 		
-		"</div> </div>";
-	}
+		if(type.equals("text"))
+		{
+			return "<div class='ct_field'> <div class='ct_fieldname'> "
+			+ m_fieldName + 	"</div> <div class='ct_fieldinput' > <input type=text name='" + m_fieldName + "' > </input></div> </div>";
+			
+		}
+		else  /* Its basically a drop down */
+		{
+			StringBuffer buff = new StringBuffer();
+			buff.append( "<div class='ct_field'> <div class='ct_fieldname'> ");
+			buff.append(m_fieldName);
+			buff.append("</div>");
+			buff.append("<div class='ct_selectinput' > ");
+			buff.append("<select name='");
+			buff.append(m_fieldName);
+			buff.append("' id='");
+			buff.append(m_fieldName);
+			buff.append("' >");
+			
+			String values = cols.get("values");
+			JSONArray arrata = new JSONArray(values);
 
-}
+			int len = arrata.length();
+			for(int i = 0; i < len; i++)
+			{
+				String val = (String)arrata.get(i);
+				buff.append("<option id='>");
+				buff.append("' value='>");
+				buff.append(val);
+				buff.append("</option>");
+			}
+			buff.append("</select>");
+			buff.append("</div></div>");
+			return buff.toString();
+	}
+	}
+	catch(Exception ex)
+	{
+		ex.printStackTrace();
+	}
+	return "";
+
+	}
 
 }

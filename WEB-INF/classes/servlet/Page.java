@@ -34,14 +34,12 @@ public class Page
 
 	public Page(JSONObject objRep)
   {
-    super("Page");
-    this.load(objRep);
+    this.loadDetails(objRep);
   }
 
 	public void loadDetails(JSONObject objRep) 
 	{
 		try
-		{
 		{
 			Object parentObj = objRep.get("list");
 			if(parentObj != null)
@@ -56,18 +54,34 @@ public class Page
 				}
 			}
 		}
-		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
 	}
+
+	public String toJSONString()
+	{
+		try
+		{
+			JSONObject oka = this.toJSONObject();
+			return oka.toString();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return "";
+	}
 	public JSONObject toJSONObject() throws JSONException
   {
     JSONObject  jsonRep = new JSONObject();
-    this.getBaseStuff(jsonRep);
-    if(entityList != null)
-      jsonRep.put("list", entityList);
+		ArrayList<String> tstr = new ArrayList<String>();
+		for(BaseField bsf : m_baseList)
+		{
+			tstr.add(bsf.toString());
+		}
+		jsonRep.put("list", tstr);
 		return jsonRep;
 	}
 	

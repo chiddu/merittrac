@@ -17,7 +17,8 @@ public abstract class BaseField
 
 	protected  String type;
 
-	private static<String,BaseField> masterlist = new HashMap<String,BaseField>() ; 
+	private static HashMap<String,BaseField> masterlist;
+
 	static 
 	{
 		/* This has to contain an exhaustive list of all BaseFields in 
