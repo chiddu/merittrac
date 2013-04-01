@@ -157,7 +157,7 @@ public class AddField extends HttpServlet
 				if(inf.contains(title))
 				{
 					obj.put("message", title + " is already a page, please choose another title ");
-					obj.put("action","boogie");
+					
 					writeResponse(response, obj);
 					return;
 				}
@@ -165,6 +165,7 @@ public class AddField extends HttpServlet
 				JSONArray jso = new JSONArray(inf);
 				bms.saveColumn("misc", "pages", "list" , jso.toString());
 				obj.put("message", "Added page successfully");
+				obj.put("action","refreshPages");
 				writeResponse(response, obj);
 
 				return;

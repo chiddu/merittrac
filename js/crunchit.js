@@ -2055,13 +2055,11 @@ function postAndDisplay($dataString)
 function addPageSubmit()
 {
 	title = $('#tf_page_title').val();
-	alert(title);
 	if(title == '')
 	{
 		alert("Empty title");
 		return false;
 	}
-	alert("Before posting to server");
 	jQuery.post("./addfield", {  'title' : title, 
 		'action' : 'addpage'  }, 
 		function(retData){
@@ -2127,17 +2125,17 @@ var pageArray = new Array() ;
 function showPages( retData )
 {
 	st = 0 ;
-	for(var eachPage in retData['pages'])
+	for(var eachData in retData['pages'])
 	{
-		pageArray[retData['pages'][eachData]] = eachPage;
-		alert(eachPage);
-		moreDa = "<div class='left_block_links' id='pagemain_" + st + "'> <a href='javascript:void(0)' onclick='getlampu(" + st + ")' > "
+		pageArray[retData['pages'][eachData]] = eachData;
+		moreDa = "<div class='field0 left_delr' id='pagemain_" + st + "'> <a href='javascript:void(0)' onclick='getlampu(" + st + ")' > "
 			+ retData['pages'][eachData] + "</a> </div>"
 			st++;
 		$('#lf_pageList').append(moreDa);
 	}
 
 }
+
 function refreshPages()
 {
 	jQuery.post("./addfield", {  'action' : 'listpages' }, 
