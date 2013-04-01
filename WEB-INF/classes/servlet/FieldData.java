@@ -26,11 +26,17 @@ public class FieldData extends BaseField
 		m_fieldName = fieldName;
 	}
 
+	public BaseField createNew(String instr)
+  {
+    FieldData newEnt = new FieldData(instr);
+    return newEnt;
+  }
 	public BaseField createNew(JSONObject objRep)
   {
     FieldData newEnt = new FieldData(objRep);
     return newEnt;
   }
+
 	public FieldData(JSONObject objRep)
   {
     super("FieldData");

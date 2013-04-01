@@ -57,6 +57,8 @@ public abstract class BaseField
 		return null;
 	}
 
+
+
 	public static BaseField restoreToObject(JSONObject jsonRep)  throws Exception
 	{
 		BaseField bf = BaseField.restoreToObject(jsonRep);
@@ -144,6 +146,7 @@ public abstract class BaseField
 	}
 
 	public abstract BaseField createNew(JSONObject objRep) ;
+	public abstract BaseField createNew(String input) ;
 	public abstract JSONObject toJSONObject() throws JSONException;
 	public abstract void loadDetails(JSONObject objRep);
 	public abstract String getHtml(BaseCass theBase, String inputId);

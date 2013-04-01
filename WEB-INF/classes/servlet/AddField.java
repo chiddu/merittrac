@@ -63,7 +63,7 @@ public class AddField extends HttpServlet
 			}
 			else if(action.equalsIgnoreCase("addtopage"))
 			{
-				// addtopage(request,response, obj);
+				addtopage(request,response, obj);
 				return;
 			}
 			else if(action.equalsIgnoreCase("addcondition"))
@@ -187,6 +187,54 @@ public class AddField extends HttpServlet
 			{
 				Set<String> inf = getPageList(bms);
 				obj.put("pages", inf);
+				for(String eachfield : inf)
+				{
+					HashMap<String,String> samo = bms.getColumns("pages",eachfield);
+					obj.put(eachfield,samo);
+				}
+				writeResponse(response, obj);
+				return;
+			}
+
+
+			/* Get a list of pageNames v/s pageIndex
+			pageIndex => fieldName => 
+			input_field => fieldName => 'page' => pageNumber
+
+			/* Everytime a field is added to the page, the fieldname, and the page is passed to the server. along with the index  */
+			/* Add  a new array for the fieldname v/s the page */
+
+			public void addtopage(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
+			{
+				Set<String> inf = getPageList(bms);
+
+				String pageId = request.getParameter("pageId");
+				String index = request.getParameter("index");
+				String field = request.getParameter("field");
+				String type = request.getParameter("type");
+
+
+				BaseField bf = BaseField.createNew(type, field);
+
+
+				String testmax = bms.getColData("pages", pageId, index);
+				int ind = Integer.parseInt(index);
+				while(testmax != null)
+				{
+					ind = ind+1;
+					testmax = bms.getColData("pages", pageId, ind + "");
+				}
+				bms.saveColumn("pages", pageId, index, bf.toString());
+				TODO here
+
+
+
+			pages pageId index fieldData -> this will be 3 types
+
+
+				/* Don't need the  index here, only the page numbers we can possibly index this */
+				bms.saveColumn("input_field", field, "page" , pageId);
+
 				for(String eachfield : inf)
 				{
 					HashMap<String,String> samo = bms.getColumns("pages",eachfield);

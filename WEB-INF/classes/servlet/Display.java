@@ -31,6 +31,11 @@ public class Display extends BaseField
     Display newEnt = new Display(objRep);
     return newEnt;
   }
+	public BaseField createNew(String intr)
+  {
+    Display newEnt = new Display(String intr);
+    return newEnt;
+  }
 	public Display(JSONObject objRep)
   {
     super("Display");

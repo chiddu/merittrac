@@ -25,6 +25,11 @@ public class Para extends BaseField
 		m_title = title;
 	}
 
+	public BaseField createNew(String intr)
+  {
+    Para newEnt = new Para(String intr);
+    return newEnt;
+  }
 	public BaseField createNew(JSONObject objRep)
   {
     Para newEnt = new Para(objRep);
