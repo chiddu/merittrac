@@ -1,0 +1,6 @@
+wget "http://localhost:8080/merittrac/addfield?action=addtopage&pageId=1&index=0&field=User Input Number 11&type=FieldData"
+wget "http://localhost:8080/merittrac/addfield?action=addtopage&pageId=1&index=0&field=User Input Number 12&type=FieldData"
+wget "http://localhost:8080/merittrac/addfield?action=addtopage&pageId=1&index=0&field=User Input Number 13&type=FieldData"
+wget "http://localhost:8080/merittrac/addfield?action=addtopage&pageId=1&index=0&field=User Input Number 14&type=FieldData"
+wget "http://localhost:8080/merittrac/addfield?action=addtopage&pageId=1&index=0&field=User Input Number 15&type=FieldData"
+

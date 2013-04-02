@@ -1,0 +1,5 @@
+wget "http://localhost:8080/merittrac/addfield?action=addpage&title=Page Number 1"
+wget "http://localhost:8080/merittrac/addfield?action=addpage&title=Page Number 2"
+wget "http://localhost:8080/merittrac/addfield?action=addpage&title=Page Number 3"
+wget "http://localhost:8080/merittrac/addfield?action=addpage&title=Page Number 4"
+wget "http://localhost:8080/merittrac/addfield?action=addpage&title=Page Number 5"

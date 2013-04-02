@@ -1,0 +1,6 @@
+x=1
+while [ $x -le 5 ]
+do
+echo " wget \"http://localhost:8080/merittrac/addfield?action=addpage&title=Page Number $x\""
+  x=$(( $x + 1 ))
+done
