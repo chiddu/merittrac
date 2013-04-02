@@ -1736,13 +1736,38 @@ function getlampu(pageId)
 {
 	title = pageArray[pageId];
 	$('#page_title').html(title);
+
+	$('#addf_select').html('');
+	$('#add_disp_select').html('');
+
+	c1 = 0;
+	c2 = 0;
+
 	for(fieldName in fieldMap)
 	{
 		if(fieldMap[fieldName] == "avail")
 		{
+			c1 = 1;
 			$('#addf_select').append("<option value=\"" + fieldName + " \">  " + fieldName + " </option>");
 		}
+		else 
+		{
+			if(fieldMap[fieldName] < pageId)
+			{
+				c2 = 1;
+				$('#add_disp_select').append("<option value=\"" + fieldName + " \">  " + fieldName + " </option>");
+				alert( $('#add_disp_select').html());
+			}
+		}
 	}
+	alert(c2);
+	if(c2  != 1)
+	{
+		$('#add_disp_select').hide();
+	}
+	else
+		$('#add_disp_select').show();
+		
 	$('.tf_center').hide();
 	$('#tf_each_page').show();
 }
