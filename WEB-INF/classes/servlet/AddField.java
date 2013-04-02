@@ -286,6 +286,8 @@ public class AddField extends HttpServlet
 					obj.put("message" , type + " with data has been added");
 				}
 
+				obj.put("html", bf.getHtml(bms,null));
+
 				writeResponse(response, obj);
 				return;
 			}
