@@ -1513,11 +1513,9 @@ point to 'avail' */
 
 var fieldMap  = new Array();
 
-function drawFields(retData)
+function drawFields(retData, noDraw)
 {
 	$('#id_table_list').html('');
-
-
 
 	 for (var fname in retData['fields'])
 	 {
@@ -1538,6 +1536,9 @@ function drawFields(retData)
 			fieldMap[rfname]	 = "avail";
 		}
 
+		if(!noDraw)
+		{
+
 				newDiv = "<tr class='tr1'> <td class='td1'>"
 				+ rfname +
 					"</td> <td class='td1'>"
@@ -1545,10 +1546,11 @@ function drawFields(retData)
 				"</td> </tr> "
 
 				$('#id_table_list').append(newDiv);
+		}
 	 }
 }
 
-function listfields()
+function listfields(nodraw)
 {
 	$('.tf_center').hide();
 	jQuery.post("./addfield", {  'action' : 'listfields' }, 
@@ -1557,10 +1559,16 @@ function listfields()
 			alert(retData['message']);
 		if(retData['fields'])
 		{
-			drawFields(retData);	
+			drawFields(retData, nodraw);	
 		}
   },"json");
-	$('#tf_field_list').show();
+	if(nodraw)
+	{
+	}
+	else
+	{
+		$('#tf_field_list').show();
+	}
 
 }
 
@@ -1713,16 +1721,10 @@ function addDdFieldSubmit()
 	jQuery.post("./addfield", { 'type' : 'dropdown', 'name' : name , 'action' : 'addfield', values : options }, 
 		function(retData){
 		alert(retData['message']);
+		/* Send the action along with the function */
 		if(retData['action'])
 		{
-			if(retData['actiondata'])
-			{
-				window[retData['action']](retData['actiondata']);
-			}
-			else
-			{
-				window[retData['action']]();
-			}
+			window[retData['action']](retData);
 		}
   },"json");
 
@@ -1756,20 +1758,20 @@ function getlampu(pageId)
 			{
 				c2 = 1;
 				$('#add_disp_select').append("<option value=\"" + fieldName + " \">  " + fieldName + " </option>");
-				alert( $('#add_disp_select').html());
 			}
 		}
 	}
-	alert(c2);
 	if(c2  != 1)
 	{
-		$('#add_disp_select').hide();
+		$('#b_adddisp_tr').hide();
+		
 	}
 	else
-		$('#add_disp_select').show();
+		$('#b_adddisp_tr').show();
 		
 	$('.tf_center').hide();
 	$('#tf_each_page').show();
+	$('#actual_page_demo').show();
 }
 
 function showPages( retData )
@@ -1789,12 +1791,26 @@ function showPages( retData )
 
 function refreshPages()
 {
-	jQuery.post("./addfield", {  'action' : 'listpages' }, 
-		function(retData){
-		// alert(retData['message']);
-		{
-			showPages(retData);
-		}
-  },"json");
+	if(fieldMap)
+	{
+		jQuery.post("./addfield", {  'action' : 'listpages' }, 
+			function(retData){
+			// alert(retData['message']);
+			{
+				showPages(retData);
+			}
+		},"json");
+	}
+	else
+	{	
+		jQuery.post("./addfield", {  'action' : 'listpages2' }, 
+			function(retData){
+			// alert(retData['message']);
+			{
+				showPages(retData);
+			}
+		},"json");
+	}
 
 }
+jQuery.ajaxSetup({async:false});

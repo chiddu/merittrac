@@ -87,6 +87,12 @@ public class AddField extends HttpServlet
 				listpages(bms, request,response, obj);
 				return;
 			}
+			else if(action.equalsIgnoreCase("listpages2"))
+			{
+				listfields(bms,request,response, obj,false);
+				listpages(bms, request,response, obj);
+				return;
+			}
 		}
 		catch(Exception ex)
 		{
@@ -202,7 +208,14 @@ public class AddField extends HttpServlet
 			b) List of fields v/s pageid(s)
 			*/
 
-			public void listfields(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
+			public void listfields(BaseCass bms, HttpServletRequest request, 
+				HttpServletResponse response, JSONObject obj) throws Exception
+				{
+					listfields(bms, request, response, obj, true);
+				}
+
+			public void listfields(BaseCass bms, HttpServletRequest request, 
+				HttpServletResponse response, JSONObject obj, boolean toWrite) throws Exception
 			{
 				Set<String> inf = getFieldList(bms);
 				obj.put("fields", inf);
@@ -211,10 +224,12 @@ public class AddField extends HttpServlet
 					HashMap<String,String> samo = bms.getColumns("input_field",eachfield);
 					obj.put(eachfield,samo);
 				}
+				if(toWrite)
 				writeResponse(response, obj);
 				return;
 			}
-			public void listpages(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
+			public void listpages(BaseCass bms, HttpServletRequest request, 
+				HttpServletResponse response, JSONObject obj) throws Exception
 			{
 				Set<String> inf = getPageList(bms);
 				obj.put("pages", inf);
