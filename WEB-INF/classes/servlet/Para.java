@@ -27,7 +27,7 @@ public class Para extends BaseField
 
 	public BaseField createNew(String intr)
   {
-    Para newEnt = new Para(String intr);
+    Para newEnt = new Para(intr);
     return newEnt;
   }
 	public BaseField createNew(JSONObject objRep)

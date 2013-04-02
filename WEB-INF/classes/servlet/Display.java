@@ -33,7 +33,7 @@ public class Display extends BaseField
   }
 	public BaseField createNew(String intr)
   {
-    Display newEnt = new Display(String intr);
+    Display newEnt = new Display(intr);
     return newEnt;
   }
 	public Display(JSONObject objRep)

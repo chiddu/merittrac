@@ -57,7 +57,15 @@ public abstract class BaseField
 		return null;
 	}
 
-
+	public static BaseField createNew(String intr, String fieldVal)
+	{
+		BaseField basa = masterlist.get(intr);
+		if(basa != null)
+		{
+				basa = basa.createNew(fieldVal);
+		}
+		return basa;
+	}
 
 	public static BaseField restoreToObject(JSONObject jsonRep)  throws Exception
 	{
@@ -138,6 +146,21 @@ public abstract class BaseField
  {
 	 strm.print( "type      = " + this.type + "," );
 	}
+
+	public String toString() 
+	{
+		String retVal = null;
+		try
+		{
+			retVal  =  toJsonString(); 
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return retVal;
+	}
+
 
 	public String toJsonString() throws JSONException
 	{

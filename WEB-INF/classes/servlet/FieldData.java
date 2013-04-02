@@ -18,6 +18,11 @@ public class FieldData extends BaseField
 
 	private String m_fieldName;
 
+	public String getName()
+	{
+		return m_fieldName;
+	}
+
 	/* To be used by entities like
 	FieldDataCombo */
 	public FieldData(String fieldName)

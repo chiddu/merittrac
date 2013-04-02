@@ -63,7 +63,12 @@ public class AddField extends HttpServlet
 			}
 			else if(action.equalsIgnoreCase("addtopage"))
 			{
-				addtopage(request,response, obj);
+				addtopage(bms, request,response, obj);
+				return;
+			}
+			else if(action.equalsIgnoreCase("removefrompage"))
+			{
+				removefrompage(bms, request,response, obj);
 				return;
 			}
 			else if(action.equalsIgnoreCase("addcondition"))
@@ -213,9 +218,13 @@ public class AddField extends HttpServlet
 				String field = request.getParameter("field");
 				String type = request.getParameter("type");
 
-
 				BaseField bf = BaseField.createNew(type, field);
-
+				if(bf == null)
+				{
+					obj.put("message" , "The type '"+type + "' did not return anything from the database ");
+					writeResponse(response, obj);
+					return;
+				}
 
 				String testmax = bms.getColData("pages", pageId, index);
 				int ind = Integer.parseInt(index);
@@ -225,21 +234,46 @@ public class AddField extends HttpServlet
 					testmax = bms.getColData("pages", pageId, ind + "");
 				}
 				bms.saveColumn("pages", pageId, index, bf.toString());
-				TODO here
-
-
-
-			pages pageId index fieldData -> this will be 3 types
-
+				if(type.equals("FieldData"))
+				{
+					bms.saveColumn("input_field", field, "page" , pageId);
+				}
 
 				/* Don't need the  index here, only the page numbers we can possibly index this */
-				bms.saveColumn("input_field", field, "page" , pageId);
 
 				for(String eachfield : inf)
 				{
 					HashMap<String,String> samo = bms.getColumns("pages",eachfield);
 					obj.put(eachfield,samo);
 				}
+				writeResponse(response, obj);
+				return;
+			}
+
+			public void removefrompage(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
+			{
+				Set<String> inf = getPageList(bms);
+
+				String pageId = request.getParameter("pageId");
+				String index = request.getParameter("index");
+
+				String pageDetail = bms.getColData("pages", pageId, index);
+
+				if(pageDetail == null)
+				{
+					obj.put("message" , "Field not found in page");
+					writeResponse(response, obj);
+					return;
+				}
+				JSONObject obuja = new JSONObject(pageDetail);
+				BaseField bf = BaseField.restoreToObject(obuja);
+				if(bf.getType().equals("FieldData"))
+				{
+					FieldData fd = (FieldData)bf;
+					bms.deleteKey("input_field", fd.getName(), "page");
+				}
+				bms.deleteKey("pages", pageId, index);
+				obj.put("message" , "Field successfully removed");
 				writeResponse(response, obj);
 				return;
 			}
