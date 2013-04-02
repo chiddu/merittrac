@@ -1456,6 +1456,7 @@ function getlampu(pageId)
 function showPages( retData )
 {
 	st = 0 ;
+	$('#lf_pageList').html('');
 	pageArray = retData['pages'];
 	for(var eachData in retData['pages'])
 	{
@@ -1503,12 +1504,12 @@ function addFieldToPage()
 		index = '0'
 
 		jQuery.post("./addfield", {  'action' : 'addtopage',
-			'index' : index, 'pageId' : pageId, type : 'FieldData' }, 
+			'index' : index, 'pageId' : pageId, type : 'FieldData', field : fieldName  }, 
 			function(retData){
 			 alert(retData['message']);
+		 if(retData['html'])
 			{
 				$('#mockup_top').append(retData['html']);
 			}
 		},"json");
-}
 }

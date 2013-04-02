@@ -259,6 +259,18 @@ public class AddField extends HttpServlet
 				String field = request.getParameter("field");
 				String type = request.getParameter("type");
 
+				if(field  == null)
+				{
+					obj.put("message" , "You apparently did not pass on any field");
+					writeResponse(response, obj);
+					return;
+				}
+				if(pageId  == null)
+				{
+					obj.put("message" , "You apparently did not pass on any pageId");
+					writeResponse(response, obj);
+					return;
+				}
 				BaseField bf = BaseField.createNew(type, field);
 				if(bf == null)
 				{
