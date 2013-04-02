@@ -405,27 +405,27 @@ public static long bytesToLong(ByteBuffer inbuf)
 {
 	byte[] by = inbuf.array();
 	long value = 0;
-//	for (int i = 0; i < by.length; i++)
-//	{
-//		 value += ((long) by[i] & 0xffL) << (8 * i);
-//	 }
 	for (int i = 0; i < by.length; i++)
 	{
-		 value = (value << 8) + (by[i] & 0xff);
+		 value += ((long) by[i] & 0xffL) << (8 * i);
 	 }
+//	for (int i = 0; i < by.length; i++)
+//	{
+//		 value = (value << 8) + (by[i] & 0xff);
+//	 }
 	 return value;
 }
 public static long bytesToLong(byte[] by) 
 {
 	long value = 0;
-//	for (int i = 0; i < by.length; i++)
-//	{
-//		 value += ((long) by[i] & 0xffL) << (8 * i);
-//	 }
 	for (int i = 0; i < by.length; i++)
 	{
-		 value = (value << 8) + (by[i] & 0xff);
-	 }
+		 value += ((long) by[i] & 0xffL) << (8 * i);
+ }
+//	for (int i = 0; i < by.length; i++)
+//	{
+//		 value = (value << 8) + (by[i] & 0xff);
+//	 }
 	 return value;
 }
 

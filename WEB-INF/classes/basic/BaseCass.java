@@ -384,7 +384,13 @@ return m_client.execute_cql_query(
 	ByteBuffer.wrap(query.getBytes("UTF-8")),Compression.NONE);
 }
 
-public synchronized HashMap<String,String> getColumns(String colFamily, String key) throws Exception
+public HashMap<String,String> 
+	getColumns(String colFamily, String key) throws Exception
+{
+	return getColumns(colFamily, key,null);
+}
+public synchronized HashMap<String,String> 
+	getColumns(String colFamily, String key, Set<String> longs ) throws Exception
 {
 
 	HashMap<String, String> aurek = new HashMap<String, String>();
@@ -405,12 +411,19 @@ public synchronized HashMap<String,String> getColumns(String colFamily, String k
 	for (ColumnOrSuperColumn result : results) {
 		Column column = result.column;
 		String valueId  =  MtxUtil.bb_to_str(column.getName());
-		String value  =  MtxUtil.bb_to_str(column.value);
-
-		aurek.put(valueId, value);
+		if((longs != null) && longs.contains(valueId))
+		{
+			long valuelong  =  MtxUtil.bytesToLong(column.value);
+			String value  =  MtxUtil.bb_to_str(column.value);
+			aurek.put(valueId, "" + valuelong);
+		}
+		else
+		{
+			String value  =  MtxUtil.bb_to_str(column.value);
+			aurek.put(valueId, value);
+		}
 	}
 	return aurek;
-
 }
 
 }

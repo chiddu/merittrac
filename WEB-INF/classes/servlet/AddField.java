@@ -12,7 +12,12 @@ import org.json.*;
 public class AddField extends HttpServlet 
 {
 
-
+	public static HashSet<String> longs;
+	static
+	{
+		longs = new HashSet<String>();
+		longs.add("page");
+	}
 	public void writeResponse(HttpServletResponse response,
 		JSONObject obj) throws Exception
 		{
@@ -43,7 +48,8 @@ public class AddField extends HttpServlet
 
 			BaseCass bms = cns.getStorage();
 
-			System.out.println("Action is " + action);
+		// System.out.println("Action is " + action);
+
 
 //			Thread.sleep(5000);
 			if(action.equalsIgnoreCase("addfield"))
@@ -124,8 +130,8 @@ public class AddField extends HttpServlet
 
 				for(String eacho : inf)
 				{
-					System.out.println(eacho);
-					System.out.println(name);
+			// // System.out.println(eacho);
+				// System.out.println(name);
 				}
 				// Thread.sleep(2000);
 				if(inf.contains(name))
@@ -175,6 +181,26 @@ public class AddField extends HttpServlet
 
 				return;
 			}
+
+
+/*
+			public HashMap<String, String>  getFieldMap(Set<String> inmap)
+			{
+				HashMap<String, String> fieldMap  = new HashMap<String, String>();
+				for(String eachkey : inmap)
+				{
+					String testmax = bms.getColData("input_field", eachkey, "page");
+					if(testmax == null)
+						continue;
+					fieldMap.put(eachkey, testmax);
+				}
+				return fieldMap;
+			}
+			*/
+			/* Return 2 sets of data
+			a) List of available fields
+			b) List of fields v/s pageid(s)
+			*/
 
 			public void listfields(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
 			{
@@ -237,7 +263,7 @@ public class AddField extends HttpServlet
 				if(type.equals("FieldData"))
 				{
 					Long pLong = Long.parseLong(pageId);
-					bms.saveColumn("input_field", field, "page" , pLong);
+					bms.saveColumn("input_field", field, "page" , pageId);
 					obj.put("message" , "The field " + field + " is now in page " + pageId);
 				}
 				else
