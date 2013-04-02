@@ -1067,330 +1067,7 @@ return true;
 }
 
 
-function savetofolder()
-{
-    var key = $('#target_id').val();
-    var entity = $('#entity_id').val();
-    var folderid = $('#addtofolder').val();
-  if( $('#entity_url').val()!=''){
-  var title =$('#tit_'+key).val();
-  var desc =$('#desc_'+key).val();
-  var url =$('#entity_url').val();
-  var dataString = 'url='+url +'&folderid='+ folderid+'&tit='+title+'&desc='+desc;
-}else{
-  var dataString = 'entity='+entity + '&folderid='+ folderid;
 
-}
-  
-  $.ajax({
-  type: "GET",
-  url: "/home/addtofolder",
-  data: dataString,
-  dataType: "html",
-  cache: false,
-  success: function(html){
-     showsavebox(url,key ,entity);
-		$('#folder_'+key).html('<div class="admin_err_placeholder" id="comm_pop" style="text-align:center;" >Saved to folder</div>');
-	$('#folder_'+key).show();
-	setTimeout("removePopup('comm_pop')",3000);
-
-  }
-  });
-
-  return false;
-}
-function shareresource()
-{
-    var key = $('#share_id').val();
-    var entity = $('#share_entity_id').val();
-    var fsId = $('#fsId_'+key).val();
-    var notes = CKEDITOR.instances['share_notes'].getData();
-	 var notes1 = escape(notes);
-    if(fsId == 'undefined')
-      fsId = '';
-    
-  var data = new Array();
-  var checkCount = 0;
-$("input[name='share_groups[]']:checked").each(function(i) {
-        data.push($(this).val());
-    checkCount++;
-});
-
-
-if (checkCount == 0)
-{
-alert("Please select at least one group.");
-return false;
-}
-if($('#resentity_'+key).val()>0){
-entity = $('#resentity_'+key).val();
-var url ='';
-}else{
-var url =$('#share_url').val();
-}
-
-if(url!=''){
-  var title =$('#tit_'+key).val();
-  var desc =$('#desc_'+key).val();
-  var dataString = 'url='+url +'&groups='+ data+'&tit='+title+'&desc='+desc;
-    dataString+= '&fsId='+fsId;
-}else{
-  var dataString = 'entity='+entity + '&groups='+ data;
-
-}
-var notify = document.getElementById('share_notify');
-if(notify.checked)
-{
-	dataString+= '&notify=1';
-}
-
-
-if(notes){
-dataString+= '&notes='+notes1;
-}
-  
-  $.ajax({
-  type: "GET",
-  url: "/home/share",
-  data: dataString,
-  dataType: "html",
-  cache: false,
-  success: function(html){
-    if($('#resentity_'+key).val()==0){
-    $('#resentity_'+key).val(html);
-    }
-    showsharebox(url,key ,entity);
-		$('#folder_'+key).html('<div class="admin_err_placeholder" id="comm_pop" style="text-align:center;" >This item has been shared.</div>');
-	$('#folder_'+key).show();
-	setTimeout("removePopup('comm_pop')",3000);
-
-  }
-  });
-
-  return false;
-}
-
-function checkdefault(id,value){
-if(document.getElementById(id).value==value){
-document.getElementById(id).value='';
-}
-
-}
-function validategroup(){
-      var state=true;
-      $('#errors').html('');      
-    if((document.getElementById('grp_name').value=='')||(document.getElementById('grp_name').value=='Maximum 75 characters')){
-      $('#errors').append('Please enter  Group name<br/>');
-      state=false;
-      
-    }
-    if((document.getElementById('grp_sum').value=='')||(document.getElementById('grp_sum').value=='Maximum 100 Characters')){
-         $('#errors').append('Please enter Summary<br/>');
-        state=false;
-    
-    }else{
-    var str=document.getElementById('grp_sum').value;
-        if(str.length>140){
-        $('#errors').append('Please limit your summary to less than 100 characters.<br/>');
-        state=false;
-          
-        }   }
-    if((document.getElementById('grp_desc').value=='')||(document.getElementById('grp_desc').value=='Maximum 100 words')){
-      $('#errors').append('Please enter a description<br/>');
-        state=false;
-    
-    }else{
-    var str=document.getElementById('grp_desc').value;
-    words=str.split(" ");
-      if(words.length>100){
-      $('#errors').append('Please limit the description to less than 100 words.<br/>');
-      state=false;
-      
-      }
-    }
-    
-     if (document.getElementById('grp_img').value==''){
-//    $('#errors').append("Please upload group image<br/>");
-//    state=false;
-     }else{
-       if(!checkimage(document.getElementById('grp_img').value)){
-      $('#errors').append("Please upload a jpeg, png or gif image file only<br/>");
-      state=false;
-       }
-    }
-    
-  if(state!=false){
-  document.pform.submit();
-  }else{
-  $('#errors1').html($('#errors').html())
-  $('#error_results').show();
-  $('#errors').html('');
-  }
-  return false; 
-}
-function validateusers(){
-
-  $('#errors').html('');  
-  var user1=true;
-  var user2=true;
-   var users=$('#users').val();
-     if(users==''){
-    //$('#errors').append(mesg);
-    var user1=false;
-   }
-   /*else{
-     users.split(',');
-  if(!ck_email.test($('#admin_'+id1).val())){
-
-
-   }*/
-
- if (document.getElementById('userinfo').value!=''){
-      if(!checkCSV(document.getElementById('userinfo').value)){
-      $('#errors').append("Please upload a csv file only<br/>");
-      var user2=false;
-       }
-  }else{
-  var user2=false;
-  }
-  if((user1!=false)||(user2!=false)){
-  document.pform.submit();
-  }else{
-  $('#errors').append('Please enter emails separated by commas or upload a csv file.');
-  $('#errors1').html($('#errors').html())
-  $('#error_results').show();
-  $('#errors').html('');
-  }
-  return false; 
-}
-function validatemobile(phone){
-  var err_mesg='';
- var strip =phone.replace(/[\(\)\.\-\ ]/g, '');     
-   if (phone == "") {
-     err_mesg = "You didn't enter a phone number<br/>";
-    } else if (isNaN(parseInt(strip))) {
-    err_mesg = "The phone number contains illegal characters<br/>"; 
-    } else if (!(strip.length == 10)) {
-    err_mesg = "The phone number is the wrong length<br/>"; 
-    }
-return err_mesg;
-}
-
-function validatefinal(){
-  var state=true;
-  $('#errors').html('');  
-//   var phone=$('#cell_phone').val();
- //    var mesg = validatemobile(phone);
-  // if(mesg!=''){
-   // $('#errors').append(mesg);
-    //state=false;
-   //}
-
- if (document.getElementById('user_image').value!=''){
-      if(!checkimage(document.getElementById('user_image').value)){
-      $('#errors').append("Please upload a jpeg, png or gif image file only<br/>");
-      state=false;
-       }
-  }
-  if(state!=false){
-  document.pform.submit();
-  }else{
-  $('#errors1').html($('#errors').html())
-  $('#error_results').show();
-  $('#errors').html('');
-  }
-  return false; 
-
-}
-function profileToggle(id,id2){
-  if(document.getElementById(id).style.display=='block'){
-  
-    $('#'+id2).html('<strong>Show(+)</strong>');
-    document.getElementById(id).style.display='none'
-  }else{
-    
-    $('#'+id2).html('<strong>Hide(-)</strong>');
-    document.getElementById(id).style.display='block'
-  }
-}
-function submitenter(myfield,e)
-{
-var keycode;
-if (window.event) keycode = window.event.keyCode;
-else if (e) keycode = e.which;
-else return true;
-
-if (keycode == 13)
-   {
-   document.filter.submit();
-   return false;
-   }
-else
-   return true;
-}
-
-function adduserform(id1,id2){
-  $('#'+id1).toggle();
-  $('#'+id2).toggle();
-
-
-}
-function addgroupAdmin(id1){
-  var grp =id1;
-  var grp_admin =$('#admin_'+id1).val();
-  if(!ck_email.test($('#admin_'+id1).val())){
-  alert('Please enter a valid email address.');
-  return false;
-  }
-  dataString= 'grpid='+grp+'&grpadmin='+grp_admin;
-
-  $.ajax({
-  type: "GET",
-  url: "/user/addGroupAdmin",
-  data: dataString,
-  dataType: "html",
-  cache: false,
-  success: function(res){
-     var data = eval('(' + res + ')');
-     var succ = data.success;
-    if(succ==0){
-      alert('The user does not exist.');
-    }else if(succ==1){
-      alert('The user needs to be a member of the group first.');
-    }else{
-    var innerdata = '<div><div class="div06n"><a href="#"><strong>'+data.name+'</strong></a></div><div class="float_right05"><a href="#dialog1b" name="modal">Remove</a></div><div class="clear"></div></div>';
-    $('#admins_'+grp).append(innerdata);
-    }
-    $('#admin_'+id1).val('');
-  }
-  });
-}
-function jqCheckAll2( id, name )
-{
-   $("INPUT[@name=" + name + "][type='checkbox']").attr('checked', $('#' + id).is(':checked'));
-}
-function validategroupdeactive(){
-var checkCount = 0;
-$("input[name='groups[]']:checked").each(function(i) {
-        checkCount++;
-});
-
-
-if (checkCount == 0)
-{
-alert("Please select the group.");
-return false;
-}
-var delete_group= confirm("Do you really want to deactivate the group/s??");
-if (delete_group== true)
- {
-document.pform.submit();
- }
-else
- {
-  return false;
-  }
-}
 function validatenewgroup(){
   if($('#grp_name').val()==''){
   alert('You have not entered a valid group name');
@@ -1512,6 +1189,7 @@ function validatefeedurl(){
 point to 'avail' */
 
 var fieldMap  = new Array();
+var indexMap = new Array();
 
 function drawFields(retData, noDraw)
 {
@@ -1772,6 +1450,7 @@ function getlampu(pageId)
 	$('.tf_center').hide();
 	$('#tf_each_page').show();
 	$('#actual_page_demo').show();
+	$('#page_id').val(pageId);
 }
 
 function showPages( retData )
@@ -1814,3 +1493,22 @@ function refreshPages()
 
 }
 jQuery.ajaxSetup({async:false});
+
+function addFieldToPage()
+{
+	fieldName = $('#addf_select').val();
+	pageId = $('#page_id').val();
+	index = indexMap[pageId];
+	if(!index)
+		index = '0'
+
+		jQuery.post("./addfield", {  'action' : 'addtopage',
+			'index' : index, 'pageId' : pageId, type : 'FieldData' }, 
+			function(retData){
+			 alert(retData['message']);
+			{
+				$('#mockup_top').append(retData['html']);
+			}
+		},"json");
+}
+}
