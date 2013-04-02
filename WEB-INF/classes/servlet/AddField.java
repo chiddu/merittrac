@@ -236,16 +236,15 @@ public class AddField extends HttpServlet
 				bms.saveColumn("pages", pageId, index, bf.toString());
 				if(type.equals("FieldData"))
 				{
-					bms.saveColumn("input_field", field, "page" , pageId);
+					Long pLong = Long.parseLong(pageId);
+					bms.saveColumn("input_field", field, "page" , pLong);
+					obj.put("message" , "The field " + field + " is now in page " + pageId);
 				}
-
-				/* Don't need the  index here, only the page numbers we can possibly index this */
-
-				for(String eachfield : inf)
+				else
 				{
-					HashMap<String,String> samo = bms.getColumns("pages",eachfield);
-					obj.put(eachfield,samo);
+					obj.put("message" , type + " with data has been added");
 				}
+
 				writeResponse(response, obj);
 				return;
 			}

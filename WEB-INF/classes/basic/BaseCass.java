@@ -384,7 +384,6 @@ return m_client.execute_cql_query(
 	ByteBuffer.wrap(query.getBytes("UTF-8")),Compression.NONE);
 }
 
-
 public synchronized HashMap<String,String> getColumns(String colFamily, String key) throws Exception
 {
 

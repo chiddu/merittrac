@@ -69,7 +69,6 @@ public abstract class BaseField
 
 	public static BaseField restoreToObject(JSONObject jsonRep)  throws Exception
 	{
-		BaseField bf = BaseField.restoreToObject(jsonRep);
 		String typeStr = "type";
 		String  type = (String)jsonRep.get("type") ;
 		BaseField unit = masterlist.get(type);
