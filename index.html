@@ -75,7 +75,45 @@ onclick='addfield()' >Add Field</a>
 <div class="clear"></div>
 <!-- Begin a list of huge set of divs for action in the center -->
 
-<div class="tf_center" id='tf_field_list' style='display:block' >
+<div class="tf_center" id='tf_each_page' style='display:none' >
+Add an item to the page.
+<div class="clear"></div>
+<div id='page_title'> </div>
+<div id='id_field_list0' class='section02'>  
+<table class='divTable' id='id_eachpage_table' >
+<tr class='tr1'>
+<td class='td1'> 
+<input type=button name=b_addfield value='Add Field' onclick='showFieldList()' class='b_addbutt'/>
+</td>
+<td class='td2'><select id='addf_select' name=addfield class='addf_select'> </select>
+</td>
+</tr>
+
+<tr class='tr1'>
+<td class='td1'> 
+<input type=button name=b_addfield value='Add Paragraph' onclick='showFieldList()' class='b_addbutt'/>
+</td>
+<td class='td2'>
+</td>
+</tr>
+
+<tr class='tr1'>
+<td class='td1'> 
+<input type=button name=b_addfield value='Display user-entered input' onclick='showFieldList()' class='b_addbutt'/>
+</td>
+<td class='td2'><select id='addf_select' name=addfield class='addf_select'> </select>
+</td>
+</tr>
+
+
+</table>
+
+</div>
+<div class="clear"></div>
+<div class="clear"></div>
+
+</div>
+<div class="tf_center" id='tf_field_list' style='display:none' >
 These are the current list of fields
 <hr>
 <div id='id_field_list0' class='section02'>  
@@ -292,7 +330,6 @@ To save to an existing folder select the folder name from the list</div>
 
 </div>
 
-TODO  copy the post function from the other machine. Also there should be a way of adding values to drop downs
 <div class="div_body_right_column" style='display:none'>
 <!-- This is the box, probably not needed -->
 <div class="right_column_placeholder" align="center" style="height:110px:display:none">

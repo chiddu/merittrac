@@ -116,396 +116,12 @@ function comments_display(){
   }
 }
 
-function replacespecial(content){
-content = content.replace('&#39;','\'');
-content = content.replace('&#34;','"');
-content = content.replace('&nbsp;',' ');
-return content;
-}
-
-function addcomment(checkflag)
-{
-  var key = $('#item_id').val();
-  var url = $('#item_url').val();
-  var entity = $('#entity').val();
-  var fsId = $('#fsId_'+key).val();
-  var numcom = $('#c_'+key).val();
-  var content = CKEDITOR.instances['textcontent'].getData();
 
 
-  var words = content.split(" ");
- if(words.length>200){
-  alert('Please limit your comment to 200 words or less');
-  return false;
-  }
-   content = escape(content);
-  var dataString = 'comment='+ content;
-
-  if( (entity=='0'))
-  {
-    var checkCount = 0;
-    var data = new Array();
-    $("input[name='group[]']:checked").each(function(i) {
-        data.push($(this).val());
-    checkCount++;
-    });
-
-    if ((!checkflag) && (checkCount == 0))
-    {
-    alert("Please select at least one  group to post your comment.");
-    return false;
-    }else{
-    dataString+='&groups='+data;
-    }
-  }else
-  {
-    url='';
-  }
-  if(url!=''){
-  var desc = $('#desc_'+key).val();
-  desc = replacespecial(desc);
-
-  var title = $('#tit_'+key).val();
-  title = replacespecial(title);
 
 
-  dataString+= '&url='+url+'&fsId='+fsId+'&desc='+desc+'&tit='+title;
-  }else{
-  dataString+='&entity='+entity;
-  }
-  var notify = document.getElementById('notify');
-	if(notify.checked)
-	{
-		dataString+= '&notify=1';
-	}
 
 
-  if(content=='')
-  {
-  alert("Please enter your comment");
-  }
-  else
-	{
-		$.ajax({
-		type: "GET",
-		url: "/home/addcomment",
-		data: dataString,
-		dataType: "html",
-		cache: false,
-		success: function(coment){
-		var comm =eval('('+coment+')');
-		if(comm.success==true){
-		$("#comm_"+key).show();
-		numcom++;
-		$('#c_'+key).val(numcom);
-		$('#com_count_'+key).html(numcom);
-		var res ='<div class="commentator_block_main01"><div class="commentator_block01"><div class="float_left03"><a href="#"><img src="'+comm.user_img+'" border="0" class="img_border02" /></a></div><div class="float_left04">';
-/*		if(comm.rating>0){
-		res +='<div class="float_right04"> <a href="javascript:clickme();" rel="tooltip" title="'+comm.rating+'"><img src="' + getRatingImg(comm.rating) +'" border="0" /></a></div>';
-		}else{
-		res +='<div class="float_right04"> <i><i>Not Rated</i></i></div>';
-		}*/
-		res +='<span class="header_text">'+comm.username+'</span><br /><span class="text2">'+comm.comment+'</span></div><div class="float_right"><span class="text3">Today</span></div><div class="clear"></div></div></div>';
-		if($("#resentity_"+key).val()==0){
-		$("#resentity_"+key).val(comm.id);
-		}
-		$("#comment_"+key).prepend(res);
-		var show_con = $("#show_all_comment_div_"+key).html();
-		if($.trim(show_con)==''){
-		$("#show_all_comment_div_"+key).html('<a  href="javascript:clickme();" class="link"  id="all_'+key+'" onclick="ToggleAllComments('+key+','+comm.id+');" >Hide All Comments</a>');
-		}
-		CKEDITOR.instances['textcontent'].setData('');
-
-		showcommentbox(url,key);
-		$('#sc_'+key).html('<div class="admin_err_placeholder" id="comm_pop" style="text-align:center;" >Your comment has been added.</div>');
-		$('#sc_'+key).show("slow");
-				setTimeout("removePopup('comm_pop')",5000);
-		}else{
-		CKEDITOR.instances['textcontent'].setData('');
-		alert('special characters are not allowed');
-		}
-		setTimeout("removePopup('comm_pop')",5000);
-
-		}
-		});
-
-	}
-  return false;
-
-
-}
-
-function removePopup(id)
-{
-$('#'+id).remove();
-}
-
-function finishRating(dataString,rate,id)
-{
-  var star_width= rate * 18;
-  $.ajax({
-  type: "GET",
-  url: "/home/entityRating",
-  data: dataString,
-  dataType: "html",
-  cache: false,
-  success: function(html){
-    $("#star_"+id).css('width',star_width+'px');
-  }
-  });
-}
-
-
-function rateResource(url,rate,id,entity)
-{
-  var fsId = $('#fsId_'+id).val();
-  if(url!='')
-  {
-  var desc = $('#desc_'+id).val();
-  desc = replacespecial(desc);
-
-  var title = $('#tit_'+id).val();
-  title = replacespecial(title);
-    var dataString = 'url='+url+'&rating_val='+ rate + '&title=' + title +'&description=' + desc;;
-    dataString+= '&fsId='+fsId;
-  } else {
-    var dataString = 'entity='+entity+'&rating_val='+ rate;
-  }
-  var star_width= rate * 18;
-  $.ajax({
-  type: "GET",
-  url: "/home/entityRating",
-  data: dataString,
-  dataType: "html",
-  cache: false,
-  success: function(result){
-    var res = eval('(' +result+')');;
-    //$("#star_"+id).html('width',star_width+'px');
-
-  $("#y_rate_"+id).html('<img border="0" src="' + getRatingImg(rate) + '" />');
-  $("#avg_"+id).attr("title",rating_titles[res.rating]);
-  if($("#resentity_"+id).val()==0){
-  $("#resentity_"+id).val(res.id);
-  }
-  $("#avg_"+id).html('<a title="'+rating_titles[res.rating]+'" rel="tooltip" ><img border="0" src="' + getRatingImg(res.rating) +'" /></a>&nbsp;('+res.num_rate+')');
-  }
-  });
-}
-
-
-function revivecontent(){
-contractcontent("omitnothing")
-selectedItem=getselectedItem()
-selectedComponents=selectedItem.split("|")
-for (i=0; i<selectedComponents.length-1; i++)
-document.getElementById(selectedComponents[i]).style.display="block"
-}
-
-function revivestatus(){
-var inc=0
-while (statecollect[inc]){
-if (ccollect[inc].style.display=="block")
-statecollect[inc].innerHTML=contractsymbol
-else
-statecollect[inc].innerHTML=expandsymbol
-inc++
-}
-}
-
-function get_cookie(Name) { 
-var search = Name + "="
-var returnvalue = "";
-if (document.cookie.length > 0) {
-offset = document.cookie.indexOf(search)
-if (offset != -1) { 
-offset += search.length
-end = document.cookie.indexOf(";", offset);
-if (end == -1) end = document.cookie.length;
-returnvalue=unescape(document.cookie.substring(offset, end))
-}
-}
-return returnvalue;
-}
-
-function getselectedItem(){
-if (get_cookie(window.location.pathname) != ""){
-selectedItem=get_cookie(window.location.pathname)
-return selectedItem
-}
-else
-return ""
-}
-
-function saveswitchstate(){
-var inc=0, selectedItem=""
-while (ccollect[inc]){
-if (ccollect[inc].style.display=="block")
-selectedItem+=ccollect[inc].id+"|"
-inc++
-}
-
-document.cookie=window.location.pathname+"="+selectedItem
-}
-
-function do_onload(){
-uniqueidn=window.location.pathname+"firsttimeload"
-var alltags=document.all? document.all : document.getElementsByTagName("*")
-ccollect=getElementbyClass(alltags, "switchcontent")
-statecollect=getElementbyClass(alltags, "showstate")
-if (enablepersist=="on" && ccollect.length>0){
-document.cookie=(get_cookie(uniqueidn)=="")? uniqueidn+"=1" : uniqueidn+"=0" 
-firsttimeload=(get_cookie(uniqueidn)==1)? 1 : 0 //check if this is 1st page load
-if (!firsttimeload)
-revivecontent()
-}
-if (ccollect.length>0 && statecollect.length>0)
-revivestatus()
-}
-
-if (window.addEventListener)
-window.addEventListener("load", do_onload, false)
-else if (window.attachEvent)
-window.attachEvent("onload", do_onload)
-else if (document.getElementById)
-window.onload=do_onload
-
-if (enablepersist=="on" && document.getElementById)
-window.onunload=saveswitchstate
-
-var comm_elements = new Array();
-function ToggleAllComments(key,entity){
-
-  var divid="comment_"+key;
-  if((entity)&&( $("#all_"+key).html()=='Show All Comments')){
-	  $("#comment_"+key).show('slow');
-	  var dataString = 'entity='+entity;
-	  $.ajax({
-	  type: "GET",
-	  url: "/home/showComments",
-	  data: dataString,
-	  dataType: "html",
-	  cache: false,
-	  success: function(html){
-	  $("#comment_"+key).html(html);
-	  comm_elements.push(key);
-	  $('#all_'+key).html('Hide All Comments');
-	  
-	  }
-	  });
-
-	}else{
-		 
-    $("#comment_"+key).hide('slow');
-    $('#all_'+key).html('Show All Comments');
-  
-  }
-
-
-}
-/* We have to pass the current record number everytime, that is
-missing now */
-function search1Js(res){
-	 var data = eval(res);
-	 var rssentries = data.results;
-	 var records = data.records;
-	 var ratings = data.ratings;
-	 var moreLink = data.moreLink;
-	 var rec1 = '';
-	 var avgratings=new Array();
-
-	var myratings = data.myratings;
-		var record = $('#key').val();
-		record = record *1;
-
-
-	 for (var rate in ratings)
-	 {  
-		 avgratings[rate] = ratings[rate].avg;
-
-	 }
-	 for (var entry in rssentries)
-	{ 
-		 record++;
-		// var d = new Date(milliseconds);
-	 var hascode = rssentries[entry].hashcode;
-	if(records[hascode]){
-
-
-		if(isNaN(records[hascode].avg_rating)||(records[hascode].avg_rating=='0')){
-			var avg_rating = '<span id="avg_'+record+'" > <i>Not Rated</i></span>';
-			var avg = '0';
-		}else{
-			var avg = records[hascode].avg_rating;
-			var avg_rating = '<span id="avg_'+record+'" ><a title="'+rating_titles[avg]+'" rel="tooltip" ><img border="0" src="' + getRatingImg(avg) + '"></a>&nbsp;('+records[hascode].num_ratings+')</span>';
-		}
-	}else{
-		var avg_rating = '<span id="avg_'+record+'" > <i>Not Rated</i></span>';
-			var avg = '0';
-
-	}
-
-		rec1+='<div class="section03"><div class="new_seach_section01"><div class="new_seach_section02"><input type="hidden" name="c_'+record+'" id="c_'+record+'" value="0" /><input type="hidden" id="tit_'+record+'" value="'+replacespecial(rssentries[entry].title)+'"><input type="hidden" id="desc_'+record+'" value="'+replacespecial(rssentries[entry].des)+'"><a href="'+rssentries[entry].url+'" class="a1">'+rssentries[entry].title+'</a><br>'+avg_rating+'<br/>'+rssentries[entry].des+'<br><span class="url_text"> '+rssentries[entry].dis_url+'</span></div></div><div class="new_seach_section03"><div class="new_seach_block01"><div class="float_right"><span class="text2"><a style="cursor: pointer;" onclick="showsavebox(\''+rssentries[entry].url+'\','+record+');" class="a1" href="javascript:clickme();">Save</a>&nbsp;|&nbsp;<a style="cursor: pointer;" onclick="showsharebox(\''+rssentries[entry].url+'\','+record+');" class="a1" href="javascript:clickme();">Share</a></span></div></div><div class="new_seach_block02">';
-	 
-		if(records[hascode]){
-			var num_com =records[hascode].num_comments;
-			rec1+='<input type="hidden" value="'+records[hascode].id+'" id="resentity_'+record+'" name="resentity_'+record+'" /><div class="float_left" >Your rating:</div><div class="float_left02" id="y_rate_'+record+'"  >';
-			
-	var	entity_id = records[hascode].id;
-var	my_rating = myratings[entity_id];
-
-if(my_rating)
-{
-		rec1+= '<img border="0" src="' + getRatingImg(my_rating) + '"  >';
-}else
-{
-
-			rec1 += '<ul class="star-rating "><li id="star_'+record+'" style="width:'+avg+'px;" class="current-rating"></li><li><a onclick="rateResource(\''+rssentries[entry].url+'\',1,'+record+');" class="one-star" title="Interesting" href="javascript:clickme();">1</a></li><li><a onclick="rateResource(\''+rssentries[entry].url+'\',2,'+record+');" class="two-stars" title="Useful" href="javascript:clickme();">2</a></li><li><a onclick="rateResource(\''+rssentries[entry].url+'\',3,'+record+');" class="three-stars" title="Must Read" href="javascript:clickme();">3</a></li></ul>';
-		
-		}
-			
-			rec1 += '</div><div class="float_left02">Comments: <span id="com_count_'+record+'" >'+num_com+'</span> | <a style="cursor: pointer;" onClick="showcommentbox(\''+rssentries[entry].url+'\','+record+');" class="a1" href="javascript:clickme();">Add</a></div><div class="float_left02"><a href="javascript:clickme();" onclick="return showbookbox(\''+rssentries[entry].url+'\','+record+');" ><img src="/images/icon_bookmark.gif" border="0" /></a></div><div class="clear"></div></div><div class="new_seach_block03"><div class="switchcontent" id="sc_'+record+'"></div><div class="switchcontent" id="folder_'+record+'"></div><div id="book_'+record+'" class="switchcontent"></div><div id="share_'+record+'" class="switchcontent"></div><div></div>';
-			if(num_com>0){
-				var comments =records[hascode].comments;
-				rec1+='<div id="comm_'+record+'" class="block_main03a">';
-				if(num_com>1){  
-				rec1+='<div align="right" class="show_all_comment_div"><a onclick="ToggleAllComments('+record+');" id="all_'+record+'" class="link" href="javascript:clickme();" >Hide All Comments</a></div>';
-				}
-			rec1+='<div class="commentator_block_main01"><div class="commentator_block01"><div class="float_left03"><a href="'+comments.profile_url+'"><img border="0" class="img_border02" src="'+records[hascode].com_user+'"></a></div><div class="float_left04">';
-		/*	if(comments.rating>0){
-			rec1+='<div class="float_right04"> <a title="1" rel="tooltip" href="javascript:clickme();">'+comments.rating+'</a></div>';
-			}else{
-			rec1 +='<div class="float_right04"> <i>Not Rated</i></div>';
-			}*/
-			var date_dis = getDispTxt( comments.time);
-
-			rec1+='<span class="header_text">'+comments.username+'</span><br><span class="text2">'+comments.comment+'</span></div><div class="float_right"><span class="text3">'+date_dis+'</span></div><div class="clear"></div></div></div>';
-			rec1+='<div id="comment_'+record+'"></div></div></div></div><div></div></div>'; 
-			}else{
-			rec1+='<div style="display: none;" id="comm_'+record+'" class="block_main03a"><div style="display: none;" id="comm_'+record+'" class="block_main03a"><div id="comment_'+record+'"></div></div></div></div></div><div></div></div>'; 
-			}
-
-
-		}else{
-			var num_com = 0;
-			rec1+='<input type="hidden" value="0" id="resentity_'+record+'" name="resentity_'+record+'" /><div class="float_left" >Your rating: </div><div class="float_left02" id="y_rate_'+record+'"  ><ul class="star-rating "><li id="star_'+record+'" style="width:'+avg+'px;" class="current-rating"></li><li><a onclick="rateResource(\''+rssentries[entry].url+'\',1,'+record+');" class="one-star" title="Interesting" href="javascript:clickme();">1</a></li><li><a onclick="rateResource(\''+rssentries[entry].url+'\',2,'+record+');" class="two-stars" title="Useful" href="javascript:clickme();">2</a></li><li><a onclick="rateResource(\''+rssentries[entry].url+'\',3,'+record+');" class="three-stars" title="Must Read" href="javascript:clickme();">3</a></li></ul></div><div class="float_left02">Comments: <span id="com_count_'+record+'" >'+num_com+'</span> | <a style="cursor: pointer;" onClick="showcommentbox(\''+rssentries[entry].url+'\','+record+');" class="a1" href="javascript:clickme();">Add</a></div><div class="float_left02"><a href="javascript:clickme();" onclick="return showbookbox(\''+rssentries[entry].url+'\','+record+');" ><img src="/images/icon_bookmark.gif" border="0" /></a></div><div class="clear"></div></div><div class="new_seach_block03"><div class="switchcontent" id="sc_'+record+'"></div><div class="switchcontent" id="folder_'+record+'"></div><div id="book_'+record+'" class="switchcontent"></div></div><div id="share_'+record+'" class="switchcontent"></div></div>';
-			rec1+='<div><div style="display: none;" id="comm_'+record+'" class="block_main03a"><div align="right" class="show_all_comment_div"><a onclick="ToggleAllComments('+record+');" id="all_'+record+'" class="link" href="javascript:clickme();" >Hide All Comments</a></div><div id="comment_'+record+'"></div></div></div></div></div><div></div></div>';      
-
-		}
-
-	}
-$("#results").append(rec1);
-$("#key").val(record);
-
-  if(moreLink){
-		targHtml = "<a href=\"javascript:clickme();\" onclick=\"showMoreSummary('" + moreLink + "',search1Js);\" >Show More Results</a>";
-    $("#more_results").html(targHtml);
-  }
-	else
-	{
-    $("#more_results").html('');
-	}
-
-}
 
 
 
@@ -1890,38 +1506,17 @@ function validatefeedurl(){
   document.s_form.submit();
 
   }
-function displaypaginate(id,pagescount) {
-			$("#"+id).paginate({
-				count 		: pagescount,
-				start 		: 1,
-				display     : 3,
-				border					: true,
-				border_color			: '#fff',
-				text_color  			: '#03638F',
-				background_color    	: '#fff',	
-				border_hover_color		: '#fff',
-				text_hover_color  		: '#444444',
-				background_hover_color	: '#fff', 
-				images					: false,
-				mouse					: 'press',
-				onChange     			: function(page){
-											$('._current','#paginationdemo').removeClass('_current').hide();
-											$('#p'+page).addClass('_current').show();
-										  }
-			});
-		}
-	
+
+
+/* The fieldMap can point to the page number, if it is not taken, we'll just make it 
+point to 'avail' */
+
+var fieldMap  = new Array();
+
 function drawFields(retData)
 {
 	$('#id_table_list').html('');
 
-	 for (var fname in retData)
-	 {
-//		 alert(fname);
-//		 alert(retData[fname]);
-	 }
-
-	 // alert(retData['fields']);
 
 
 	 for (var fname in retData['fields'])
@@ -1929,13 +1524,19 @@ function drawFields(retData)
 	 	rfname = retData['fields'][fname];
 		if(retData[rfname] ==null)
 			continue;
-//		alert(retData[rfname]);
-//		alert("Showwe name to");
 
 		targetOb = retData[rfname];
 
-		if(targetOb['type']  ==null)
+		if(targetOb['type']  == null)
 			continue;
+		if(targetOb['page'] != null)
+		{
+			fieldMap[rfname]	 = targetOb['page'];
+		}
+		else
+		{
+			fieldMap[rfname]	 = "avail";
+		}
 
 				newDiv = "<tr class='tr1'> <td class='td1'>"
 				+ rfname +
@@ -1943,7 +1544,6 @@ function drawFields(retData)
 				+ targetOb['type'] +
 				"</td> </tr> "
 
-//				alert(newDiv);
 				$('#id_table_list').append(newDiv);
 	 }
 }
@@ -2129,12 +1729,31 @@ function addDdFieldSubmit()
 }
 
 var pageArray = new Array() ;
+var pageRevArray = new Array() ;
+
+/* Send the action on the page after all */
+function getlampu(pageId)
+{
+	title = pageArray[pageId];
+	$('#page_title').html(title);
+	for(fieldName in fieldMap)
+	{
+		if(fieldMap[fieldName] == "avail")
+		{
+			$('#addf_select').append("<option value=\"" + fieldName + " \">  " + fieldName + " </option>");
+		}
+	}
+	$('.tf_center').hide();
+	$('#tf_each_page').show();
+}
+
 function showPages( retData )
 {
 	st = 0 ;
+	pageArray = retData['pages'];
 	for(var eachData in retData['pages'])
 	{
-		pageArray[retData['pages'][eachData]] = eachData;
+		pageRevArray[retData['pages'][eachData]] = eachData;
 		moreDa = "<div class='field0 left_delr' id='pagemain_" + st + "'> <a href='javascript:void(0)' onclick='getlampu(" + st + ")' > "
 			+ retData['pages'][eachData] + "</a> </div>"
 			st++;
