@@ -110,6 +110,8 @@ public class AddField extends HttpServlet
 			{
 					return getSet(bms, "misc", "fields", "list");
 			}
+
+
 			public Set<String> getSet(BaseCass bms,
 				String colFamily, String key, String colkey) throws Exception
 			{
@@ -243,6 +245,27 @@ public class AddField extends HttpServlet
 			}
 
 
+			public void gethtml(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
+			{
+				Set<String> inf = getPageList(bms);
+
+				String pageId = request.getParameter("pageId");
+
+				if(pageId  == null)
+				{
+					obj.put("message" , "You apparently did not pass on any pageId");
+					writeResponse(response, obj);
+					return;
+				}
+
+				Page thePage =  retrievePage(bms,pageId);
+
+				obj.put("html", thePage.getHtml(bms,null));
+
+				writeResponse(response, obj);
+				return;
+			}
+
 			/* Get a list of pageNames v/s pageIndex
 			pageIndex => fieldName => 
 			input_field => fieldName => 'page' => pageNumber
@@ -255,13 +278,11 @@ public class AddField extends HttpServlet
 				Set<String> inf = getPageList(bms);
 
 				String pageId = request.getParameter("pageId");
-				String index = request.getParameter("index");
 				String field = request.getParameter("field");
 				String type = request.getParameter("type");
 
 				System.out.println( "DOOD"
 				+ ":" + pageId  
-				+ ":" + index
 				+ ":" + field
 				+ ":" + type);
 
@@ -285,14 +306,11 @@ public class AddField extends HttpServlet
 					return;
 				}
 
-				String testmax = bms.getColData("pages", pageId, index);
-				int ind = Integer.parseInt(index);
-				while(testmax != null)
-				{
-					ind = ind+1;
-					testmax = bms.getColData("pages", pageId, ind + "");
-				}
-				bms.saveColumn("pages", pageId, index, bf.toString());
+				Page thePage = retrievePage(bms,pageId);
+
+				thePage.addField(bf);
+				savePage(bms,thePage,pageId);
+
 				if(type.equals("FieldData"))
 				{
 					Long pLong = Long.parseLong(pageId);
@@ -310,31 +328,51 @@ public class AddField extends HttpServlet
 				return;
 			}
 
-			public void removefrompage(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
+
+			public Page retrievePage(BaseCass bms, String pageId)
 			{
-				Set<String> inf = getPageList(bms);
+				Page thePage = null;
+				String pageBlob = bms.getColData("pages", pageId, "dummy");
+				if(pageBlob == null)
+				{
+						thePage = new Page();
+				}
+				else
+				{
+						thePage = new Page(pageBlob);
+				}
+				return thePage;
+			}
+
+				public void savePage(BaseCass bms, Page thePage, String pageId)
+				{
+					bms.saveColumn("pages", pageId, "dummy", thePage.toJSONString());
+				}
+
+			public synchronized void removefrompage(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
+			{
 
 				String pageId = request.getParameter("pageId");
 				String index = request.getParameter("index");
 
-				String pageDetail = bms.getColData("pages", pageId, index);
-
-				if(pageDetail == null)
+				Page thePage = retrievePage(bms, pageId);
+				int intParse =  Integer.parseInt(index);
+				BaseField bf = thePage.remove(intParse);
+				if(bf == null)
 				{
-					obj.put("message" , "Field not found in page");
+					obj.put("message" , "The field in question does not seem to exist ");
 					writeResponse(response, obj);
 					return;
 				}
-				JSONObject obuja = new JSONObject(pageDetail);
-				BaseField bf = BaseField.restoreToObject(obuja);
 				if(bf.getType().equals("FieldData"))
 				{
 					FieldData fd = (FieldData)bf;
 					bms.deleteKey("input_field", fd.getName(), "page");
 				}
-				bms.deleteKey("pages", pageId, index);
+				savePage(bms,thePage,pageId);
 				obj.put("message" , "Field successfully removed");
 				writeResponse(response, obj);
 				return;
 			}
 }
+

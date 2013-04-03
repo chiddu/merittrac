@@ -12,7 +12,7 @@ public class Page
 
 	/* Dummy constructor, for use in BaseField */
 
-	private LinkedHashSet<BaseField> m_baseList;
+	private ArrayList<BaseField> m_baseList;
 	private int pageId;
 	private String m_title;
 
@@ -29,8 +29,23 @@ public class Page
 	/* Duplicates are already discarded. */
 	public void addField(BaseField newf)
 	{
+		if(m_baseList == null)
+			m_baseList  = new ArrayList<BaseField>();
 		m_baseList.add(newf);
 	}
+
+	public Page(String inval)
+  {
+		try
+		{
+			JSONObject objRep = new JSONObject(inval);
+			this.loadDetails(objRep);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+  }
 
 	public Page(JSONObject objRep)
   {
@@ -41,6 +56,7 @@ public class Page
 	{
 		try
 		{
+			m_baseList  = new ArrayList<BaseField>();
 			Object parentObj = objRep.get("list");
 			if(parentObj != null)
 			{
@@ -73,6 +89,35 @@ public class Page
 		}
 		return "";
 	}
+
+
+	public BaseField remove(int i)
+	{
+		try
+		{
+			return  m_baseList.remove(i);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
+
+	public BaseField get(int i)
+	{
+		try
+		{
+			return  m_baseList.get(i);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
 	public JSONObject toJSONObject() throws JSONException
   {
     JSONObject  jsonRep = new JSONObject();

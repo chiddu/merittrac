@@ -72,8 +72,8 @@ public class FieldData extends BaseField
 	If there is a condition associated with this field, then
 	for the input value
 	*/
-	public String getHtml(BaseCass theBase, String inputId)
-	{
+public String getHtml(BaseCass theBase, String inputId)
+{
 	try
 	{
 		HashMap<String,String> cols = theBase.getColumns("input_field", m_fieldName);
@@ -120,6 +120,6 @@ public class FieldData extends BaseField
 	}
 	return "";
 
-	}
+}
 
 }
