@@ -77,7 +77,7 @@ public class Display extends BaseField
 		}
 
 		if(value == null)
-			value = "N/A";
+			value = "<em> User-defined </em>";
 		return "<div class='ct_display'> <div class='ct_fieldname'> "
 		+ m_fieldName + 		
 		"</div> <div class='ct_fieldvalue' > "

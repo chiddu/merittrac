@@ -104,8 +104,11 @@ public String getHtml(BaseCass theBase, String inputId)
 			for(int i = 0; i < len; i++)
 			{
 				String val = (String)arrata.get(i);
-				buff.append("<option id='>");
-				buff.append("' value='>");
+				buff.append("<option id='");
+				buff.append(val);
+				buff.append("' value='");
+				buff.append(val);
+				buff.append("' >");
 				buff.append(val);
 				buff.append("</option>");
 			}
