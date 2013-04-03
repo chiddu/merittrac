@@ -1,6 +1,5 @@
 /* CSS Document */
 
-body {margin:0px; bottom-margin:30px;}
 
 html {overflow-y: scroll;}
 
@@ -762,4 +761,13 @@ span.jPag-snext-img{
 .th1 {colspan:1}
 
 .tr1 {width:100%}
+/* These are the list of css files for the final solution */
 
+.ct_field {width:100%}
+.ct_fieldname {  float:left; width: 40%; text-align:center}
+.ct_fieldinput{  float:left; width: 60%; text-align:left}
+
+
+
+
+display:table-cell
