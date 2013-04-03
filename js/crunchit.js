@@ -62,201 +62,6 @@ inc++
 }
 }
 
-function expandcontent(curobj, cid){
-var spantags=curobj.getElementsByTagName("SPAN")
-var showstateobj=getElementbyClass(spantags, "showstate")
-if (ccollect.length>0){
-if (collapseprevious=="yes")
-contractcontent(cid);
-$('#'+cid).toggle("slow");
-//document.getElementById(cid).style.display=(document.getElementById(cid).style.display!="block")? "block" : "none"
-if (showstateobj.length>0){ //if "showstate" span exists in header
-if (collapseprevious=="no")
-showstateobj[0].innerHTML=(document.getElementById(cid).style.display=="block")? contractsymbol : expandsymbol
-else
-revivestatus()
-}
-}
-}
-
-function hideDiv(divid)
-{
-	myobj = $("#" + divid);
-	setTimeout( "myobj.hide(\'fast\')",5000);
-}
-
-function setRead(divid)
-{
-	myobj = $("#" + divid);
-	myobj.removeClass("header_text_link");
-	myobj.addClass("header_text_link_read");
-}
-
-function comments_display1(){
-  if(allcomments=="yes"){
-    $('.block_main02a').hide('slow');
-    $('#all_comments').html('Show Comments');
-    allcomments="no"
-  }else{
-    $('.block_main02a').show('slow');
-    $('#all_comments').html('Hide Comments');
-    allcomments="yes"
-  }
-}
-
-function comments_display(){
-  if(allcomments=="yes"){
-    $('.block_main03a').hide('slow');
-    $('#all_comments').html('Show Comments');
-    allcomments="no"
-  }else{
-    $('.block_main03a').show('slow');
-    $('#all_comments').html('Hide Comments');
-    allcomments="yes"
-  }
-}
-
-
-
-
-
-
-
-
-
-
-function clickme(){
-var ypos=window.pageYOffset;
-if(!ypos)
-  ypos=document.documentElement.scrollTop;
-var xpos=0;
- window.scrollTo(xpos,ypos);
-}
- var fol_id='';
- var comm_id='';
- var book_id='';
-var savetext='';
-var booktext='';
-var sharetext='';
-var sh_id='';
-
-
-function showsavebox(url,id, entity){
-  $('#target_id').val(id);
-  if(entity){
-    $('#entity_id').val(entity);
-  }
-  if(url){
-    $('#entity_url').val(url);
-  }
-
-  if(savetext==''){
-  savetext = $('#savetext').html();
-  $('#savetext').html('');
-  }
-
-  fol_id = displaycontent('folder',fol_id,id,savetext)
-
-}
-function showsharebox(url,id, entity){
-  $('#share_id').val(id);
-  if(entity){
-    $('#share_entity_id').val(entity);
-  }
-  if(url){
-    $('#share_url').val(url);
-  }
-  if(sharetext==''){
-  sharetext = $('#sharetext').html();
-  $('#sharetext').html('');
-  }
-
-  sh_id = displaycontent('share',sh_id,id,sharetext)
-  if(document.getElementById('share_notes')){
-  if (CKEDITOR.instances['share_notes']) {
-  CKEDITOR.remove(CKEDITOR.instances['share_notes']);
-  }
-  CKEDITOR.replace('share_notes');
-  }
-
-}
-
-var commtext = '';
-/* Removing entity since we already have it in another field 
-*/
-function showcommentbox(url,id)
-{
-  if(commtext==''){
-  commtext = $('#commtext').html();
-  $('#commtext').html('');
-
-  }
-
-
-  comm_id = displaycontent('sc',comm_id,id,commtext)
-  
-  $('#item_id').val(id);
-  $('#item_url').val(url);
-  
-  if(($('#resentity_'+id).val()=='')||($('#resentity_'+id).val()==0))
-	{
-    $('#entity').val(0);
-		entVal = 0;
-    $('#dis_groups').show();
-  }else
-	{
-
-    entVal = $('#resentity_'+id).val();
-    $('#entity').val(entVal);
-    $('#dis_groups').hide();
-  }
-
-
-  if(document.getElementById('textcontent')){
-  if (CKEDITOR.instances['textcontent']) {
-  CKEDITOR.remove(CKEDITOR.instances['textcontent']);
-  }
-  CKEDITOR.replace('textcontent');
-  }
-}
-function showbookbox(url,id ,entity){
-  if(booktext==''){
-  booktext = $('#booktext').html();
-  $('#booktext').html('');
-  }
-  book_id = displaycontent('book',book_id,id,booktext)
-  if(document.getElementById('book_url'))
-  {
-    document.getElementById('book_url').value = url;
-    document.getElementById('book_id').value  = id;
-  }
-  if((entity)&&(document.getElementById('book_entity')))
-  {
-    document.getElementById('book_entity').value  = entity;
-  }
-  
-}
-function displaycontent(source,fl_id,id,text){
-  if(fl_id==''){
-    fl_id = id;
-    $('#'+source+'_'+fl_id).html(text);
-    $('#'+source+'_'+fl_id).show("slow");   
-    
-  }else if(fl_id != id){
-    $('#'+source+'_'+fl_id).html('');
-    $('#'+source+'_'+fl_id).hide(1000);
-    fl_id = id;
-    $('#'+source+'_'+fl_id).html(text);
-    $('#'+source+'_'+fl_id).show("slow");   
-    
-  }else{
-  $('#'+source+'_'+fl_id).html('');
-  $('#'+source+'_'+fl_id).hide(1000);
-   fl_id=''
-  }
-  return fl_id;
-  
-}
 
 function saveBookmark(){
  var url = $('#book_url').val();
@@ -1428,14 +1233,14 @@ function getlampu(pageId)
 		if(fieldMap[fieldName] == "avail")
 		{
 			c1 = 1;
-			$('#addf_select').append("<option value=\"" + fieldName + " \">  " + fieldName + " </option>");
+			$('#addf_select').append("<option value=\"" + fieldName + "\" >  " + fieldName + " </option>");
 		}
 		else 
 		{
 			if(fieldMap[fieldName] < pageId)
 			{
 				c2 = 1;
-				$('#add_disp_select').append("<option value=\"" + fieldName + " \">  " + fieldName + " </option>");
+				$('#add_disp_select').append("<option value=\"" + fieldName + "\">  " + fieldName + " </option>");
 			}
 		}
 	}
@@ -1507,6 +1312,7 @@ function addFieldToPage()
 			'index' : index, 'pageId' : pageId, type : 'FieldData', field : fieldName  }, 
 			function(retData){
 			 alert(retData['message']);
+			 alert(retData['html']);
 		 if(retData['html'])
 			{
 				$('#mockup_top').append(retData['html']);

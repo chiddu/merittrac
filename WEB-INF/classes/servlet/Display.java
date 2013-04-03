@@ -23,7 +23,7 @@ public class Display extends BaseField
 	public Display(String fieldName)
 	{
 		super("Display");
-		m_fieldName = fieldName;
+		m_fieldName = fieldName.trim();
 	}
 
 	public BaseField createNew(JSONObject objRep)

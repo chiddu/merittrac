@@ -28,7 +28,7 @@ public class FieldData extends BaseField
 	public FieldData(String fieldName)
 	{
 		super("FieldData");
-		m_fieldName = fieldName;
+		m_fieldName = fieldName.trim();
 	}
 
 	public BaseField createNew(String instr)

@@ -259,6 +259,12 @@ public class AddField extends HttpServlet
 				String field = request.getParameter("field");
 				String type = request.getParameter("type");
 
+				System.out.println( "DOOD"
+				+ ":" + pageId  
+				+ ":" + index
+				+ ":" + field
+				+ ":" + type);
+
 				if(field  == null)
 				{
 					obj.put("message" , "You apparently did not pass on any field");
