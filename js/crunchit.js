@@ -351,7 +351,6 @@ function addParaToPage()
 		 'pageId' : pageId, type : 'Para', field : paraData }, 
 		function(retData){
 		 alert(retData['message']);
-		 alert(retData['html']);
 	 if(retData['html'])
 		{
 			$('#mockup_top').append(retData['html']);
@@ -361,19 +360,32 @@ function addParaToPage()
 	 $('#newpara').hide(1000);
 }
 
+function addDisplayToPage()
+{
+	fieldName = $('#add_disp_select').val();
+	pageId = $('#page_id').val();
+
+		jQuery.post("./addfield", {  'action' : 'addtopage',
+			 'pageId' : pageId, type : 'Display', field : fieldName  }, 
+			function(retData){
+			 alert(retData['message']);
+		 if(retData['html'])
+			{
+				$('#mockup_top').append(retData['html']);
+			}
+		},"json");
+
+}
+
 function addFieldToPage()
 {
 	fieldName = $('#addf_select').val();
 	pageId = $('#page_id').val();
-	index = indexMap[pageId];
-	if(!index)
-		index = '0'
 
 		jQuery.post("./addfield", {  'action' : 'addtopage',
-			'index' : index, 'pageId' : pageId, type : 'FieldData', field : fieldName  }, 
+			 'pageId' : pageId, type : 'FieldData', field : fieldName  }, 
 			function(retData){
 			 alert(retData['message']);
-			 alert(retData['html']);
 		 if(retData['html'])
 			{
 				$('#mockup_top').append(retData['html']);

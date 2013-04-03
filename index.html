@@ -6,9 +6,7 @@
 <link href="./css/crunchit.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="./js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./js/jquery-tooltips.js"></script>
-<script type="text/javascript" src="./js/tooltips.js"></script>
 <script src="./js/crunchit.js" type="text/javascript"></script><style type="text/css">.switchcontent{display:none;}</style>
-<script type="text/javascript" src="./js/ckeditor.js"></script>
 
 </head>
 
@@ -100,7 +98,7 @@ Add an item to the page.
 
 <tr class='tr1' id='b_adddisp_tr'>
 <td class='td1'> 
-<input type=button name=b_adddisp value='Display user-entered input' onclick='showFieldList()' class='b_addbutt'/>
+<input type=button name=b_adddisp value='Display user-entered input' onclick='addDisplayToPage()' class='b_addbutt'/>
 </td>
 <td class='td2'><select id='add_disp_select' name=add_disp_select class='add_disp_select'> </select>
 </td>
@@ -197,7 +195,8 @@ and a display
 <div class="clear"></div>
 <div class="clear"></div>
 <div class='tf_button'> 
-<input type=button name=b_addpara value='Add Paragraph' onclick='addParaToPage()' class='b_addbutt'/>
+<input type=button name=b_addpara value='Add Paragraph' onclick='addParaToPage()' class='b_addbutt'/> &nbsp; &nbsp;
+<input type=button name=b_cancel value='Cancel' onclick="$('#newpara').hide()" class='b_addbutt'/>
 </div>
 </div>
 <div class="tf_center tf_field" id='actual_page_demo' style='display:none' >
@@ -257,9 +256,7 @@ Add or modify a dropdown
 <div class="clear"></div>
 
 
-
 </div>
-
 
 
 <!-- End a list of huge set of divs for action in the center -->
@@ -267,98 +264,9 @@ Add or modify a dropdown
 </div>
 
 
-<div id="commtext" style="display:none">
-<div class="add_comment_block" id="comment_content">
-<div class="block1">
-<input type="hidden" name="item_id" id="item_id" value="">
-<input type="hidden" name="item_url" value="" id="item_url">
-<input type="hidden" name="entity" value="" id="entity">
-<input type="hidden" name="fsId" value="" id="fsId">
-<textarea cols="80" id="textcontent" name="textcontent" rows="2"></textarea>
-</div>
-<div id="dis_groups" style="display:none" class="open_blockfont">
-<strong>Select one or more groups you want to share your comment with:</strong><br>
-<input type="checkbox" name="group[]" id="group[]" value="5">first<input type="checkbox" name="group[]" id="group[]" value="7">group3<input type="checkbox" name="group[]" id="group[]" value="191">My Company<input type="checkbox" name="group[]" id="group[]" value="96">rankster<input type="checkbox" name="group[]" id="group[]" value="6">Real</div>
-<div class="open_block01"> <input type="checkbox" name="notify" value="1" id="notify"> &nbsp; Send this post by email </div>
-<div><input type="submit" value="Submit Comment" class="button_css01" id="1" onclick="return addcomment();">&nbsp;<input type="button" value="Cancel" class="button_css01" id="1" onclick="return showcommentbox();"></div></div>
-</div>
-
-<div id="booktext" style="display:none">
-<div class="div_open_block_outer">
-<input type="hidden" name="book_entity" id="book_entity">
- <input type="hidden" name="book_id" id="book_id"><input type="hidden" name="book_url" id="book_url">
-<div class="div_open_block_inner">
-<div class="open_block01"><strong>Bookmark this item:</strong></div>
-<div class="open_block01">
-<div class="open_block02">Enter your tag(s)</div>
-<div class="open_block03"><input name="book_key" id="book_key" type="text" class="bookmark_textbox"></div>
-<div class="clear"></div>
-</div>
-<div class="open_block01">
-<div class="open_block02"></div>
-<div class="open_block03"><input type="submit" value="Submit" class="button_css01" id="1" onclick="return saveBookmark();">&nbsp; <input type="button" value="Cancel" class="button_css01" id="1" onclick="return showbookbox();"></div>
-<div class="clear"></div>
-</div>
-</div>
-</div>
-</div>
-
-<div id="sharetext" style="display:none">
-<div class="div_open_block_outer">
-<input type="hidden" name="share_id" id="share_id">
-<input type="hidden" name="share_entity_id" id="share_entity_id">
-<input type="hidden" name="share_url" id="share_url">
-<div class="div_open_block_inner">
-<div class="open_block01">
-<strong>Select the groups you want to share this with:</strong>
-</div>
-
-<div class="open_blockfont">
-<div class="float_left07"><input type="checkbox" name="share_groups[]" id="share_groups[]" value="5">first</div>
-<div class="float_left07"><input type="checkbox" name="share_groups[]" id="share_groups[]" value="7">group3</div>
-<div class="float_left07"><input type="checkbox" name="share_groups[]" id="share_groups[]" value="191">My Company</div>
-<div class="float_left07"><input type="checkbox" name="share_groups[]" id="share_groups[]" value="96">rankster</div>
-<div class="float_left07"><input type="checkbox" name="share_groups[]" id="share_groups[]" value="6">Real</div>
-<div class="clear"></div>
-</div>
-<div class="open_block01">Enter your Comment</div>
-<div class="open_blockfont"><textarea cols="80" id="share_notes" name="share_notes" rows="2"></textarea></div>
-
-<div class="open_block01"> <input type="checkbox" name="share_notify" value="1" id="share_notify"> &nbsp; Send this post by email </div>
-<div class="open_block01"><input type="submit" value="Submit" class="button_css01" id="1" onclick="return shareresource();">&nbsp; <input type="button" value="Cancel" class="button_css01" id="1" onclick="return showsharebox();"></div>
-</div>
-</div>
-</div>
-
-
-<div id="savetext" style="display:none">
-<div class="div_open_block_outer">
-<input type="hidden" name="target_id" value="" id="target_id">
-<input type="hidden" name="entity_id" value="" id="entity_id">
-<input type="hidden" name="entity_url" value="" id="entity_url">
-<input type="hidden" name="savetofolder" value="1">
-<div class="div_open_block_inner">
-<div class="open_block01" id="folder_content"><strong>Save this item into the following folders:</strong><br>
-To save to an existing folder select the folder name from the list</div>
-<div class="open_block01"><select name="addfolder" id="addtofolder">
-<option value="0" selected="">Select Folder</option>
-<option value="29">first &gt; A simple folder </option>
-<option value="29">Real &gt; A simple folder </option>
-<option value="29">group3 &gt; A simple folder </option>
-</select></div>
-<div class="open_block01"><input type="submit" value="Submit" class="button_css01" id="1" onclick="return savetofolder()">&nbsp; <input type="button" value="Cancel" class="button_css01" id="1" onclick="return showsavebox();"></div>
-</div>
-</div>
-</div>
-
 </div>
 
 <div class="div_body_right_column" style='display:none'>
-<!-- This is the box, probably not needed -->
-<div class="right_column_placeholder" align="center" style="height:110px:display:none">
-
-
-</div>
 
 
 </div>
