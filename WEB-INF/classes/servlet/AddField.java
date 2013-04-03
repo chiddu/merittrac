@@ -62,6 +62,11 @@ public class AddField extends HttpServlet
 				addpage(bms, request,response, obj);
 				return;
 			}
+			else if(action.equalsIgnoreCase("gethtml"))
+			{
+				gethtml(bms, request,response, obj);
+				return;
+			}
 			else if(action.equalsIgnoreCase("listfields"))
 			{
 				listfields(bms,request,response, obj);

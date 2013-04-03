@@ -1251,7 +1251,20 @@ function getlampu(pageId)
 	}
 	else
 		$('#b_adddisp_tr').show();
-		
+
+
+	jQuery.ajaxSetup({async:false});
+	/* Now make the request to get the html and display it */
+		jQuery.post("./addfield", {  'action' : 'gethtml', 'pageId' : pageId }, 
+			function(retData){
+			if(retData['message'])
+			 alert(retData['message']);
+			{
+				$('#mockup_top').html(retData['html']);
+			}
+		},"json");
+
+
 	$('.tf_center').hide();
 	$('#tf_each_page').show();
 	$('#actual_page_demo').show();
