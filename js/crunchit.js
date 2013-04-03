@@ -1276,7 +1276,7 @@ function showPages( retData )
 
 function refreshPages()
 {
-	if(fieldMap)
+	if(fieldMap && (fieldMap.length > 0))
 	{
 		jQuery.post("./addfield", {  'action' : 'listpages' }, 
 			function(retData){
@@ -1292,6 +1292,7 @@ function refreshPages()
 			function(retData){
 			// alert(retData['message']);
 			{
+				drawFields(retData, true);	
 				showPages(retData);
 			}
 		},"json");
