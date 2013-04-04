@@ -51,6 +51,7 @@ onclick='addfield()' >Add Field</a>
 </div>
 
 
+
 <div class="left_blocks">
 <div class="left_blocks_links" id='lf_addpage' ><a href="javascript:void(0)" onclick=addPage() rel="tooltip" title="Add Page">
 <strong>Add Page</strong>&nbsp;<img src="./images/arrow02.gif" class="arrow_link_open"></a>
@@ -74,7 +75,6 @@ onclick='addfield()' >Add Field</a>
 <!-- Begin a list of huge set of divs for action in the center -->
 
 <div class="tf_center" id='tf_each_page' style='display:none' >
-Add an item to the page.
 <div class="clear"></div>
 <div id='page_title'> </div>
 <div id='id_field_list0' class='section02'>  
@@ -103,6 +103,15 @@ Add an item to the page.
 <td class='td2'><select id='add_disp_select' name=add_disp_select class='add_disp_select'> </select>
 </td>
 </tr>
+
+<tr class='tr1' id='b_addcondition'>
+<td class='td1'> 
+<input type=button name=b_addcond value='Add Condition' onclick='addCondition()' class='b_addbutt'/>
+</td>
+<td class='td2'>&nbsp;
+</td>
+</tr>
+
 
 
 </table>
@@ -133,27 +142,6 @@ These are the current list of fields
 
 
 
-<div class="tf_center" id='tf_addcondition' style='display:block' >
-Create a conditional input out here 
-<hr>
-<div class='float_left04' >
-<select id='condition_select' class='addf_select' >
-</select>
-</div>
-</div>
-<div class="clear"></div>
-<div class="clear"></div>
-<div>
-<div class='float_left03'> &nbsp; </div>
-<div class='float_left03'>
-<input type="submit" value="Submit" class="button_css01" onclick="return addConditionSubmit();"/>
-</div>
-</div>
-</div>
-<div class="clear"></div>
-<div class="clear"></div>
-
-</div>
 
 <div class="tf_center" id='tf_addpage' style='display:none' >
 Please specify the name of the page
@@ -220,10 +208,64 @@ and a display
 <input type=button name=b_cancel value='Cancel' onclick="$('#newpara').hide()" class='b_addbutt'/>
 </div>
 </div>
+<!--    Area for adding a condition       -->
+<div class="tf_center tf_field" id='newcondition' style='display:none' >
+<div>
+<table>
+
+<tr class='tr1' >
+<td class='td1'>
+Select the input field
+</td>
+<td class='td2'>
+<select multiple id=sel_input_name > <select>
+</td> 
+</tr>
+
+<tr class='tr1' >
+<td class='td1'>
+Select the input values
+</td>
+<td class='td2'>
+<select multiple id=sel_input_vals > <select>
+</td> 
+</tr>
+
+<tr class='tr1' >
+<td class='td1'>
+Select the output field
+</td>
+<td class='td2'>
+<select multiple id=sel_output_name > <select>
+</td> 
+</tr>
+
+<tr class='tr1' >
+<td class='td1'>
+Select the possible values
+</td>
+<td class='td2'>
+<select multiple id=sel_output_vals > <select>
+</td> 
+</tr>
+
+</table>
+</div>
+<div class="clear"></div>
+<div class="clear"></div>
+<div class='tf_button'> 
+<input type=button name=b_addpara value='Add Condition' onclick='addConditionSubmit()' class='b_addbutt'/> &nbsp; &nbsp;
+<input type=button name=b_cancel value='Cancel' onclick="$('#newcondition').hide()" class='b_addbutt'/>
+</div>
+</div>
+
+
+
 <div class="tf_center tf_field" id='actual_page_demo' style='display:none' >
 <div><strong><em>
-This is a preview of the actual page 
+This is a non-visual preview of the actual page 
 </em></strong> </div>
+<div> <hr></div>
 <div class="clear"></div>
 <div class="clear"></div>
 <div class="clear"></div>

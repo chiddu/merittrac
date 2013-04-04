@@ -264,10 +264,14 @@ function getlampu(pageId)
 	if(c2  != 1)
 	{
 		$('#b_adddisp_tr').hide();
+		$('#b_addcondition').hide();
 		
 	}
 	else
+	{
 		$('#b_adddisp_tr').show();
+		$('#b_addcondition').show();
+	}
 
 
 	jQuery.ajaxSetup({async:false});
