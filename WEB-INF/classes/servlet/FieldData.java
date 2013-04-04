@@ -86,8 +86,16 @@ public String getHtml(BaseCass theBase, String inputId)
 
 		if(type.equals("text"))
 		{
+			if(value != null)
+			{
 			return "<div class='ct_field'> <div class='ct_fieldname'> "
 			+ m_fieldName + 	"</div> <div class='ct_fieldinput' > <input type=text name='" + m_fieldName + "' value='" +  value + "'> </input></div> </div>";
+			}
+			else
+			{
+			return "<div class='ct_field'> <div class='ct_fieldname'> "
+			+ m_fieldName + 	"</div> <div class='ct_fieldinput' > <input type=text name='" + m_fieldName + "' > </input></div> </div>";
+			}
 			
 		}
 		else  /* Its basically a drop down */

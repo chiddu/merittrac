@@ -46,13 +46,13 @@ import basic.*;
 public class CassUtils
 {
 
-	public ArrayList<String> getPageList(BaseCass bms) throws Exception
+	public static ArrayList<String> getPageList(BaseCass bms) throws Exception
 	{
 			return getArr(bms, "misc", "pages", "list");
 	}
 
 
-	public ArrayList<String> getArr(BaseCass bms,
+	public static ArrayList<String> getArr(BaseCass bms,
 		String colFamily, String key, String colkey) throws Exception
 	{
 		String instr = bms.getColData(colFamily, key,colkey);

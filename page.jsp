@@ -32,10 +32,9 @@ main should be dividied into 3 parts.
 <form method=post>
 <div class="error_display" >
 </div>
-
-
-
-
+<div class="mid_form">
+<%= huhahtml %>
+</div>
 <div class="bottom_submit> 
 <div class="float_left" > 
 <% if(pageNo != 0)

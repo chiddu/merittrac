@@ -56,5 +56,7 @@ Page targetPage = new Page(pageData);
 
 int pageMax = pages.size();
 
+String huhahtml = targetPage.getHtml(bms , email);
+
 %>
 <%@ include file="page.jsp" %>
