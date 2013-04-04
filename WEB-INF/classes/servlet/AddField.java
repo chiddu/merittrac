@@ -166,7 +166,6 @@ public class AddField extends HttpServlet
 				String cond1  = request.getParameter("values1");
 				String outcome1 = request.getParameter("values2");
 				String name = request.getParameter("name");
-
 				JSONArray condArr = new JSONArray(cond1);
 				JSONArray outArr = new JSONArray(outcome1);
 				JSONObject obuja = new JSONObject();
