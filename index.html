@@ -217,17 +217,16 @@ and a display
 <div class="tf_center tf_field" id='newcondition' style='display:none' >
 <div>
 <table>
-
-<tr class='tr1' >
+<tr class='tr1 cond_row' id='tr_input_row'>
 <td class='td1'>
 Select the input field
 </td>
 <td class='td2'>
-<select multiple id=sel_input_name > <select>
+<select id=sel_input_name onChange='populateInputVals()'> <select>
 </td> 
 </tr>
 
-<tr class='tr1' >
+<tr class='tr1 cond_row' id='tr_input_vals' >
 <td class='td1'>
 Select the input values
 </td>
@@ -236,16 +235,16 @@ Select the input values
 </td> 
 </tr>
 
-<tr class='tr1' >
+<tr class='tr1 cond_row' id='tr_output_name' >
 <td class='td1'>
 Select the output field
 </td>
 <td class='td2'>
-<select multiple id=sel_output_name > <select>
+<select id='sel_output_name' > <select>
 </td> 
 </tr>
 
-<tr class='tr1' >
+<tr class='tr1 cond_row' >
 <td class='td1'>
 Select the possible values
 </td>
@@ -258,7 +257,7 @@ Select the possible values
 </div>
 <div class="clear"></div>
 <div class="clear"></div>
-<div class='tf_button'> 
+<div class='tf_button' id='condition_bottom' style='display:none' > 
 <input type=button name=b_addpara value='Add Condition' onclick='addConditionSubmit()' class='b_addbutt'/> &nbsp; &nbsp;
 <input type=button name=b_cancel value='Cancel' onclick="$('#newcondition').hide()" class='b_addbutt'/>
 </div>

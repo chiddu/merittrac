@@ -9,6 +9,8 @@ var dropdowns = new Array();
 var optionMap = new Array();
 var currentOption = 0;
 
+var dd_values =  new Array();
+
 
 function drawFields(retData, noDraw)
 {
@@ -27,6 +29,7 @@ function drawFields(retData, noDraw)
 		if(targetOb['type']  == 'dropdown')
 		{
 			dropdowns[rfname] = 1;
+			dd_values[rfname] = targetOb['values'];
 		}
 		if(targetOb['page'] != null)
 		{
@@ -430,24 +433,57 @@ function addFieldToPage()
 	$('#option_' + opval).remove();
 }
 
+function flipit(inarr)
+{
+	aka = new Array();
+	for(eone in inarr)
+	{
+		aka[inarr[eone]] = inarr[eone];
+	}
+	return aka;
+}
+
 function addCondition()
 {
+	listfields(true);
 	$('.tf_center').hide();
-	fieldName = $('#addf_select').val();
-	pageId = $('#page_id').val();
+	$('.cond_row').hide();
+	$('#sel_input_name').html('');
 
-		jQuery.post("./addfield", {  'action' : 'addtopage',
-			 'pageId' : pageId, type : 'FieldData', field : fieldName  }, 
-			function(retData){
-			 alert(retData['message']);
-		 if(retData['html'])
-			{
-				$('#mockup_top').append(retData['html']);
-			}
-		},"json");
-
-
-	opval = optionMap[fieldName];
-	fieldMap[fieldName] = $('#page_id').val();
-	$('#option_' + opval).remove();
+	lenwa = flipit(dropdowns).length;
+	if(lenwa <  2)
+	{
+		alert("You need at least two drop downs to set a conditional value assignment, in this demo");
+		return;
+	}
+	$('#sel_input_name').append("<option selected value=''></option>");
+	for(fieldName in dropdowns)
+	{
+		$('#sel_input_name').append("<option value='" + fieldName + "'>"+fieldName + "</option>");
+	}
+	$('#tr_input_row').show();
+	$('#newcondition').show(200);
 }
+
+function populateInputVals()
+{
+	selVal = $('#sel_input_name').val();
+	$('#sel_input_vals').html('');
+	opts = eval(dd_values[selVal]);
+	for(val in opts)
+	{
+		$('#sel_input_vals').append("<option value='" + opts[val] +
+			"' >" + opts[val] + "</option>");
+	}
+	$('#sel_output_name').html('');
+	for(fieldName in dropdowns)
+	{
+		if(fieldName != selVal)
+			$('#sel_output_name').append("<option value='" + fieldName + "'>"+fieldName + "</option>");
+	}
+
+	$('#tr_input_vals').show();
+	$('#tr_output_name').show();
+	
+}
+
