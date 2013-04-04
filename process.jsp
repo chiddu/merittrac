@@ -91,7 +91,6 @@ else
 
 	}
 }
-String pageTitle = pages.get(pageNo);
 
 
 if(pageMax > pageNo)
@@ -101,6 +100,7 @@ if(pageMax > pageNo)
 		targetPage  = CassUtils.getPage(bms, pageNo);	
 	}
 	String huhahtml = targetPage.getHtml(bms , email);
+	String pageTitle = pages.get(pageNo);
 %>
 <%@ include file="page.jsp" %>
 <%
