@@ -127,7 +127,7 @@ public String getHtml(BaseCass theBase, String inputId)
 				buff.append("' value='");
 				buff.append(val);
 				buff.append("' ");
-				if(value.equals(val))
+				if((value != null) && value.equals(val))
 				{
 				buff.append("selected");
 				}

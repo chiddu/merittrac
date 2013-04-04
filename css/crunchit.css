@@ -767,6 +767,10 @@ span.jPag-snext-img{
 .ct_fieldname {  float:left; width: 40%; text-align:center}
 .ct_fieldinput{  float:left; width: 60%; text-align:left}
 
+.bottom_submit {width:100%}
+.bottom_left {  float:left; width: 40%; text-align:center}
+.bottom_right{  float:left; width: 60%; text-align:left}
+
 
 
 

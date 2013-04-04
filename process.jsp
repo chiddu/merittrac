@@ -52,15 +52,16 @@ if((submitVal != null) && submitVal.equals("Submit"))
 	for( String eachField : fields )
 	{
 		String exVal = request.getParameter(eachField);
-		if(exVal != null)
+		if(!MtxUtil.isEmpty(exVal))
 		{
 			bms.saveColumn("user_input", email, eachField, exVal);
 		}
 		else
 		{
-			errorMsgs.add(eachField + " needs to have a valid input");
+			errorMsgs.add(eachField + " does not have a valid input");
 		}
 	}
+
 	if(errorMsgs.size() == 0)
 	{
 			bms.saveColumn("user_pages", email, pageNo + "" , System.currentTimeMillis() + "");
@@ -113,4 +114,5 @@ else
 <%@ include file="thankyou.jsp" %>
 <%
 }
+bms.close();
 %>

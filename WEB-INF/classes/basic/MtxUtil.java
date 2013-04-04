@@ -530,4 +530,13 @@ public static String debugDate(long inda)
 		 String tmpUid =  UUID.randomUUID().toString();
 		 return tmpUid;
 	}
+
+	public static boolean isEmpty(String in)
+	{
+		if(in == null)
+			return true;
+		if(in.trim().equals(""))
+			return true;
+		return false;
+	}
 }
