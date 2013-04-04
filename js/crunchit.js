@@ -495,12 +495,15 @@ function addConditionSubmit()
 	field1 = $('#sel_input_name').val();
 	field2 = $('#sel_output_name').val();
 
-	cond1 = $('#sel_input_vals').val();
-	outcome = $('#sel_output_vals').val();
-	name = 
-	alert("LEFT IT HERE");
+	values1 = $('#sel_input_vals').val();
+	values2 = $('#sel_output_vals').val();
+	name = $('#cond_name').val();
 
-	jQuery.post("./addfield", { 'type' : 'text', 'name' : dataString['name'], 'action' : 'addcondition' }, 
+	o_values1 = JSON.stringify(values1);
+	o_values2 = JSON.stringify(values2);
+
+	jQuery.post("./addfield", { 'field1' : field1, 'name' : name, 'values1': o_values1,  'action' : 'addcondition' ,
+		'values2' : o_values2 , 'field2' : field2 }, 
 		function(retData){
 		alert(retData['message']);
 		if(retData['action'])

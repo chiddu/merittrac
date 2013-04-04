@@ -14,15 +14,15 @@ create column family  misc with  comparator = UTF8Type ;
 assume misc keys as utf8;
 assume misc validator as utf8;
 
-create column family  condition with  comparator = UTF8Type ;
+create column family condition with  comparator = UTF8Type ;
 assume condition keys as utf8;
 assume condition validator as utf8;
 
 create column family  user_input with  comparator = UTF8Type ;
-assume condition keys as utf8;
-assume condition validator as utf8;
+assume user_input keys as utf8;
+assume user_input validator as utf8;
 
 create column family  user_pages with  comparator = UTF8Type ;
-assume condition keys as utf8;
-assume condition validator as utf8;
+assume user_pages keys as utf8;
+assume user_pages validator as utf8;
 
