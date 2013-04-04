@@ -240,26 +240,38 @@ Select the input values
 Select the output field
 </td>
 <td class='td2'>
-<select id='sel_output_name' > <select>
+<select id='sel_output_name' onChange='populateOutputVals()' > <select>
 </td> 
 </tr>
 
-<tr class='tr1 cond_row' >
+<tr class='tr1 cond_row' id='tr_output_vals' >
 <td class='td1'>
 Select the possible values
 </td>
 <td class='td2'>
-<select multiple id=sel_output_vals > <select>
+<select multiple id='sel_output_vals' > <select>
+</td> 
+</tr>
+
+<tr class='tr1 cond_row' id='tr_cond_name' >
+<td class='td1'>
+Name this condition : 
+</td>
+<td class='td2'>
+<input type=text id='cond_name'> </input>
+</td> 
+</tr>
+
+<tr class='tr1 cond_row' id='tr_cond_submit' >
+<td class='td1'>
+<input type=button name=b_addpara value='Add Condition' onclick='addConditionSubmit()' class='b_addbutt'/> 
+</td>
+<td class='td2'>
+<input type=button name=b_cancel value='Cancel' onclick="$('#newcondition').hide()" class='b_addbutt'/>
 </td> 
 </tr>
 
 </table>
-</div>
-<div class="clear"></div>
-<div class="clear"></div>
-<div class='tf_button' id='condition_bottom' style='display:none' > 
-<input type=button name=b_addpara value='Add Condition' onclick='addConditionSubmit()' class='b_addbutt'/> &nbsp; &nbsp;
-<input type=button name=b_cancel value='Cancel' onclick="$('#newcondition').hide()" class='b_addbutt'/>
 </div>
 </div>
 

@@ -476,6 +476,7 @@ function populateInputVals()
 			"' >" + opts[val] + "</option>");
 	}
 	$('#sel_output_name').html('');
+	$('#sel_output_name').append("<option selected value=''></option>");
 	for(fieldName in dropdowns)
 	{
 		if(fieldName != selVal)
@@ -484,6 +485,32 @@ function populateInputVals()
 
 	$('#tr_input_vals').show();
 	$('#tr_output_name').show();
+	
+}
+
+/* Send the condition to the server 
+Add to the conditions list straightaway */
+function addConditionSubmit()
+{
+	alert("Get this done");
+}
+
+function populateOutputVals()
+{
+	selVal = $('#sel_output_name').val();
+	$('#sel_output_vals').html('');
+
+	opts = eval(dd_values[selVal]);
+	for(val in opts)
+	{
+
+		$('#sel_output_vals').append("<option value='" + opts[val] +
+			"' >" + opts[val] + "</option>");
+	}
+
+	$('#tr_output_vals').show();
+	$('#tr_cond_name').show();
+	$('#tr_cond_submit').show();
 	
 }
 
