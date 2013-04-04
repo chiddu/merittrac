@@ -327,6 +327,7 @@ function refreshPages()
 			}
 		},"json");
 	}
+	$('#lf_pageList').toggle();
 
 }
 jQuery.ajaxSetup({async:false});
