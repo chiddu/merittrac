@@ -4,8 +4,11 @@ point to 'avail' */
 var fieldMap  = new Array();
 var indexMap = new Array();
 
+var dropdowns = new Array();
+
 var optionMap = new Array();
 var currentOption = 0;
+
 
 function drawFields(retData, noDraw)
 {
@@ -21,6 +24,10 @@ function drawFields(retData, noDraw)
 
 		if(targetOb['type']  == null)
 			continue;
+		if(targetOb['type']  == 'dropdown')
+		{
+			dropdowns[rfname] = 1;
+		}
 		if(targetOb['page'] != null)
 		{
 			fieldMap[rfname]	 = targetOb['page'];
@@ -384,6 +391,48 @@ function addDisplayToPage()
 
 function addFieldToPage()
 {
+	fieldName = $('#addf_select').val();
+	pageId = $('#page_id').val();
+
+		jQuery.post("./addfield", {  'action' : 'addtopage',
+			 'pageId' : pageId, type : 'FieldData', field : fieldName  }, 
+			function(retData){
+			 alert(retData['message']);
+		 if(retData['html'])
+			{
+				$('#mockup_top').append(retData['html']);
+			}
+		},"json");
+
+
+	opval = optionMap[fieldName];
+	fieldMap[fieldName] = $('#page_id').val();
+	$('#option_' + opval).remove();
+}
+function addFieldToPage()
+{
+	fieldName = $('#addf_select').val();
+	pageId = $('#page_id').val();
+
+		jQuery.post("./addfield", {  'action' : 'addtopage',
+			 'pageId' : pageId, type : 'FieldData', field : fieldName  }, 
+			function(retData){
+			 alert(retData['message']);
+		 if(retData['html'])
+			{
+				$('#mockup_top').append(retData['html']);
+			}
+		},"json");
+
+
+	opval = optionMap[fieldName];
+	fieldMap[fieldName] = $('#page_id').val();
+	$('#option_' + opval).remove();
+}
+
+function addCondition()
+{
+	$('.tf_center').hide();
 	fieldName = $('#addf_select').val();
 	pageId = $('#page_id').val();
 
