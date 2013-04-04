@@ -57,6 +57,11 @@ public class AddField extends HttpServlet
 				addfield(bms, request,response, obj);
 				return;
 			}
+			else if(action.equalsIgnoreCase("addcondition"))
+			{
+				addcondition(bms, request,response, obj);
+				return;
+			}
 			else if(action.equalsIgnoreCase("addpage"))
 			{
 				addpage(bms, request,response, obj);
@@ -80,11 +85,6 @@ public class AddField extends HttpServlet
 			else if(action.equalsIgnoreCase("removefrompage"))
 			{
 				removefrompage(bms, request,response, obj);
-				return;
-			}
-			else if(action.equalsIgnoreCase("addcondition"))
-			{
-				// addcondition(request,response, obj);
 				return;
 			}
 			else if(action.equalsIgnoreCase("listpages"))
@@ -139,6 +139,46 @@ public class AddField extends HttpServlet
 			public Set<String> getPageList(BaseCass bms) throws Exception
 			{
 				return getSet(bms, "misc", "pages", "list");
+			}
+
+
+			public void removecondition(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
+			{
+				String name = request.getParameter("name");
+				HashMap<String,String> conditions = bms.getColumns("condition",name);
+
+				Set<String> keys = conditions.keySet();
+
+				for(String eachkey : keys)
+				{
+					bms.deleteKey("condition", eachkey, name);
+					bms.deleteKey("condition", name, eachkey);
+				}
+				obj.put("result", "success");
+				writeResponse(response,obj);
+				return;
+			}
+
+			public void addcondition(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
+			{
+				String field1 = request.getParameter("field1");
+				String field2 = request.getParameter("field2");
+				String cond1  = request.getParameter("values1");
+				String outcome1 = request.getParameter("values2");
+				String name = request.getParameter("name");
+
+				JSONArray condArr = new JSONArray(cond1);
+				JSONArray outArr = new JSONArray(outcome1);
+				JSONObject obuja = new JSONObject();
+				obuja.put(field1,condArr);
+				obuja.put("a1b2c3", outArr);
+
+				bms.saveColumn("condition", field2, name , obuja.toString());
+				bms.saveColumn("condition", name, field2 , obuja.toString());
+
+				obj.put("message", "The conditional rule has been added to the database");
+				writeResponse(response,obj);
+				return;
 			}
 
 			public void addfield(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
@@ -225,6 +265,23 @@ public class AddField extends HttpServlet
 				{
 					listfields(bms, request, response, obj, true);
 				}
+
+			public void listconditions(BaseCass bms, HttpServletRequest request, 
+				HttpServletResponse response, JSONObject obj, boolean toWrite) throws Exception
+			{
+				Set<String> inf = getFieldList(bms);
+				for(String eachfield : inf)
+				{
+					HashMap<String,String> samo = bms.getColumns("condition",eachfield);
+					Set<String> keySet = samo.keySet();
+					for(String key : keySet)
+					{
+						obj.put(key,samo.get(key));
+					}
+				}
+				writeResponse(response, obj);
+				return;
+			}
 
 			public void listfields(BaseCass bms, HttpServletRequest request, 
 				HttpServletResponse response, JSONObject obj, boolean toWrite) throws Exception
