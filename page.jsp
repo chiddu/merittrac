@@ -29,7 +29,8 @@ main should be dividied into 3 parts.
 4) Botton: Focus the input to the page
 --%>
 <div class="mid_main3">
-<form method=post>
+<form method=post action="process.jsp" >
+<input type=hidden name=pageNo value='<%= pageNo %>' />
 <div class="error_display" >
 </div>
 <div class="mid_form">
@@ -42,7 +43,7 @@ main should be dividied into 3 parts.
 {
 int prevPage = pageNo - 1;
 %>
-<a href='process.jsp?page=<%= prevPage %>' >
+<a href='process.jsp?pageNo=<%= prevPage %>' >
 <input type=button name=prev_butt value='<< Previous' onclick="window.location.href=process.jsp?pageNo=<%= prevPage %>" class='fin_button'/>
 </a>
 <%

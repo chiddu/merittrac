@@ -12,7 +12,7 @@ Password : <input type=password name=password> <br>
 </div>
 
 <div class="float_left" >
-<input type=Submit name=submit value='Submit' class='fin_button'/>
+<input type=Submit name=Login value='Submit' class='fin_button'/>
 </div>
 </form>
 </body>
