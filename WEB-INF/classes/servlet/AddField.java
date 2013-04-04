@@ -98,6 +98,11 @@ public class AddField extends HttpServlet
 				listpages(bms, request,response, obj);
 				return;
 			}
+			else if(action.equalsIgnoreCase("showall"))
+			{
+				showall(bms,request,response, obj);
+				return;
+			}
 		}
 		catch(Exception ex)
 		{
@@ -333,6 +338,14 @@ public class AddField extends HttpServlet
 				return;
 			}
 
+			public void showall(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
+			{
+				String query = "select * from user_input ";
+				HashMap<String, HashMap<String,String>> bc = bms.getTwoDimKey("select * from user_input ");
+				obj.put("all", bc);
+				writeResponse(response, obj);
+				return;
+			}
 
 			public Page retrievePage(BaseCass bms, String pageId)
 			{

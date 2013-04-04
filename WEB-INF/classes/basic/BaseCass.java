@@ -41,7 +41,6 @@ public class BaseCass
 		org.apache.log4j.Logger.getLogger(BaseCass.class);
 
 
-
 	TTransport m_transport ;
 	TProtocol m_protocol ;
 	Cassandra.Client m_client ;
@@ -389,6 +388,7 @@ public HashMap<String,String>
 {
 	return getColumns(colFamily, key,null);
 }
+
 public synchronized HashMap<String,String> 
 	getColumns(String colFamily, String key, Set<String> longs ) throws Exception
 {
@@ -425,5 +425,45 @@ public synchronized HashMap<String,String>
 	}
 	return aurek;
 }
+
+public HashMap<String,HashMap<String,String>>  getTwoDimKey(String query)
+{
+
+  HashMap<String,HashMap<String,String>>  gora =  new HashMap<String,HashMap<String,String>>();
+
+  try
+  {
+    CqlResult result = executeQuery(query);
+    for (CqlRow row : result.getRows())
+    {
+      byte[] rowKey  = row.getKey();
+      String key = MtxUtil.bb_to_str(rowKey);
+      HashMap<String,String> abcde = gora.get(key);
+      if(abcde == null)
+      {
+        abcde =  new HashMap<String,String>();
+        gora.put(key,abcde);
+      }
+
+      List<Column> cols = row.getColumns();
+      for(Column eachCol : cols)
+      {
+        String valueId  =  MtxUtil.bb_to_str(eachCol.getName());
+        String value  =  MtxUtil.bb_to_str(eachCol.value);
+				if(valueId.equals("KEY"))
+					continue;
+        abcde.put(valueId,value);
+      }
+
+    }
+  }
+  catch(Exception ex)
+  {
+    ex.printStackTrace();
+  }
+  return gora;
+}
+
+
 
 }
