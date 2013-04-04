@@ -2,8 +2,7 @@ create keyspace merittrac;
 
 use merittrac;
 
-create column family input_field with comparator = UTF8Type and column_metadata = [ { column_name : page, validation_class : UTF8Type , index_type : KEYS} ];
-
+create column family input_field with comparator = UTF8Type and column_metadata = [ { column_name : page, validation_class : UTF8Type , index_type : KEYS}, { column_name : type, validation_class : UTF8Type , index_type : KEYS} ]; 
 assume input_field keys as utf8;
 assume input_field validator as utf8;
 
@@ -23,6 +22,7 @@ create column family  user_input with  comparator = UTF8Type ;
 assume condition keys as utf8;
 assume condition validator as utf8;
 
-
-
+create column family  user_pages with  comparator = UTF8Type ;
+assume condition keys as utf8;
+assume condition validator as utf8;
 
