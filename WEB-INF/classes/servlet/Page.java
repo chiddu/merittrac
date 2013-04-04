@@ -20,6 +20,16 @@ public class Page
 	{
 	}
 
+	public ArrayList<String> getFieldList()
+	{
+		ArrayList<String> list2 = new ArrayList<String>();
+		for(BaseField bsf : m_baseList)
+		{
+			if(bsf.getType().equals("FieldData"))
+			list2.add( ((FieldData)bsf).getName());
+		}
+		return list2;
+	}
 	public Page(int pId, String title)
 	{
 		pageId  = pId;

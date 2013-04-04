@@ -77,11 +77,17 @@ public String getHtml(BaseCass theBase, String inputId)
 	try
 	{
 		HashMap<String,String> cols = theBase.getColumns("input_field", m_fieldName);
+		String value = null;
+		if(inputId != null)	
+		{
+			value = theBase.getColData("user_input", inputId, m_fieldName);
+		}
 		String type = cols.get("type");
+
 		if(type.equals("text"))
 		{
 			return "<div class='ct_field'> <div class='ct_fieldname'> "
-			+ m_fieldName + 	"</div> <div class='ct_fieldinput' > <input type=text name='" + m_fieldName + "' > </input></div> </div>";
+			+ m_fieldName + 	"</div> <div class='ct_fieldinput' > <input type=text name='" + m_fieldName + "' value='" +  value + "'> </input></div> </div>";
 			
 		}
 		else  /* Its basically a drop down */
@@ -100,6 +106,10 @@ public String getHtml(BaseCass theBase, String inputId)
 			String values = cols.get("values");
 			JSONArray arrata = new JSONArray(values);
 
+
+			if(value == null)
+				buff.append("<option value='' selected ></option>");
+
 			int len = arrata.length();
 			for(int i = 0; i < len; i++)
 			{
@@ -108,7 +118,12 @@ public String getHtml(BaseCass theBase, String inputId)
 				buff.append(val);
 				buff.append("' value='");
 				buff.append(val);
-				buff.append("' >");
+				buff.append("' ");
+				if(value.equals(val))
+				{
+				buff.append("selected");
+				}
+				buff.append(" >");
 				buff.append(val);
 				buff.append("</option>");
 			}

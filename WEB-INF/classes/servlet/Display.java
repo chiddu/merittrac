@@ -69,7 +69,7 @@ public class Display extends BaseField
 		String value = null;
 		try
 		{
-			value = theBase.getColData("field_value", inputId, m_fieldName);
+			value = theBase.getColData("user_input", inputId, m_fieldName);
 		}
 		catch(Exception ex)
 		{
