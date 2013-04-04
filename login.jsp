@@ -5,7 +5,7 @@
 </head>
 
 <body>
-<form>
+<form method="post" >
 <div>
 Email : <input type=text name=email> <br>
 Password : <input type=password name=password> <br>

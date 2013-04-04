@@ -66,4 +66,21 @@ public class CassUtils
 		return dosa ;
 	}
 
+
+
+	public static Page getPage(BaseCass bms, int pageNo)
+	{
+		return getPage(bms, pageNo + "");
+	}
+	public static Page getPage(BaseCass bms, String pageStr)
+	{
+		String pageData = bms.getColData("pages",pageStr,"dummy");
+		if(pageData != null)
+		{
+		Page targetPage = new Page(pageData);
+		return targetPage;
+		}
+		return null;
+	}
+
 }

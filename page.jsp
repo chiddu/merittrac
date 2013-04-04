@@ -35,8 +35,9 @@ main should be dividied into 3 parts.
 <div class="mid_form">
 <%= huhahtml %>
 </div>
+<div class="mid_form">
 <div class="bottom_submit> 
-<div class="float_left" > 
+<div class="bottom_left" > 
 <% if(pageNo != 0)
 {
 int prevPage = pageNo - 1;
@@ -48,11 +49,11 @@ int prevPage = pageNo - 1;
 }
 %>
 </div>
-<div class="float_left" >
+<div class="bottom_right" >
 <input type=Submit name=submit value='Submit' class='fin_button'/>
 </div>
 </div>
-
+</div>
 
 
 

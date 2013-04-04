@@ -23,7 +23,7 @@
 <div class="div_body_mid_column3">
 <div class="mid_main3">
 <div class="user_note"> 
-Thank you for filling up our form , <%= $email %>. You should hear from us shortly 
+Thank you for filling up our form , <%= email %>. You should hear from us shortly 
 </div>
 </div>
 </div>
