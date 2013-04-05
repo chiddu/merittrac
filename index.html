@@ -126,23 +126,37 @@ Add Page &nbsp;</a>
 
 </div>
 <div class="tf_center" align='left' id='tf_notice' style='display:block' >
-<p> Currently you can add 2 types of fields  , plain input (text) or a drop down.  The focus was on being able to create as many fields as you wish, and to spread it across pages.  The functionality for now is limiited to 
+<p> Currently you can add 2 types of fields  , plain input (text) or a drop down.  The focus was on being able to create as many fields as you wish, and to spread it across pages.  The functionality for now is limited to 
 <ol>
 <li align=left> Adding a text field </li>
 <li align=left> Adding a drop down, and specifying options </li>
-<li align=left> Deleting , modifying those options before they are saved</li>
+<li align=left> Combining the above two types of fields in various pages </li>
+<li align=left> You can add a condition to restrict values based on what a user has selected. For example, if user selects Karnataka, limit his option for 'language' to Kannada, English. </li>
+<li align=left> The run time (end user) does not use any javascript. This is by design, to cater to all browsers and all platforms. The code generates 100% html </li>
+<li align=left> A second application lets the user login and fill up all the forms<a href='./process.jsp' target='poy'> Run the app </a> </li>
+<li align=left> A third application simply displays all the user data that has been filled up so far 
+ <a href=./show.html target='bora' >See this app as well </a></li>
+<li> Documentation is limited, I have provided documentation and help in the actual pages </li>
+<li> A major limitation right now is that you can't see a condition. (Though you can add one, and it works - tested). no reason really, wanted to put this up asap</li>
+<li> Its been tested on Chrome and Firefox. Final application  if developed will work on all browsers. The 'design' app will be supported only on Chrome , Opera and possibly latest IE, the end user application is designed to work on even a browser that does not support javascript</li>
 </ol>
 </p>
 <p>
-<b>What it does not demonstrate</b>
+<b>What it does not demonstrate, but is part of the design</b>
 <ol>
 <li align=left> Styles, colours, backgrounds, etc. The final pages will have divs with specified class names, and these will be saved in a separate file, and before deployment can be edited to perfect the look and feel</li>
-<li align=left> </li>
+<li align=left> The solution will add fields to the database, and finally provide a css file.This css file can be used to customize the html pages (change alignments, fonts, restructure the relative 'divs' in the page. Reposition them. </li>
+<li align=left> Other fields like checkboxes, etc can be easily added. The design already allows it </li>
+<li align=left> The html needs to be designed a bit, with the sample style sheets. </div>
 </ol>
-
 </p>
-<p>
-A lot of things have been conceptualized, but not implemented, essentially this is a capability demo 
+<p align=left> <b>Other stuff conceptualized, and essnetially doable </b>
+<ol>
+<li align=left> Configurable html for the page </li>
+<li align=left> Conditional fields - meaning certain data needs to be collected, only on certain input</li>
+<li align=left> Customizable error messages - We can associate customizable error messages per field </li>
+<li align=left> Basic image manipulation. Allow user to fit images to standard sizes </li>
+</ol>
 </p>
 </div>
 
