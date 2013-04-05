@@ -532,3 +532,46 @@ function populateOutputVals()
 	
 }
 
+function drawThePage(retData)
+{
+	innerInd = 0;
+	for( email in retData)
+	{
+		innerObj = retData[email];
+
+		inhtml = "<div class=\"left_blocks\"> <div class=\"left_block_links\">  <a href='javascript:void(0)' onclick=\"$('#" + 
+			innerInd + 
+			"_div').toggle()\" > " + email + "  </a> </div> </div> <div width='100%' style='display:none' id='" + innerInd + "_div'>";
+		inhtml = inhtml + " <table style='width:60%; border:none' >";
+
+		for(innerkey in innerObj)
+		{
+
+				inhtml = inhtml + "<tr class='tr1'> <td class='td1'>";
+				inhtml = inhtml+ innerkey ;
+				inhtml = inhtml + "</td> <td class='td2'>" + innerObj[innerkey] + "</td> </tr>";
+		}
+		inhtml = inhtml + "</table></div>";
+
+	  $('#disp_user').append(inhtml);
+		innerInd = innerInd + 1;
+	}			
+}
+
+function getthem()
+{
+	$('#disp_user').html('');
+	jQuery.post("./addfield", {  'action' : 'showall' }, 
+		function(retData){
+		if(retData['message'])
+		{
+			alert(retData['message']);
+		}
+		for(i in retData)
+		{
+			// alert(i);
+		}
+		drawThePage(retData['all']);
+  },"json");
+}
+
