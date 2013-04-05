@@ -143,10 +143,13 @@ public class Page
 	public String getHtml(BaseCass theBase, String inputId)
 	{
 		StringBuffer buff = new StringBuffer();
-		for(BaseField bf : m_baseList)
+		if(m_baseList != null)
 		{
-			String goba = bf.getHtml(theBase, inputId);
-			buff.append(goba);
+			for(BaseField bf : m_baseList)
+			{
+				String goba = bf.getHtml(theBase, inputId);
+				buff.append(goba);
+			}
 		}
 		return buff.toString();
 	}

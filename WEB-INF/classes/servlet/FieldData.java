@@ -72,12 +72,14 @@ public class FieldData extends BaseField
 	If there is a condition associated with this field, then
 	for the input value
 	*/
+
 public String getHtml(BaseCass theBase, String inputId)
 {
 	try
 	{
-		HashMap<String,String> cols = theBase.getColumns("input_field", m_fieldName);
+
 		String value = null;
+		HashMap<String,String> cols = theBase.getColumns("input_field", m_fieldName);
 		if(inputId != null)	
 		{
 			value = theBase.getColData("user_input", inputId, m_fieldName);
@@ -98,8 +100,60 @@ public String getHtml(BaseCass theBase, String inputId)
 			}
 			
 		}
-		else  /* Its basically a drop down */
+		else  
 		{
+			/* We need to worry only if the user has added  a previous variable */
+
+			HashMap<String,String> conds = theBase.getColumns("condition", m_fieldName);
+			Set<String> finalVals = null;
+
+
+			/* The input condition covers for the non user preview part */
+			if((inputId != null) && (conds.size() != 0))
+			{
+
+				/* We are not interested in the names of the conditions */
+				Collection<String> rawData = conds.values();
+
+
+				String values = cols.get("values");
+				JSONArray arrata = new JSONArray(values);
+				finalVals = MtxUtil.convertJsonSet(arrata);
+				Set<String> holderVals  = null;
+
+				for(String raw : rawData) /* key is dummy */
+				{
+					JSONObject obuya = new JSONObject(raw);
+					JSONArray outVals = obuya.getJSONArray("output");
+					JSONArray inVals = obuya.getJSONArray("input");
+					String fname =  obuya.getString("fieldName");
+					String invalue = theBase.getColData("user_input", inputId, fname);
+					if(invalue == null)
+					{
+						continue;
+					}
+					Set<String> inputVals = MtxUtil.convertJsonSet(inVals);
+					if(inputVals.contains(invalue))
+					{
+						holderVals = finalVals; /* Move current finalvals to a holder */
+						finalVals = new HashSet<String>();
+
+						Set<String> targetVals = MtxUtil.convertJsonSet(outVals);
+
+						for(String eachVal : targetVals)
+						{
+							if(holderVals.contains(eachVal))
+							{
+								finalVals.add(eachVal);
+							}
+						}
+					}
+				}
+
+			}
+			/* Now we go through each one and then narrow down the list of values */
+
+
 			StringBuffer buff = new StringBuffer();
 			buff.append( "<div class='ct_field'> <div class='ct_fieldname'> ");
 			buff.append(m_fieldName);
@@ -114,14 +168,15 @@ public String getHtml(BaseCass theBase, String inputId)
 			String values = cols.get("values");
 			JSONArray arrata = new JSONArray(values);
 
+			if(finalVals == null)
+				finalVals = MtxUtil.convertJsonSet(arrata);
 
 			if(value == null)
 				buff.append("<option value='' selected ></option>");
 
 			int len = arrata.length();
-			for(int i = 0; i < len; i++)
+			for(String val : finalVals)
 			{
-				String val = (String)arrata.get(i);
 				buff.append("<option id='");
 				buff.append(val);
 				buff.append("' value='");
@@ -138,7 +193,7 @@ public String getHtml(BaseCass theBase, String inputId)
 			buff.append("</select>");
 			buff.append("</div></div>");
 			return buff.toString();
-	}
+		}
 	}
 	catch(Exception ex)
 	{

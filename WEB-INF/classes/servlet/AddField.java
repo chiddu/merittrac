@@ -166,14 +166,16 @@ public class AddField extends HttpServlet
 				String cond1  = request.getParameter("values1");
 				String outcome1 = request.getParameter("values2");
 				String name = request.getParameter("name");
-				JSONArray condArr = new JSONArray(cond1);
+				JSONArray inputArr = new JSONArray(cond1);
 				JSONArray outArr = new JSONArray(outcome1);
+
 				JSONObject obuja = new JSONObject();
-				obuja.put(field1,condArr);
-				obuja.put("a1b2c3", outArr);
+
+				obuja.put("output", outArr);
+				obuja.put("input", inputArr);
+				obuja.put("fieldName", field1);
 
 				bms.saveColumn("condition", field2, name , obuja.toString());
-				bms.saveColumn("condition", name, field2 , obuja.toString());
 
 				obj.put("message", "The conditional rule has been added to the database");
 				writeResponse(response,obj);
@@ -232,6 +234,11 @@ public class AddField extends HttpServlet
 				inf.add(title);
 				JSONArray jso = new JSONArray(inf);
 				bms.saveColumn("misc", "pages", "list" , jso.toString());
+
+
+				int sz = inf.size();
+				Page thePage = new Page();
+				savePage(bms, thePage, sz + "");
 				obj.put("message", "Added page successfully");
 				obj.put("action","refreshPages");
 				writeResponse(response, obj);
