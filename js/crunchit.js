@@ -56,6 +56,7 @@ function drawFields(retData, noDraw)
 
 function listfields(nodraw)
 {
+
 	$('.tf_center').hide();
 	jQuery.post("./addfield", {  'action' : 'listfields' }, 
 		function(retData){
@@ -71,7 +72,9 @@ function listfields(nodraw)
 	}
 	else
 	{
+		$('.left_block_links').css('font-weight', 'italic');
 		$('#tf_field_list').show();
+		$('#lf_ctr.a').css('font-weight', 'bold');
 	}
 
 }
@@ -117,8 +120,8 @@ function addDdValue()
 		return;
 	}
 	ddArr[vala2] = 1;
-	addval = "<div class='dd_value0' id='ddv_" + rac + "' > <div class=\"clear\"> </div> <div class='dd_value1 float_left' id='dd0_" + rac + "'>" + vala2 + 
-		"</div> <div class='dd_value2 float_left'> &nbsp; &nbsp; <a href='javascript:void(0)' onclick=\"return removeDdValue('" + rac + "')\" > x </a> </div> </div> ";
+	addval = "<tr id='ddv_" + rac + "' > <td id='dd0_" + rac + "'>" + vala2 + 
+		"</td> <td> &nbsp; &nbsp; <a href='javascript:void(0)' onclick=\"return removeDdValue('" + rac + "')\" > <img src=\"./images/delete.png\">  </a> </td> </tr> ";
 		rac++;
 		$('#dropdown_indi').append(addval);
 }
