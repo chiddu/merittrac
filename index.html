@@ -126,6 +126,27 @@ Add Page &nbsp;</a>
 <div class="clear"></div>
 
 </div>
+<div class="tf_center" align='left' id='tf_notice' style='display:block' >
+<p> Currently you can add 2 types of fields  , plain input (text) or a drop down.  The focus was on being able to create as many fields as you wish, and to spread it across pages.  The functionality for now is limiited to 
+<ol>
+<li align=left> Adding a text field </li>
+<li align=left> Adding a drop down, and specifying options </li>
+<li align=left> Deleting , modifying those options before they are saved</li>
+</ol>
+</p>
+<p>
+<b>What it does not demonstrate</b>
+<ol>
+<li align=left> Styles, colours, backgrounds, etc. The final pages will have divs with specified class names, and these will be saved in a separate file, and before deployment can be edited to perfect the look and feel</li>
+<li align=left> </li>
+</ol>
+
+</p>
+<p>
+A lot of things have been conceptualized, but not implemented, essentially this is a capability demo 
+</p>
+</div>
+
 <div class="tf_center" id='tf_field_list' style='display:none' >
 These are the current list of fields
 <hr>
@@ -172,27 +193,26 @@ Please specify the name of the page
 </div>
 
 
-
 <div class="tf_center tf_field" id='tf_textfield_defn' style='display:none' >
-Add or modify a text field
+Add or modify a text field. This is a plain text input field.
 <hr>
 <div id='textfield_defn' class='section02'>  
-
 <div>
-<div class='float_left' > Name </div> <div class='float_left04' ><input type=text id='tf_text_name' >  </div>
-</div>
-<div class="clear"></div>
-<div class="clear"></div>
+<table width='80%' >
+<tr> <td>
+ Name </td> <td ><input type=text id='tf_text_name' >  </td>
+</td>
+</tr>
 
-<div>
-<div class='float_left03'> &nbsp; </div>
-<div class='float_left03'>
+<tr>
+<td> &nbsp; </td>
+<td>
 <input type="submit" value="Submit" class="button_css01" id="1"  onclick="return addTextFieldSubmit();"/>
+</td>
+</tr>
+</table>
 </div>
 </div>
-</div>
-<div class="clear"></div>
-<div class="clear"></div>
 
 </div>
 <!--
@@ -215,6 +235,10 @@ and a display
 </div>
 <!--    Area for adding a condition       -->
 <div class="tf_center tf_field" id='newcondition' style='display:none' >
+<p>
+Please start by selecting the 1st drop down, once you select it, then you'll get the values, select your target values, and 
+then the target drop down. Finally you get to give this a name and save it. Unfortunately we could not get to deleting conditions and viewing them. You can test that the condition works, when a user actually adds input
+</p>
 <div>
 <table>
 <tr class='tr1 cond_row' id='tr_input_row'>
@@ -297,37 +321,46 @@ This is a non-visual preview of the actual page
 </div>
 
 <div class="tf_center tf_field" id='tf_ddfield_defn' style='display:none' >
-Add or modify a dropdown 
+Add or modify a dropdown . Add the name of the field below. In the 2nd field add a value, and then press the button to the right.
 <hr>
 <div id='ddfield_defn' class='section02'>  
 
 <div>
-<div class='float_left' > Name </div> 
-<div class='float_left04' ><input type=text id='tf_dd_name' >  </div>
-</div>
+<table width='80%' >
+<tr>
+<td> Name : </td>
+<td class='td2'><input type=text id='tf_dd_name' >
+</td>
+<td> </td>
+</tr>
 
-<div class="clear"></div>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td> </td></tr>
+<tr>
+<td>Add  a value</td>
+<td class='td2' > <input type="text" id="ft_optval"  >
+</td>
+<td>
+<input type=button name=b_addddval  value='Add Value' onclick='addDdValue()' class='b_addbutt'/>
+</td></tr>
+</table>
 
-<div>
-<div class='float_left03'> Add  a value</div>
-<div class='float_left03'> <input type="text" id="ft_optval"  onblur="return addDdValue();"/> </div>
-</div>
 
 <div class="clear"></div>
 <div class="clear"></div>
 <div>
 <div> Possible list of values </div>
-<div id="dropdown_indi" >
+<div class="clear"></div>
+<table id="dropdown_indi" >
+</table>
 </div>
 </div>
-
 
 
 <div class="clear"></div>
 <div>
 <div class='float_left03'> &nbsp; </div>
-<div class='float_left03'>
-<input type="submit" value="Submit" class="button_css01" id="1"  onclick="return addDdFieldSubmit();"/>
+<div class='float_left04' id='dd_submit' >
+&nbsp; &nbsp; &nbsp; <input type="submit" value="Submit" class="button_css01" id="1"  onclick="return addDdFieldSubmit();"/>
 </div>
 </div>
 </div>
