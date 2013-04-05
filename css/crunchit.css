@@ -775,5 +775,6 @@ span.jPag-snext-img{
 .td2 { float:right}
 .td1 .link {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:12px; color:#03638F; text-decoration:underline;}
 
+.ct_para { margin-left: 20px; margin-top:20px; float:left} 
 
 display:table-cell
