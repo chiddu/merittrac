@@ -12,7 +12,7 @@ html {overflow-y: scroll;}
 html>body #minHeight{float:right;width:0px;height:100%;margin-bottom:-52px;} /*safari wrapper */
 
 .logo {float:left; padding:9px 0px 10px 0px;}
-.flash_notice {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:12px; color:#444444; line-height:20px;}
+.flash_notice {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:15px; font-weight:bold; color:#4a4444; line-height:22px;}
 .header_search {float:right; margin:31px 231px 0px 0px; font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:14px; color:#FFFFFF;}
 .header_search a {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:14px; color:#FFFFFF; text-decoration:underline;}
 .header_search a:hover {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:14px; color:#FFFFFF; text-decoration:none;}
