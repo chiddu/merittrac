@@ -196,7 +196,7 @@ public class AddField extends HttpServlet
 				if(inf.contains(name))
 				{
 					obj.put("message", name + " is already a field, please choose another name ");
-					obj.put("action","boogie");
+					// obj.put("action","boogie");
 					writeResponse(response, obj);
 					return;
 				}
@@ -214,7 +214,7 @@ public class AddField extends HttpServlet
 				JSONArray jso = new JSONArray(inf);
 				bms.saveColumn("misc", "fields", "list" , jso.toString());
 
-				obj.put("message", "Added field successfully");
+				obj.put("message", "Added the field  successfully, check in the field list");
 				writeResponse(response,obj);
 				return;
 			}

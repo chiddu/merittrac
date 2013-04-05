@@ -757,7 +757,6 @@ span.jPag-snext-img{
 .divTable { display:table; width:565px;  border:1px solid  #666666; border-spacing:5px;/*cellspacing:poor IE support for  this*/ /* border-collapse:separate;*/ }
 
 .thead1 {width:100%}
-.td1 {colspan:1}
 .th1 {colspan:1}
 
 .tr1 {width:100%}
@@ -772,6 +771,9 @@ span.jPag-snext-img{
 .bottom_right{  float:left; width: 60%; text-align:left}
 
 
+.td1 { margin-left: 20px;colspan:1 ; float:left}
+.td2 { float:right}
+.td1 .link {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:12px; color:#03638F; text-decoration:underline;}
 
 
 display:table-cell

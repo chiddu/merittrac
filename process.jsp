@@ -48,17 +48,20 @@ if((submitVal != null) && submitVal.equals("Submit"))
 	// out.println("SubmitVal :" + submitVal);
 
 	targetPage  = CassUtils.getPage(bms, pageNo);	
-	ArrayList<String> fields = targetPage.getFieldList();
-	for( String eachField : fields )
+	if(targetPage != null)
 	{
-		String exVal = request.getParameter(eachField);
-		if(!MtxUtil.isEmpty(exVal))
+		ArrayList<String> fields = targetPage.getFieldList();
+		for( String eachField : fields )
 		{
-			bms.saveColumn("user_input", email, eachField, exVal);
-		}
-		else
-		{
-			errorMsgs.add(eachField + " does not have a valid input");
+			String exVal = request.getParameter(eachField);
+			if(!MtxUtil.isEmpty(exVal))
+			{
+				bms.saveColumn("user_input", email, eachField, exVal);
+			}
+			else
+			{
+				errorMsgs.add(eachField + " does not have a valid input");
+			}
 		}
 	}
 
@@ -100,7 +103,11 @@ if(pageMax > pageNo)
 	{
 		targetPage  = CassUtils.getPage(bms, pageNo);	
 	}
-	String huhahtml = targetPage.getHtml(bms , email);
+	String huhahtml = null;
+	if(targetPage != null)
+	{
+		huhahtml = targetPage.getHtml(bms , email);
+	}
 	String pageTitle = pages.get(pageNo);
 %>
 <%@ include file="page.jsp" %>
