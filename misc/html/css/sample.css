@@ -1,0 +1,31 @@
+/* CSS Document */
+
+
+html {overflow-y: scroll;}
+
+.img_border01 {border:solid 1px #03638F;}
+.img_border02 {border:solid 1px #D1F0FF;}
+
+/* CSS HEADER */
+.header {background:#03638F;}
+.div_header { width:100%}
+.body #minHeight{float:right;width:0px;height:100%;margin-bottom:-52px;} /*safari wrapper */
+
+.header_search {float:right; margin:31px 231px 0px 0px; font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:14px; color:#FFFFFF; border:solid 1px}
+.header_search a {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:14px; color:#FFFFFF; text-decoration:underline;}
+.header_search a:hover {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:14px; color:#FFFFFF; text-decoration:none;}
+
+.div_body_main {margin-left:140px;
+	margin-right:217px;
+	background: #FFF;
+	border-left:1px solid #ccc;
+	min-height:100%;
+	text-align:center;}
+
+.div_body_left_column {float:left; width:140px; padding:0px 0px 20px 0px; /*ie needs this to show float */
+
+.div_body_mid_column {float:left; width:599px; padding:10px 0px 20px 0px;}
+
+.div_each_row {float:left; width:auto; border:1px 1px 1px 1px; display:table-row } 
+.div_each_column {float:left; display:table-column; max-width:50%; border:1px 1px 1px 1px; } 
+.div_each_column {float:right; display:table-column; max-width:50%; border:1px 1px 1px 1px; } 
