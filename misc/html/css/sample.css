@@ -29,3 +29,16 @@ html {overflow-y: scroll;}
 .div_each_row {float:left; width:auto; border:1px 1px 1px 1px; display:table-row } 
 .div_each_column {float:left; display:table-column; max-width:50%; border:1px 1px 1px 1px; } 
 .div_each_column {float:right; display:table-column; max-width:50%; border:1px 1px 1px 1px; } 
+
+
+.table {position:relative;}
+.row {display:table; width:100%; border-collapse:collapse;}
+.cell {display: table-cell;}
+
+.table row cell {border-left:1px solid #a1b04a; border-bottom:1px solid #a1b04a; background:#f8f9f4;}
+.table row cell.last {border-right:1px solid #a1b04a;}
+
+.table row.head cell {border-top:1px solid #a1b04a; background:#0000ff; color:#ffffff;}
+.table row.first cell {border-top:1px solid #a1b04a;}
+.table row.even cell {background:#ffff00;}
+
