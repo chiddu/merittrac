@@ -3,6 +3,18 @@
 <title>Crunchtime</title>
 <link href="./css/sample.css" rel="stylesheet" type="text/css">
 
+  <style type="text/css">
+  .table {position:relative;}
+    div.table div.row {display:table; width:100%; border-collapse:collapse;}
+    div.table div.row div.cell {display: table-cell;}
+
+    div.table div.row div.cell {border-left:1px solid #a1b04a; border-bottom:1px solid #a1b04a; background:#f8f9f4;}
+    div.table div.row div.cell.last {border-right:1px solid #a1b04a;}
+
+    div.table div.row.head div.cell {border-top:1px solid #a1b04a; background:#0000ff; color:#ffffff;}
+    div.table div.row.first div.cell {border-top:1px solid #a1b04a;}
+    div.table div.row.even div.cell {background:#ffff00;}
+  </style>
 </head>
 
 <body>
@@ -26,10 +38,61 @@ This is the left column
 
 <div class ="div_center_table">
 <div class="div_each_row">
-<div class="div_column"> First column</div>
-<div class="div_column1"> Second column</div>
 </div>  <!-- div_each_row -->
 </div> <!-- div_center_table -->
+
+    <div class="table" style="width:700px;">
+
+        <div class="row head">
+        <div class="cell" style="width:300px;">
+          <strong>Name</strong>
+        </div>
+        <div class="cell last" style="width:300px;">
+          <strong>Team</strong>
+        </div>
+      </div>
+
+        <div class="row">
+        <div class="cell" style="width:300px;">
+            Eric Foo
+        </div>
+        <div class="cell last" style="width:300px;">
+            Red Team
+        </div>
+      </div>
+      <div class="row even">
+        <div class="cell" style="width:300px;">
+            John Smith
+        </div>
+        <div class="cell last" style="width:300px;">
+            Red Team
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell" style="width:300px;">
+            Fred Stone
+        </div>
+        <div class="cell last" style="width:300px;">
+            Blue Team
+        </div>
+      </div>
+      <div class="row even">
+        <div class="cell" style="width:300px;">
+            Joey McTire
+        </div>
+        <div class="cell last" style="width:300px;">
+            Green Team
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell" style="width:300px;">
+            Debbie Alba
+        </div>
+        <div class="cell last" style="width:300px;">
+            Yellow Team
+        </div>
+      </div>
+    </div>
 
 </div>
 
