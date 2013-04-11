@@ -98,6 +98,9 @@ function showTextFields(inputObj)
 
 function showDdFields(inputObj)
 {
+	$('#tf_dd_name').val('');
+	$('#ft_optval').val('');
+	$('#dropdown_indi').html('');
 	$('.tf_center').hide();
 	$('#tf_ddfield_defn').show();
 }
