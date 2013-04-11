@@ -45,7 +45,7 @@ function drawFields(retData, noDraw)
 
 				newDiv = "<tr class='tr1'> <td class='td1'>"
 				+ rfname +
-					"</td> <td class='td1'>"
+					"</td> <td class='td2'>"
 				+ targetOb['type'] +
 				"</td> </tr> "
 
