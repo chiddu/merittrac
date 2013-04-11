@@ -316,7 +316,7 @@ function showPages( retData )
 	for(var eachData in retData['pages'])
 	{
 		pageRevArray[retData['pages'][eachData]] = eachData;
-		moreDa = "<div class='field0 left_delr' id='pagemain_" + st + "'> <a href='javascript:void(0)' onclick='getlampu(" + st + ")' > "
+		moreDa = "<div class='field0 left_delr' id='pagemain_" + st + "'> &nbsp;&nbsp;<a href='javascript:void(0)' onclick='getlampu(" + st + ")' > "
 			+ retData['pages'][eachData] + "</a> </div>"
 			st++;
 		$('#lf_pageList').append(moreDa);
