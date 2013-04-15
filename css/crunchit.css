@@ -756,11 +756,6 @@ span.jPag-snext-img{
 .table_col2 { display:table-column,width:259px, float:right}
 .divTable { display:table; width:565px;  border:1px solid  #666666; border-spacing:5px;/*cellspacing:poor IE support for  this*/ /* border-collapse:separate;*/ }
 
-.thead1 {width:100%}
-.th1 {colspan:1}
-
-.tr1 {width:100%}
-/* These are the list of css files for the final solution */
 
 .ct_field {width:100%}
 .ct_fieldname {  float:left; width: 40%; text-align:center}
@@ -771,8 +766,15 @@ span.jPag-snext-img{
 .bottom_right{  float:left; width: 60%; text-align:left}
 
 
-.td1 { margin-left: 20px;colspan:1 ; float:left}
-.td2 { float:right}
+.thead1 {width:100%}
+.tr1 {width:100%}
+/* These are the list of css files for the final solution */
+
+.th1 {  float:left; align:center  }
+.th2 {  float:left; align:center; border:solid 1px #03638F;}
+
+.td1 {  float:left;align:center;}
+.td2 {  float:left ; align:center;border:solid 1px #03638F;}
 .td3 { float:center}
 .td1 .link {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:12px; color:#03638F; text-decoration:underline;}
 
