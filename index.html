@@ -8,6 +8,34 @@
 <script type="text/javascript" src="./js/jquery-tooltips.js"></script>
 <script src="./js/crunchit.js" type="text/javascript"></script>
 
+<style>
+.divTable
+    {
+        display:  table;
+        width:auto;
+        background-color:#eee;
+        border:1px solid  #666666;
+        border-spacing:5px;/*cellspacing:poor IE support for  this*/
+       /* border-collapse:separate;*/
+    }
+
+    .divRow
+    {
+       display:table-row;
+       width:auto;
+
+    }
+
+    .divCell
+    {
+        float:left;/*fix for  buggy browsers*/
+        display:table-column;
+        width:160px;
+        background-color:#ccc;
+
+    }
+</style>
+
 </head>
 
 <body>
@@ -162,6 +190,31 @@ Add Page &nbsp;</a>
 
 <div class="tf_center" id='tf_field_list' style='display:block' >
 These are the current list of fields
+<hr>
+<div class="divTable">
+             <div class="headRow">
+                <div class="divCell" align="center">Customer ID</div>
+                <div  class="divCell">Customer Name</div>
+                <div  class="divCell">Customer Address</div>
+             </div>
+            <div class="divRow">
+                  <div class="divCell">001</div>
+                <div class="divCell">002</div>
+                <div class="divCell">003</div>
+            </div>
+            <div class="divRow">
+                <div class="divCell">xxx</div>
+                <div class="divCell">yyy</div>
+                <div class="divCell">www</div>
+           </div>
+            <div class="divRow">
+                <div class="divCell">ttt</div>
+                <div class="divCell">uuu</div>
+                <div class="divCell">Mkkk</div>
+           </div>
+
+      </div>
+
 <hr>
 <div id='id_field_list0' class='section02'>  
 <div> Here are the list of fields that are going to be displayed </div>
