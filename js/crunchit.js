@@ -14,7 +14,7 @@ var dd_values =  new Array();
 
 function drawFields(retData, noDraw)
 {
-	$('#id_table_list').html('');
+	$('#id_table_list').html('<thead> <th class=\'th1\'> Field Name  </th> <th class=\'th2\'> Field Type   </th> </thead> ');
 
 	 for (var fname in retData['fields'])
 	 {
