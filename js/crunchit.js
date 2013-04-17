@@ -14,7 +14,8 @@ var dd_values =  new Array();
 
 function drawFields(retData, noDraw)
 {
-	$('#id_table_list').html('<thead> <th class=\'th1\'> Field Name  </th> <th class=\'th2\'> Field Type   </th> </thead> ');
+
+	$('.fieldrow').remove();
 
 	 for (var fname in retData['fields'])
 	 {
@@ -42,12 +43,9 @@ function drawFields(retData, noDraw)
 
 		if(!noDraw)
 		{
-
-				newDiv = "<tr class='tr1'> <td class='td1'>"
-				+ rfname +
-					"</td> <td class='td2'>"
-				+ targetOb['type'] +
-				"</td> </tr> "
+newDiv = "<div class=\"divRow fieldrow \"> <div class=\"divCell\">" + rfname +
+"</div> <div class=\"divCell\">" + targetOb['type'] +
+	"</div> <div class=\"divCell\">&nbsp;</div> <div  class=\"divCell2\"><img src=\"./images/delete.png\" /></div> </div>";
 
 				$('#id_table_list').append(newDiv);
 		}

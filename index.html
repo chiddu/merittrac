@@ -19,6 +19,12 @@
        /* border-collapse:separate;*/
     }
 
+    .headRow
+    {
+       display:table-row;
+       width:auto;
+
+    }
     .divRow
     {
        display:table-row;
@@ -32,6 +38,13 @@
         display:table-column;
         width:160px;
         background-color:#ccc;
+
+    }
+    .divCell2
+    {
+        float:left;/*fix for  buggy browsers*/
+        display:table-column;
+        width:20px;
 
     }
 </style>
@@ -188,51 +201,27 @@ Add Page &nbsp;</a>
 </p>
 </div>
 
-<div class="tf_center" id='tf_field_list' style='display:block' >
+<div class="tf_center" id='tf_field_list' style='display:none' >
 These are the current list of fields
-<hr>
-<div class="divTable">
-             <div class="headRow">
-                <div class="divCell" align="center">Customer ID</div>
-                <div  class="divCell">Customer Name</div>
-                <div  class="divCell">Customer Address</div>
-             </div>
-            <div class="divRow">
-                  <div class="divCell">001</div>
-                <div class="divCell">002</div>
-                <div class="divCell">003</div>
-            </div>
-            <div class="divRow">
-                <div class="divCell">xxx</div>
-                <div class="divCell">yyy</div>
-                <div class="divCell">www</div>
-           </div>
-            <div class="divRow">
-                <div class="divCell">ttt</div>
-                <div class="divCell">uuu</div>
-                <div class="divCell">Mkkk</div>
-           </div>
-
-      </div>
 
 <hr>
 <div id='id_field_list0' class='section02'>  
 <div> Here are the list of fields that are going to be displayed </div>
 
-<table class='divTable' id='id_table_list' style='display:block' >
-<thead>
-<th class='th1'> Field Name  </th>
-<th class='th2'> Field Type   </th>
-</thead>
-</table>
+<div class="divTable" id='id_table_list' style='display:block' >
+             <div class="headRow">
+                <div class="divCell" align="center">Field Name</div>
+                <div  class="divCell">Field Type</div>
+                <div  class="divCell">Possible Values</div>
+                <div  class="divCell2">&nbsp;</div>
+							</div>
+</div>							
 
 </div>
 <div class="clear"></div>
 <div class="clear"></div>
 
 </div>
-
-
 
 
 <div class="tf_center" id='tf_addpage' style='display:none' >
