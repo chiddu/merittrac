@@ -77,6 +77,11 @@ public class AddField extends HttpServlet
 				listfields(bms,request,response, obj);
 				return;
 			}
+			else if(action.equalsIgnoreCase("deletefield"))
+			{
+				deletefield(bms,request,response, obj);
+				return;
+			}
 			else if(action.equalsIgnoreCase("addtopage"))
 			{
 				addtopage(bms, request,response, obj);
@@ -289,6 +294,31 @@ public class AddField extends HttpServlet
 				return;
 			}
 
+			public void deletefield(BaseCass bms, HttpServletRequest request, 
+				HttpServletResponse response, JSONObject obj) throws Exception
+			{
+
+				String field = request.getParameter("field");
+				bms.deleteKey("input_field", field, "page");
+				bms.deleteKey("input_field", field, "type");
+				bms.deleteKey("input_field", field, "values");
+
+				Set<String> inf = getFieldList(bms);
+				inf.remove(field);
+
+				JSONArray jso = new JSONArray(inf);
+				bms.saveColumn("misc", "fields", "list" , jso.toString());
+
+				obj.put("fields", field);
+
+				obj.put("message", field + " has been deleted ");
+					
+				obj.put("action","removeFieldRow");
+				obj.put("id",field);
+
+				writeResponse(response, obj);
+				return;
+			}
 			public void listfields(BaseCass bms, HttpServletRequest request, 
 				HttpServletResponse response, JSONObject obj, boolean toWrite) throws Exception
 			{

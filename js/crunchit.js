@@ -43,7 +43,7 @@ function drawFields(retData, noDraw)
 
 		if(!noDraw)
 		{
-newDiv = "<div class=\"divRow fieldrow \"> <div class=\"divCell\">" + rfname +
+newDiv = "<div class=\"divRow fieldrow \" id='f_" + rfname + "'> <div class=\"divCell\">" + rfname +
 "</div> <div class=\"divCell\">" + targetOb['type'] +
 	"</div> <div class=\"divCell\">&nbsp;</div> <div  class=\"divCell2\"><img src=\"./images/delete.png\" /></div> </div>";
 
@@ -121,8 +121,7 @@ function addDdValue()
 		return;
 	}
 	ddArr[vala2] = 1;
-	addval = "<tr id='ddv_" + rac + "' > <td id='dd0_" + rac + "'>" + vala2 + 
-		"</td> <td> &nbsp; &nbsp; <a href='javascript:void(0)' onclick=\"return removeDdValue('" + rac + "')\" > <img src=\"./images/delete.png\">  </a> </td> </tr> ";
+	addval = "<tr id='ddv_" + rac + "' > <td id='dd0_" + rac + "' class='dd_value1' >" + vala2 + "</td> <td> &nbsp; &nbsp; <a href='javascript:void(0)' onclick=\"return removeDdValue('" + rac + "')\" > <img src=\"./images/delete.png\">  </a> </td> </tr> ";
 		rac++;
 		$('#dropdown_indi').append(addval);
 }
@@ -208,6 +207,30 @@ function addTextFieldSubmit()
   },"json");
 }
 
+function removefieldRow(retData)
+{
+	id = retData['id'];
+	$('#f_' + id).remove();
+}
+
+
+
+function deletefield(field)
+{
+	
+	options = JSON.stringify(valArr);
+	jQuery.post("./addfield", {  'field' : field , 'action' : 'deletefield'}, 
+		function(retData){
+		alert(retData['message']);
+		/* Send the action along with the function */
+		if(retData['action'])
+		{
+			window[retData['action']](retData);
+		}
+  },"json");
+
+}
+
 function addDdFieldSubmit()
 {
 	name = $('#tf_dd_name').val();
@@ -226,6 +249,8 @@ function addDdFieldSubmit()
 	);
 	
 	options = JSON.stringify(valArr);
+	alert(options);
+	return;
 	jQuery.post("./addfield", { 'type' : 'dropdown', 'name' : name , 'action' : 'addfield', values : options }, 
 		function(retData){
 		alert(retData['message']);

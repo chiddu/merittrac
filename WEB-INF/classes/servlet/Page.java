@@ -132,10 +132,11 @@ public class Page
   {
     JSONObject  jsonRep = new JSONObject();
 		ArrayList<String> tstr = new ArrayList<String>();
-		for(BaseField bsf : m_baseList)
-		{
-			tstr.add(bsf.toString());
-		}
+		if(m_baseList != null)
+			for(BaseField bsf : m_baseList)
+			{
+				tstr.add(bsf.toString());
+			}
 		jsonRep.put("list", tstr);
 		return jsonRep;
 	}
