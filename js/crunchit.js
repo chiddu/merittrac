@@ -249,8 +249,6 @@ function addDdFieldSubmit()
 	);
 	
 	options = JSON.stringify(valArr);
-	alert(options);
-	return;
 	jQuery.post("./addfield", { 'type' : 'dropdown', 'name' : name , 'action' : 'addfield', values : options }, 
 		function(retData){
 		alert(retData['message']);
