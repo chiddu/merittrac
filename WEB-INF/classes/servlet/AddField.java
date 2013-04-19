@@ -309,7 +309,6 @@ public class AddField extends HttpServlet
 				JSONArray jso = new JSONArray(inf);
 				bms.saveColumn("misc", "fields", "list" , jso.toString());
 
-				obj.put("fields", field);
 
 				obj.put("message", field + " has been deleted ");
 					

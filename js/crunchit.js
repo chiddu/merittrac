@@ -64,6 +64,13 @@ function drawFields(retData, noDraw)
 	 }
 }
 
+function removeFieldRow(retData)
+{
+	$('#f_' + retData['id']).remove();
+
+}
+
+
 function listfields(nodraw)
 {
 
@@ -230,14 +237,15 @@ function removefieldRow(retData)
 function deletefield(field)
 {
 	
-	options = JSON.stringify(valArr);
 	jQuery.post("./addfield", {  'field' : field , 'action' : 'deletefield'}, 
 		function(retData){
 		alert(retData['message']);
 		/* Send the action along with the function */
 		if(retData['action'])
 		{
+			alert(retData['action']);
 			window[retData['action']](retData);
+			delete(fieldMap[field]);
 		}
   },"json");
 
