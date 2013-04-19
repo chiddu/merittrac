@@ -12,7 +12,7 @@ html {overflow-y: scroll;}
 html>body #minHeight{float:right;width:0px;height:100%;margin-bottom:-52px;} /*safari wrapper */
 
 .logo {float:left; padding:9px 0px 10px 0px;}
-.flash_notice {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:15px; font-weight:bold; color:#4a4444; line-height:22px;}
+.flash_notice {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:12px; color:#444444; line-height:20px;}
 .header_search {float:right; margin:31px 231px 0px 0px; font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:14px; color:#FFFFFF;}
 .header_search a {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:14px; color:#FFFFFF; text-decoration:underline;}
 .header_search a:hover {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:14px; color:#FFFFFF; text-decoration:none;}
@@ -756,6 +756,12 @@ span.jPag-snext-img{
 .table_col2 { display:table-column,width:259px, float:right}
 .divTable { display:table; width:565px;  border:1px solid  #666666; border-spacing:5px;/*cellspacing:poor IE support for  this*/ /* border-collapse:separate;*/ }
 
+.thead1 {width:100%}
+.td1 {colspan:1}
+.th1 {colspan:1}
+
+.tr1 {width:100%}
+/* These are the list of css files for the final solution */
 
 .ct_field {width:100%}
 .ct_fieldname {  float:left; width: 40%; text-align:center}
@@ -766,21 +772,6 @@ span.jPag-snext-img{
 .bottom_right{  float:left; width: 60%; text-align:left}
 
 
-.thead1 {width:100%}
-.tr1 {width:100%}
-/* These are the list of css files for the final solution */
 
-.th1 {  float:left; align:center  }
-.th2 {  float:left; align:center; border:solid 1px #03638F;}
-
-.td1 {  float:left;align:center;}
-.td2 {  float:left ; align:center;border:solid 1px #03638F;}
-.td3 { float:center}
-.td1 .link {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:12px; color:#03638F; text-decoration:underline;}
-
-.ct_para { margin-left: 20px; margin-top:20px; float:left} 
 
 display:table-cell
-
-
-.left_delr {float:left; padding-left:20px;}
