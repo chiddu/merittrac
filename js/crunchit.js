@@ -35,19 +35,31 @@ function drawFields(retData, noDraw)
 		if(targetOb['page'] != null)
 		{
 			fieldMap[rfname]	 = targetOb['page'];
+			t_td = true;
 		}
 		else
 		{
 			fieldMap[rfname]	 = "avail";
+			t_td = false;
 		}
 
 		if(!noDraw)
 		{
-newDiv = "<div class=\"divRow fieldrow \" id='f_" + rfname + "'> <div class=\"divCell\">" + rfname +
-"</div> <div class=\"divCell\">" + targetOb['type'] +
-	"</div> <div class=\"divCell\">&nbsp;</div> <div  class=\"divCell2\"><img src=\"./images/delete.png\" /></div> </div>";
-
+			if(!t_td)
+			{
+				newDiv = "<div class=\"divRow fieldrow \" id='f_" + rfname + "'> <div class=\"divCell\">" + rfname +
+				"</div> <div class=\"divCell\">" + targetOb['type'] +
+					"</div> <div class=\"divCell\">&nbsp;</div> <div  class=\"divCell2\">" +
+				"<a href='javascript:void(0)' onclick=\"return deletefield('" + rfname + "')\" ><img src=\"./images/delete.png\" /></a></div> </div>";
 				$('#id_table_list').append(newDiv);
+			}
+			else
+			{
+				newDiv = "<div class=\"divRow fieldrow \" id='f_" + rfname + "'> <div class=\"divCell\">" + rfname +
+				"</div> <div class=\"divCell\">" + targetOb['type'] +
+					"</div> <div class=\"divCell\">&nbsp;</div> <div  class=\"divCell2\">&nbsp;</div> </div>";
+				$('#id_table_list').append(newDiv);
+			}
 		}
 	 }
 }
