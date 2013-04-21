@@ -769,7 +769,8 @@ span.jPag-snext-img{
 
 .bottom_submit {width:100%}
 .bottom_left {  float:left; width: 40%; text-align:center}
-.bottom_right{  float:left; width: 60%; text-align:left}
+.bottom_center{  float:left; width: 20%; text-align:center}
+.bottom_right{  float:left; width: 40%; text-align:center}
 
 
 
