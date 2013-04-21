@@ -36,23 +36,18 @@ main should be dividied into 3 parts.
 <div class="mid_form">
 <%= huhahtml %>
 </div>
-<div class="mid_form">
-<div class="bottom_submit> 
+<div>
 <div class="bottom_left" > 
-<% if(pageNo != 0)
-{
-int prevPage = pageNo - 1;
-%>
-<a href='process.jsp?pageNo=<%= prevPage %>' >
-<input type=button name=prev_butt value='<< Previous' onclick="window.location.href=process.jsp?pageNo=<%= prevPage %>" class='fin_button'/>
-</a>
-<%
-}
-%>
+&nbsp;
 </div>
-<div class="bottom_right" >
+<div class="bottom_center" > 
 <input type=Submit name=submit value='Submit' class='fin_button'/>
 </div>
+<div class="bottom_right" >
+&nbsp;
+</div>
+</div>
+
 </div>
 </div>
 
