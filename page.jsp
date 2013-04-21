@@ -59,6 +59,11 @@ for(String error : errorMsgs)
 <div class="mid_form">
 <%= huhahtml %>
 </div>
+<div class="clear"> &nbsp;</div>
+<div class="clear"> &nbsp;</div>
+<div class="clear"> &nbsp;</div>
+
+<% if (pageNo == 0) { %>
 <div>
 <div class="bottom_left" > 
 &nbsp;
@@ -70,6 +75,26 @@ for(String error : errorMsgs)
 &nbsp;
 </div>
 </div>
+
+<% } else  {  %>
+<div>
+<div class="bottom_left" > 
+<%
+int prevPage = pageNo - 1;
+%>
+<a href='process.jsp?pageNo=<%= prevPage %>' >
+<input type=button name=prev_butt value='<< Previous' onclick="window.location.href=process.jsp?pageNo=<%= prevPage %>" class='fin_button'/>
+</a>
+</div>
+<div class="bottom_center" > 
+&nbsp;
+</div>
+<div class="bottom_right" >
+<input type=Submit name=submit value='Submit' class='fin_button'/>
+</div>
+</div>
+
+<% }   %>
 
 </div>
 </div>
