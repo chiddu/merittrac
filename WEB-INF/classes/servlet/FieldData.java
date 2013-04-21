@@ -85,6 +85,8 @@ public String getHtml(BaseCass theBase, String inputId)
 			value = theBase.getColData("user_input", inputId, m_fieldName);
 		}
 		String type = cols.get("type");
+		if(type == null)
+			return "";
 
 		if(type.equals("text"))
 		{
