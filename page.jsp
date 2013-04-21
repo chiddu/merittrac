@@ -11,7 +11,7 @@
 <div id="minHeight"></div>
 <div class="header" align="center">
 <div class="div_header">
-<div class="logo"><a href="javascript:void(0)"><img src="./images/logo01.gif" alt="Groofer" border="0"></a></div>
+<div class="logo"></div>
 <div class="header_search"> 
 </div>
 <div class="clear"></div>
