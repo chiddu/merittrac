@@ -35,6 +35,11 @@ main should be dividied into 3 parts.
 <%
 if(errorMsgs.size() != 0)
 {
+%>
+<div> <em>Please correct the following errors </em></div>
+<div class="clear"> &nbsp;</div>
+<%
+
 for(String error : errorMsgs)
 {
 %>
