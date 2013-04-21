@@ -32,6 +32,24 @@ main should be dividied into 3 parts.
 <form method=post action="process.jsp" >
 <input type=hidden name=pageNo value='<%= pageNo %>' />
 <div class="error_display" >
+<%
+if(errorMsgs.size() != 0)
+{
+for(String error : errorMsgs)
+{
+%>
+<div class='flash_notice'>
+<em><%= error %></em>
+</div>
+<%
+}
+
+%>
+<hr>
+<%
+}
+
+%>
 </div>
 <div class="mid_form">
 <%= huhahtml %>
