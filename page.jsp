@@ -87,8 +87,6 @@ for(String error : errorMsgs)
 
 <div class="clear"></div>
 </div>
-</div>
-</div>
 <div class="footer" align="center">
 <div class="div_footer" align="left">© 2012-2013 Crunchtime Software Services LLP. </div>
 </div>
