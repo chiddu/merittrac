@@ -389,6 +389,44 @@ function showPages( retData )
 
 }
 
+function addCondRow(condName, inputField,inputArray, outputField, outputArray)
+{
+	alert( condName + "=" + inputField + "=" + 
+		inputArray + "=" + outputField + "=" + outputArray );
+
+}
+
+function drawConditions()
+{
+		jQuery.post("./addfield", {  'action' : 'listconditions' }, 
+			function(retData){
+			{
+				for(opfield in retData)
+				{
+					alert(opfield);
+					outfield = opfield;
+					hashlist = retData[opfield];
+					alert("To publish hashlist");
+					alert("hashlist is " + hashlist);
+					for(hashkey in hashlist)
+					{
+						alert("hash key is " + hashkey);
+						alert(hashlist[hashkey]);
+						innerOb = JSON.parse(hashlist[hashkey]);
+						alert("after");
+
+						alert("innerOb is like " + innerOb);
+						
+
+						infield = innerOb['fieldName'];
+						alert(infield + " is the 2nd parameter");
+						alert("Done with printing inside");
+						addCondRow(hashkey,infield, innerOb['input'],outfield,innerOb['output']);
+					}
+				}
+			}
+		},"json");
+}
 function refreshPages()
 {
 	if(fieldMap && (fieldMap.length > 0))
@@ -519,7 +557,7 @@ function flipit(inarr)
 function addCondition()
 {
 	listfields(true);
-	// drawConditions();
+	drawConditions();
 	$('.tf_center').hide();
 	$('.cond_row').hide();
 	$('#sel_input_name').html('');
