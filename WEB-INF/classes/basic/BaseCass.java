@@ -376,7 +376,7 @@ private boolean initReader() throws Exception
 
 
 
-private  CqlResult executeQuery(String query) 
+public  CqlResult executeQuery(String query) 
 throws UnsupportedEncodingException, InvalidRequestException,UnavailableException,  TimedOutException, SchemaDisagreementException, TException { 
 	logger.info("Executing query : " + query);
 return m_client.execute_cql_query(

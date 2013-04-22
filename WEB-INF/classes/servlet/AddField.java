@@ -62,6 +62,16 @@ public class AddField extends HttpServlet
 				addcondition(bms, request,response, obj);
 				return;
 			}
+			else if(action.equalsIgnoreCase("listconditions"))
+			{
+				listconditions(bms, request,response, obj);
+				return;
+			}
+			else if(action.equalsIgnoreCase("reset"))
+			{
+				reset(bms, request,response, obj);
+				return;
+			}
 			else if(action.equalsIgnoreCase("addpage"))
 			{
 				addpage(bms, request,response, obj);
@@ -181,6 +191,8 @@ public class AddField extends HttpServlet
 				obuja.put("fieldName", field1);
 
 				bms.saveColumn("condition", field2, name , obuja.toString());
+				
+				obj.put("action","addCondition");
 
 				obj.put("message", "The conditional rule has been added to the database");
 				writeResponse(response,obj);
@@ -278,7 +290,7 @@ public class AddField extends HttpServlet
 				}
 
 			public void listconditions(BaseCass bms, HttpServletRequest request, 
-				HttpServletResponse response, JSONObject obj, boolean toWrite) throws Exception
+				HttpServletResponse response, JSONObject obj) throws Exception
 			{
 				Set<String> inf = getFieldList(bms);
 				for(String eachfield : inf)
@@ -290,6 +302,21 @@ public class AddField extends HttpServlet
 						obj.put(key,samo.get(key));
 					}
 				}
+				writeResponse(response, obj);
+				return;
+			}
+
+			public void reset(BaseCass bms, HttpServletRequest request, 
+				HttpServletResponse response, JSONObject obj) throws Exception
+			{
+				String[] fields = { "input_field", "pages", "misc", "condition", "user_input", "user_pages"};
+
+				for(String eachf : fields)
+				{
+					bms.executeQuery("truncate " + eachf);
+				}
+
+				obj.put("message", " Setup has been reset ");
 				writeResponse(response, obj);
 				return;
 			}
