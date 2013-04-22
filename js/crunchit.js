@@ -54,7 +54,7 @@ function drawFields(retData, noDraw)
 	{
 
 					newDiv  = newDiv + "<div class=\"divCell\">" ;
-					newDiv = newDiv + "<select class='divSelect' >";
+					newDiv = newDiv + "<select class='divSelect' valign='top' >";
 	 for (lcindex in optValues)
 	 {
 //	 	alert(lcindex);
