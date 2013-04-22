@@ -50,6 +50,14 @@
 			 height:20px;
 
     }
+    .divCell3
+    {
+        float:left;/*fix for  buggy browsers*/
+        display:table-column;
+        width:95px;
+			 height:20px;
+
+    }
 </style>
 
 </head>
@@ -112,6 +120,10 @@ Add Page &nbsp;</a>
 </div>
 </div>
 
+
+<div class="left_blocks">
+<div class="left_blocks_header02"><a href="javascript:void(0)" onclick=reset() rel="tooltip" title="Erase all data"> Erase All Data</a></div>
+</div>
 </div>
 
 </div>
@@ -210,6 +222,7 @@ These are the current list of fields
 <hr>
 <div id='id_field_list0' class='section02'>  
 <div> Here are the list of fields that are going to be displayed </div>
+<div class="clear"> </div>
 
 <div class="divTable" id='id_table_list' style='display:block' >
              <div class="headRow">
@@ -221,6 +234,7 @@ These are the current list of fields
 </div>							
 
 </div>
+
 <div class="clear"></div>
 <div class="clear"></div>
 
@@ -293,6 +307,26 @@ and a display
 </div>
 <!--    Area for adding a condition       -->
 <div class="tf_center tf_field" id='newcondition' style='display:none' >
+<div id='condition_list' >
+
+<div id='id_cond_list0' class='section02'>  
+<div> Here are the list of conditions  so far </div>
+<div class="clear"> </div>
+
+<div class="divTable" id='id_tablecond_list' style='display:block' >
+             <div class="headRow">
+                <div class="divCell3" align="center"><em>Name</em></div>
+                <div  class="divCell3"><em>Input Field</em></div>
+                <div  class="divCell3"><em>Values</em></div>
+                <div  class="divCell3"><em>Output Field</em></div>
+                <div  class="divCell3"><em>Values</em></div>
+                <div  class="divCell2">&nbsp;</em></div>
+							</div>
+</div>							
+
+</div>
+
+</div>
 <p>
 Please start by selecting the 1st drop down, once you select it, then you'll get the values, select your target values, and 
 then the target drop down. Finally you get to give this a name and save it. Unfortunately we could not get to deleting conditions and viewing them. You can test that the condition works, when a user actually adds input

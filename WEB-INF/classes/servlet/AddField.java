@@ -92,6 +92,11 @@ public class AddField extends HttpServlet
 				deletefield(bms,request,response, obj);
 				return;
 			}
+			else if(action.equalsIgnoreCase("deletecond"))
+			{
+				deletecond(bms,request,response, obj);
+				return;
+			}
 			else if(action.equalsIgnoreCase("addtopage"))
 			{
 				addtopage(bms, request,response, obj);
@@ -321,8 +326,23 @@ public class AddField extends HttpServlet
 				{
 					bms.executeQuery("truncate " + eachf);
 				}
+				obj.put("action", "showmain");
+				obj.put("message", " All data has been erased, happy testing");
+				writeResponse(response, obj);
+				return;
+			}
 
-				obj.put("message", " Setup has been reset ");
+			public void deletecond(BaseCass bms, HttpServletRequest request, 
+				HttpServletResponse response, JSONObject obj) throws Exception
+			{
+
+				String field = request.getParameter("field");
+				String condname = request.getParameter("condname");
+				bms.deleteKey("condition", field, condname);
+
+				obj.put("message", "The condition has been deleted ");
+				obj.put("action","drawConditions");
+
 				writeResponse(response, obj);
 				return;
 			}

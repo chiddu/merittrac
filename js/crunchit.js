@@ -209,6 +209,25 @@ function postAndDisplay($dataString)
 
 }
 
+function showmain()
+{
+	$('.tf_center').hide();
+	$('.cond_row').hide();
+	$('#sel_input_name').html('');
+	$('#tf_notice').show();
+}
+
+function reset()
+{
+	jQuery.post("./addfield", {  'action' : 'reset'  }, 
+		function(retData){
+		alert(retData['message']);
+		if(retData['action'])
+		{
+			window[retData['action']]();
+		}
+  },"json");
+}
 
 function addPageSubmit()
 {
@@ -257,6 +276,21 @@ function removefieldRow(retData)
 }
 
 
+
+function deletecond(condname, outputfield)
+{
+	
+	jQuery.post("./addfield", {  'field' : outputfield, 'condname' : condname, 'action' : 'deletecond'}, 
+		function(retData){
+		alert(retData['message']);
+		/* Send the action along with the function */
+		if(retData['action'])
+		{
+			window[retData['action']](retData);
+		}
+  },"json");
+
+}
 
 function deletefield(field)
 {
@@ -391,39 +425,70 @@ function showPages( retData )
 
 function addCondRow(condName, inputField,inputArray, outputField, outputArray)
 {
-	alert( condName + "=" + inputField + "=" + 
-		inputArray + "=" + outputField + "=" + outputArray );
+	//alert( condName + "=" + inputField + "=" + 
+	//	inputArray + "=" + outputField + "=" + outputArray );
 
+	newDiv = "<div class=\"divRow condrow \" >";
+	newDiv = newDiv + "<div class=\"divCell3\">" + condName + "</div> ";
+	newDiv = newDiv + "<div class=\"divCell3\">" + inputField + "</div> ";
+	newDiv = newDiv + "<div class=\"divCell3\"><select>" ;
+	for(ind in inputArray)
+	{
+		newDiv = newDiv + "<option>" + inputArray[ind] + "</option>";
+	}
+	newDiv = newDiv + "</select></div>" ;
+	
+	newDiv = newDiv + "<div class=\"divCell3\">" + outputField + "</div> ";
+	newDiv = newDiv + "<div class=\"divCell3\"><select>" ;
+	for(ind in outputArray)
+	{
+		newDiv = newDiv + "<option>" + outputArray[ind] + "</option>";
+	}
+	newDiv = newDiv + "</select></div>" ;
+
+	newDiv = newDiv + "<div  class=\"divCell2\">" +
+	"<a href='javascript:void(0)' onclick=\"return deletecond('" + condName + "','" + outputField +"')\" ><img src=\"./images/delete.png\" /></a></div>";
+	newDiv = newDiv + "</div>";
+	$('#id_tablecond_list').append(newDiv);
 }
 
 function drawConditions()
 {
+	$('.condrow').remove();
+	ts = false;
+
 		jQuery.post("./addfield", {  'action' : 'listconditions' }, 
 			function(retData){
 			{
 				for(opfield in retData)
 				{
-					alert(opfield);
+					ts = true;
+					//alert(opfield);
 					outfield = opfield;
 					hashlist = retData[opfield];
-					alert("To publish hashlist");
-					alert("hashlist is " + hashlist);
+					//alert("To publish hashlist");
+					//alert("hashlist is " + hashlist);
 					for(hashkey in hashlist)
 					{
-						alert("hash key is " + hashkey);
-						alert(hashlist[hashkey]);
+						//alert("hash key is " + hashkey);
+						//alert(hashlist[hashkey]);
 						innerOb = JSON.parse(hashlist[hashkey]);
-						alert("after");
+						//alert("after");
 
-						alert("innerOb is like " + innerOb);
+						//alert("innerOb is like " + innerOb);
 						
 
 						infield = innerOb['fieldName'];
-						alert(infield + " is the 2nd parameter");
-						alert("Done with printing inside");
+						//alert(infield + " is the 2nd parameter");
+						//alert("Done with printing inside");
 						addCondRow(hashkey,infield, innerOb['input'],outfield,innerOb['output']);
 					}
 				}
+				if(ts)
+				{
+					$('#id_tablecond_list').show();	
+				}
+
 			}
 		},"json");
 }

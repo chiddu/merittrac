@@ -64,7 +64,12 @@ html>body #minHeight{float:right;width:0px;height:100%;margin-bottom:-52px;} /*s
 .left_blocks a:hover {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:12px; color:#03638F; text-decoration:underline;}
 
 .left_blocks_header01 {background:#03638F; padding:10px 8px 10px 8px; font-family:Arial, Helvetica, sans-serif; font-weight:bold; font-size:14px; color:#FFFFFF;}
-.left_blocks_header02 {background:#258FC0; padding:6px 8px 6px 8px; font-family:Arial, Helvetica, sans-serif; font-weight:bold; font-size:14px; color:#FFFFFF;}
+.left_blocks_header02 {background:#258FC0; padding:6px 8px 6px 8px; font-family:Arial, Helvetica, sans-serif; font-weight:bold; font-size:14px; color:#AAAFFF;}
+
+.left_blocks_header02 a:hover {font-family:Arial, Helvetica, sans-serif; font-weight:bold;  color:#FFFFFF; text-decoration:underline;}
+
+.left_blocks_header02 a {font-family:Arial, Helvetica, sans-serif; font-weight:bold; font-size:14px; color:#FFFFFF; text-decoration:underline;}
+
 
 .left_blocks_links {padding:5px 14px 0px 14px; font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:12px; color:#555555; line-height:25px;}
 .left_blocks_links a {font-family:Arial, Helvetica, sans-serif; font-weight:normal; font-size:12px; color:#03638F; text-decoration:none; line-height:25px;}
