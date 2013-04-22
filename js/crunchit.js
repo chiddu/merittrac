@@ -514,9 +514,12 @@ function flipit(inarr)
 	return aka;
 }
 
+/* This should fetch the list of conditions and save in the page as well */
+// TODO
 function addCondition()
 {
 	listfields(true);
+	// drawConditions();
 	$('.tf_center').hide();
 	$('.cond_row').hide();
 	$('#sel_input_name').html('');

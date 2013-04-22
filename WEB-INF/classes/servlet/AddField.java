@@ -296,11 +296,17 @@ public class AddField extends HttpServlet
 				for(String eachfield : inf)
 				{
 					HashMap<String,String> samo = bms.getColumns("condition",eachfield);
-					Set<String> keySet = samo.keySet();
-					for(String key : keySet)
-					{
-						obj.put(key,samo.get(key));
-					}
+					if((samo != null)
+						&&
+						(samo.size() > 0))
+						{
+							obj.put(eachfield, samo);
+						}
+//					Set<String> keySet = samo.keySet();
+//					for(String key : keySet)
+//					{
+//						obj.put(key,samo.get(key));
+//					}
 				}
 				writeResponse(response, obj);
 				return;
