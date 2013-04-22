@@ -45,21 +45,45 @@ function drawFields(retData, noDraw)
 
 		if(!noDraw)
 		{
+			optValues = eval(targetOb['values']);
+
+			newDiv = "<div class=\"divRow fieldrow \" id='f_" + rfname + "'> <div class=\"divCell\">" + rfname +
+			"</div> <div class=\"divCell\">" + targetOb['type'] + "</div> ";
+
+	if(targetOb['type']  == 'dropdown')
+	{
+
+					newDiv  = newDiv + "<div class=\"divCell\">" ;
+					newDiv = newDiv + "<select class='divSelect' >";
+	 for (lcindex in optValues)
+	 {
+//	 	alert(lcindex);
+//		alert(optValues[lcindex]);
+					newDiv = newDiv + "<option value='" + optValues[lcindex] + "'>";
+					newDiv = newDiv + optValues[lcindex];
+					newDiv = newDiv + "</option>";
+	 }
+					newDiv = newDiv + "</select>";
+					newDiv = newDiv + "</div>"; 
+	}
+	else
+	{
+			newDiv  = newDiv + "<div class=\"divCell\">&nbsp;</div>";
+	}
 			if(!t_td)
 			{
-				newDiv = "<div class=\"divRow fieldrow \" id='f_" + rfname + "'> <div class=\"divCell\">" + rfname +
-				"</div> <div class=\"divCell\">" + targetOb['type'] +
-					"</div> <div class=\"divCell\">&nbsp;</div> <div  class=\"divCell2\">" +
-				"<a href='javascript:void(0)' onclick=\"return deletefield('" + rfname + "')\" ><img src=\"./images/delete.png\" /></a></div> </div>";
-				$('#id_table_list').append(newDiv);
+					
+				newDiv = newDiv + "<div  class=\"divCell2\">" +
+				"<a href='javascript:void(0)' onclick=\"return deletefield('" + rfname + "')\" ><img src=\"./images/delete.png\" /></a></div>";
 			}
 			else
 			{
-				newDiv = "<div class=\"divRow fieldrow \" id='f_" + rfname + "'> <div class=\"divCell\">" + rfname +
-				"</div> <div class=\"divCell\">" + targetOb['type'] +
-					"</div> <div class=\"divCell\">&nbsp;</div> <div  class=\"divCell2\">&nbsp;</div> </div>";
-				$('#id_table_list').append(newDiv);
+				newDiv = newDiv + " <div  class=\"divCell2\">&nbsp;</div>";
 			}
+
+newDiv = newDiv + "</div>";
+//	alert(newDiv);
+			$('#id_table_list').append(newDiv);
 		}
 	 }
 }
