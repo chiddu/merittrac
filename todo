@@ -1,6 +1,22 @@
-1) Add a spacer
+1) Add a spacer - Done May 5 , 4:38 pm
 2) Make a list of all the necessary styles
+	2a) Put them in a separate file
 3) give the ability to give the shell
 4) Enable embedded javascript
 5) Add additional drop down types
 6) Add an additional style for each one of them
+7) Ability to delete and move around html stuff 
+
+.clear {clear:both;}
+.clear_bottom {clear:both; padding-bottom:10px;}
+.clear_top {clear:both; padding-top:10px;}
+
+
+TODO
+$("#target").keypress(function(e) {
+  if(e.which == 13) {
+	    // enter pressed
+			  }
+
+				});
+
