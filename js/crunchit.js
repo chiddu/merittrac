@@ -12,6 +12,11 @@ var currentOption = 0;
 var dd_values =  new Array();
 
 
+function isNormalInteger(str) {
+    var n = ~~Number(str);
+		    return String(n) === str && n > 0;
+}
+
 function drawFields(retData, noDraw)
 {
 
@@ -547,6 +552,34 @@ function addParaToPage()
 	},"json");
 
 	 $('#newpara').hide(1000);
+}
+
+function addSpacing()
+{
+	spacing = $('#fd_spacing').val();
+	if(spacing.trim() == '')
+	{
+		alert("No spacing value, please check");
+		return;
+	}
+	alert(spacing);
+	if(!  isNormalInteger(spacing))
+	{
+		alert("Number of pixels needs to be a positive integer");
+		return;
+	}
+	pageId = $('#page_id').val();
+
+	jQuery.post("./addfield", {  'action' : 'addtopage',
+		 'pageId' : pageId, type : 'Spacing', field : spacing }, 
+		function(retData){
+		 alert(retData['message']);
+	 if(retData['html'])
+		{
+			$('#mockup_top').append(retData['html']);
+		}
+	},"json");
+
 }
 
 function addDisplayToPage()

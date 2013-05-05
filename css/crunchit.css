@@ -779,5 +779,6 @@ span.jPag-snext-img{
 
 
 
+.ct_clear {clear:both; padding-bottom:1px}
 
-display:table-cell
+.text_right { size:3;text-align:right }

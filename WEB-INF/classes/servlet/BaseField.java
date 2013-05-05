@@ -29,6 +29,7 @@ public abstract class BaseField
 		masterlist.put("FieldData", new FieldData());
 		masterlist.put("Display", new Display());
 		masterlist.put("Para", new Para());
+		masterlist.put("Spacing", new Spacing());
 	}
 
 
