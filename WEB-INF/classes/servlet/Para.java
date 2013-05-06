@@ -62,7 +62,7 @@ public class Para extends BaseField
 
 	public String getHtml(BaseCass theBase, String inputId)
 	{
-		return "<div class='ct_para'>" + m_title + " </div>";
+		return "<div class='ct_para" + inStyle + "'>" + m_title + " </div>";
 	}
 
 }

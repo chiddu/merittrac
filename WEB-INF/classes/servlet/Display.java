@@ -63,8 +63,8 @@ public class Display extends BaseField
 
 	/* Get the value from the database 
 	field_value -> inputid -> fieldname ->  value
-*/
-	public String getHtml(BaseCass theBase, String inputId)
+	*/
+	public String getHtml(BaseCass theBase, String inputId, int styleId)
 	{
 		String value = null;
 		try
@@ -79,11 +79,16 @@ public class Display extends BaseField
 			ex.printStackTrace();
 		}
 
+		int inStyle = this.getStyleId();
+		if(inStyle == 0)
+			inStyle = styleId;
+
 		if(value == null)
 			value = "<em> User-defined </em>";
-		return "<div class='ct_display'> <div class='ct_fieldname'> "
+		return "<div class='ct_container" + inStyle + "'> 
+			<div class='ct_fieldname" + inStyle + "' > "
 		+ m_fieldName + 		
-		"</div> <div class='ct_fieldvalue' > "
+		"</div> <div class='ct_fieldvalue" + inStyle + "'  > "
 		+ value + 		
 		"</div> </div>";
 	}

@@ -74,6 +74,7 @@ public class FieldData extends BaseField
 	*/
 
 public String getHtml(BaseCass theBase, String inputId)
+	public String getHtml(BaseCass theBase, String inputId, int styleId)
 {
 	try
 	{
@@ -88,17 +89,20 @@ public String getHtml(BaseCass theBase, String inputId)
 		if(type == null)
 			return "";
 
+		int inStyle = this.getStyleId();
+		if(inStyle == 0)
+			inStyle = styleId;
 		if(type.equals("text"))
 		{
 			if(value != null)
 			{
-			return "<div class='ct_field'> <div class='ct_fieldname'> "
-			+ m_fieldName + 	"</div> <div class='ct_fieldinput' > <input type=text name='" + m_fieldName + "' value='" +  value + "'> </input></div> </div>";
+			return "<div class='ct_field" + inStyle + "'> <div class='ct_fieldname" + inStyle + "'> "
+			+ m_fieldName + 	"</div> <div class='ct_fieldinput" + inStyle + "' > <input type=text name='" + m_fieldName + "' value='" +  value + "'> </input></div> </div>";
 			}
 			else
 			{
-			return "<div class='ct_field'> <div class='ct_fieldname'> "
-			+ m_fieldName + 	"</div> <div class='ct_fieldinput' > <input type=text name='" + m_fieldName + "' > </input></div> </div>";
+			return "<div class='ct_field" + inStyle + "'> <div class='ct_fieldname" + inStyle + "'> "
+			+ m_fieldName + 	"</div> <div class='ct_fieldinput" + inStyle + "' > <input type=text name='" + m_fieldName + "' > </input></div> </div>";
 			}
 			
 		}

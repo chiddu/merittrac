@@ -7,6 +7,7 @@ import org.json.*;
 import java.io.PrintStream;
 
 
+/* Page title is not really stoerd inside here, but outside */
 public class Page 
 {
 
@@ -14,10 +15,12 @@ public class Page
 
 	private ArrayList<BaseField> m_baseList;
 	private int pageId;
+	private int pageStyleId;
 	private String m_title;
 
 	public Page()
 	{
+		pageStyleId = 1;
 	}
 
 	public ArrayList<String> getFieldList()
@@ -34,6 +37,13 @@ public class Page
 	{
 		pageId  = pId;
 		m_title = title;
+		pageStyleId = 1;
+	}
+	public Page(int pId, String title, int style)
+	{
+		pageId  = pId;
+		m_title = title;
+		pageStyleId = style;
 	}
 
 	/* Duplicates are already discarded. */
@@ -61,6 +71,8 @@ public class Page
   {
     this.loadDetails(objRep);
   }
+
+
 
 	public void loadDetails(JSONObject objRep) 
 	{

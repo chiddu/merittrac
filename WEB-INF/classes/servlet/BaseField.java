@@ -19,6 +19,8 @@ public abstract class BaseField
 
 	private static HashMap<String,BaseField> masterlist;
 
+	private int  styleId;
+
 	static 
 	{
 		/* This has to contain an exhaustive list of all BaseFields in 
@@ -80,6 +82,19 @@ public abstract class BaseField
 	public BaseField(BaseField inType)
 	{
 		this.type = inType.toString();
+		this.styleId = 0;
+			/* If not specified , then make it zero, so that we use the page style guide */
+	}
+
+
+	public int setStyleId(int style)
+	{
+		this.styleId = style;
+	}
+
+	public int getStyleId()
+	{
+		return this.styleId;
 	}
 
 	public String getType()
@@ -172,5 +187,10 @@ public abstract class BaseField
 	public abstract BaseField createNew(String input) ;
 	public abstract JSONObject toJSONObject() throws JSONException;
 	public abstract void loadDetails(JSONObject objRep);
-	public abstract String getHtml(BaseCass theBase, String inputId);
+	public abstract String getHtml(BaseCass theBase, String inputId,int styleId);
+	public String getHtml(BaseCass theBase, String inputId)
+	{
+		return getHtml(theBase, inputId,1);
+	}
+
 }

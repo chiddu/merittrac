@@ -1,0 +1,23 @@
+<ct_container
+	ct_fieldname : ct_fieldData
+---------------------
+<ct_container
+	ct_fieldname : ct_fieldinput
+---------------------
+<ct_container
+	ct_para : 
+---------------------
+<ct_container
+	ct_selectname : 
+	ct_selectoptions : 
+---------------------
+<ct_container
+	ct_selectname : 
+	ct_selectshell : 
+	ct_selectname
+	ct_options
+---------------------
+
+
+For each field
+

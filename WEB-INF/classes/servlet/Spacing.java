@@ -66,7 +66,7 @@ public class Spacing extends BaseField
 		StringBuffer bf = new StringBuffer();
 		for(int i = 0 ; i < m_pixels; i++)
 		{
-			bf.append( "<div class='ct_clear' ></div>\n");
+			bf.append( "<div class='ct_clear" + inStyle + "' ></div>\n");
 		}
 		return bf.toString();
 	}
