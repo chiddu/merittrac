@@ -430,7 +430,6 @@ public class AddField extends HttpServlet
 
 			public void addtopage(BaseCass bms, HttpServletRequest request, HttpServletResponse response, JSONObject obj) throws Exception
 			{
-				Set<String> inf = getPageList(bms);
 
 				String pageId = request.getParameter("pageId");
 				String field = request.getParameter("field");

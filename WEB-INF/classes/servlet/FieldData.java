@@ -73,7 +73,6 @@ public class FieldData extends BaseField
 	for the input value
 	*/
 
-public String getHtml(BaseCass theBase, String inputId)
 	public String getHtml(BaseCass theBase, String inputId, int styleId)
 {
 	try
